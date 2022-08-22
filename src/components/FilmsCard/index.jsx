@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
     Card,
@@ -70,9 +71,11 @@ export default function FilmsCard({ filmeData, imageHeight, ...props }) {
                     {/* <Button size="small" color="primary">
                         Share
                     </Button> */}
-                    <Button size="small" color="primary">
-                        Learn More
-                    </Button>
+                    <Link to={`/filme/${filmeData.id}`}>
+                        <Button size="small" color="primary">
+                            Learn More
+                        </Button>
+                    </Link>
                 </CardActions>
             </Accordion>
         </div>

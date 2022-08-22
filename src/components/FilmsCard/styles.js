@@ -9,8 +9,11 @@ import {
 } from "@material-ui/core";
 
 export const Summary = styled(AccordionSummary)`
-    .MuiAccordionSummary-root {
+    &.MuiAccordionSummary-root {
         padding: 0;
+    }
+    .MuiAccordionSummary-content {
+        margin: 4px 0;
     }
 `;
 

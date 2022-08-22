@@ -5,6 +5,7 @@ import api from "../../services/api";
 import { Grid, Typography } from "@material-ui/core";
 import FilmsCard from "../../components/FilmsCard";
 import { MoviesGrid } from "./styles";
+import Loader from "../../components/Loader";
 
 // ▒█▀▄▀█ ▒█▀▀▀ ▀▀█▀▀ ░█▀▀█ ▒█▀▀▄ ░█▀▀█ ▀▀█▀▀ ░█▀▀█
 // ▒█▒█▒█ ▒█▀▀▀ ░▒█░░ ▒█▄▄█ ▒█░▒█ ▒█▄▄█ ░▒█░░ ▒█▄▄█
@@ -15,6 +16,7 @@ export default function Home() {
     // ▒█▀▀█ ▒█░░▒█ ▒█░░▒█ ▒█▀▄░ ░▀▀▀▄▄
     // ▒█░▒█ ▒█▄▄▄█ ▒█▄▄▄█ ▒█░▒█ ▒█▄▄▄█
     const [filmes, setFilmes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function loadFilmes() {
@@ -29,10 +31,19 @@ export default function Home() {
             console.log(listaFilmes);
             const sliceListaFilmes = listaFilmes.slice(0, 10);
             setFilmes(sliceListaFilmes);
+            setLoading(false);
         }
 
         loadFilmes();
     }, []);
+
+    if (loading) {
+        return (
+            <>
+                <Loader />
+            </>
+        );
+    }
 
     return (
         <>
