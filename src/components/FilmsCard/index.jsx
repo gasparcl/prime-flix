@@ -1,16 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import {
-    Card,
-    CardActionArea,
-    Typography,
-    CardActions,
-    Button,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-} from "@material-ui/core";
+import { Typography, CardActions, Button, Accordion } from "@material-ui/core";
 import { Details, FilmContent, FilmMedia, Summary } from "./styles";
 import { makeStyles } from "@material-ui/core/styles";
 
