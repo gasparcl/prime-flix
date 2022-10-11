@@ -1,14 +1,14 @@
-import { Box } from "@material-ui/core";
-import styled from "styled-components";
+import { Box } from "@material-ui/core"
+import styled from "styled-components"
 
 export const HeaderMenu = styled(Box)`
     width: 100%;
-    padding: 1.5rem 3rem;
-    background: linear-gradient(
-        270deg,
-        rgba(180, 0, 0, 0.9),
-        rgba(150, 0, 0, 1)
-    );
+    padding: 0 4rem;
+    background: #c4161c;
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 
     .header {
         display: flex;
@@ -18,7 +18,6 @@ export const HeaderMenu = styled(Box)`
 
     & ul {
         display: inline-flex;
-        margin-right: 2rem;
     }
 
     & li {
@@ -63,8 +62,7 @@ export const HeaderMenu = styled(Box)`
     }
 
     .MuiTypography-h4 {
-        margin-left: 2rem;
         font-weight: 500;
     }
-`;
-export default HeaderMenu;
+`
+export default HeaderMenu

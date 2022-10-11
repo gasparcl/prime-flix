@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { Grid } from "@material-ui/core";
+import styled from "styled-components"
+import { Grid } from "@material-ui/core"
 
 export const MoviesGrid = styled(Grid)`
-    padding: 1.5rem 3rem;
-`;
+    padding: 2rem 1rem;
+`

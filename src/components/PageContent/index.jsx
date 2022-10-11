@@ -4,7 +4,7 @@ import { BackPaper, ContentContainer } from "./styles";
 export default function PageContent({ children, ...props }) {
     return (
         <>
-            <BackPaper>
+            <BackPaper elevation={5}>
                 <ContentContainer>{children}</ContentContainer>
             </BackPaper>
         </>

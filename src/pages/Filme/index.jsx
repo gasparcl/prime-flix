@@ -1,10 +1,10 @@
-import React from "react";
-import { Typography } from "@material-ui/core";
+import React from "react"
+import PageTitle from "../../components/PageTitle"
 
 export default function Filme() {
-	return (
-		<>
-			<Typography variant="h4">Filme</Typography>
-		</>
-	);
+    return (
+        <>
+            <PageTitle description="Filme" upperCase />
+        </>
+    )
 }

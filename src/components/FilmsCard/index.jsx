@@ -5,14 +5,14 @@ import { Typography, CardActions, Button, Accordion } from "@material-ui/core";
 import { Details, FilmContent, FilmMedia, Summary } from "./styles";
 import { makeStyles } from "@material-ui/core/styles";
 
-// ▒█▀▄▀█ ▒█▀▀▀ ▀▀█▀▀ ░█▀▀█ ▒█▀▀▄ ░█▀▀█ ▀▀█▀▀ ░█▀▀█
-// ▒█▒█▒█ ▒█▀▀▀ ░▒█░░ ▒█▄▄█ ▒█░▒█ ▒█▄▄█ ░▒█░░ ▒█▄▄█
-// ▒█░░▒█ ▒█▄▄▄ ░▒█░░ ▒█░▒█ ▒█▄▄▀ ▒█░▒█ ░▒█░░ ▒█░▒█
+// ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗                          
+// ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣                          
+// ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
 const imageUrl = "https://image.tmdb.org/t/p/original";
 
-// ▒█▀▀▀█ ▀▀█▀▀ ▒█░░▒█ ▒█░░░ ▒█▀▀▀ ▒█▀▀▀█
-// ░▀▀▀▄▄ ░▒█░░ ▒█▄▄▄█ ▒█░░░ ▒█▀▀▀ ░▀▀▀▄▄
-// ▒█▄▄▄█ ░▒█░░ ░░▒█░░ ▒█▄▄█ ▒█▄▄▄ ▒█▄▄▄█
+// ╔═╗╔╦╗╦ ╦╦  ╔═╗╔═╗                                
+// ╚═╗ ║ ╚╦╝║  ║╣ ╚═╗                                
+// ╚═╝ ╩  ╩ ╩═╝╚═╝╚═╝
 const useStyles = makeStyles((theme) => ({
     root: {
         width: "100%",
@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
 export default function FilmsCard({ filmeData, imageHeight, ...props }) {
     const classes = useStyles();
 
+    // ╔╦╗╔═╗╦╔╗╔                                        
+    // ║║║╠═╣║║║║                                        
+    // ╩ ╩╩ ╩╩╝╚╝ 
     return (
         <div className={classes.root}>
             <Accordion>

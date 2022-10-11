@@ -1,13 +1,11 @@
-import { Container, Paper } from "@material-ui/core";
-import styled from "styled-components";
+import { Box, Paper } from "@material-ui/core"
+import styled from "styled-components"
 
-export const BackPaper = styled(Paper)``;
+export const BackPaper = styled(Paper)``
 
-export const ContentContainer = styled(Container)`
-    padding: 4rem 0 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 1));
-    &.MuiContainer-root {
-        width: 100vw;
-        height: auto;
-    }
-`;
+export const ContentContainer = styled(Box)`
+    padding: 3rem 2.5rem;
+    background: #151515;
+    width: 70vw;
+    min-height: calc(100vh - 92px);
+`

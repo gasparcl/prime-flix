@@ -6,7 +6,7 @@ export default function Loader() {
     return (
         <>
             <LoaderDiv>
-                <ScaleLoader color="#f00" height={100} width={8} />
+                <ScaleLoader color="#d40e0e" height={100} width={8} />
                 <Typography color="error" variant="h5">
                     Wait...Data still loading...
                 </Typography>

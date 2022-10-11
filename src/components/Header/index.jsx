@@ -4,9 +4,9 @@ import { ListItem, List, Typography } from "@material-ui/core";
 import HeaderMenu from "./styles";
 
 function Header() {
-    // █▀▄▀█ █▀▀ ▀█▀ ▄▀█ █▀▄ ▄▀█ ▀█▀ ▄▀█
-    // █░▀░█ ██▄ ░█░ █▀█ █▄▀ █▀█ ░█░ █▀█
-
+    // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗                          
+    // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣                          
+    // ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩ 
     const headerLinks = [
         { name: "Home", link: "/" },
         {
@@ -15,14 +15,15 @@ function Header() {
         },
     ];
 
-    // █░█ █▀█ █▀█ █▄▀ █▀
-    // █▀█ █▄█ █▄█ █░█ ▄█
-
+    // ╦ ╦╔═╗╔═╗╦╔═╔═╗                                   
+    // ╠═╣║ ║║ ║╠╩╗╚═╗                                   
+    // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
     const location = useLocation();
     const locationPath = location.pathname;
 
-    // █▀▄▀█ █▀▀ ▀█▀ █░█ █▀█ █▀▄ █▀
-    // █░▀░█ ██▄ ░█░ █▀█ █▄█ █▄▀ ▄█
+    // ╔╦╗╔═╗╔╦╗╦ ╦╔═╗╔╦╗╔═╗                             
+    // ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗                             
+    // ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
     const isActivePage = (link) => link === locationPath;
 
     return (
