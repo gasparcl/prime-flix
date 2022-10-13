@@ -1,30 +1,30 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { ListItem, List, Typography } from "@material-ui/core";
-import HeaderMenu from "./styles";
+import React from "react"
+import { Link, useLocation } from "react-router-dom"
+import { ListItem, List, Typography } from "@material-ui/core"
+import HeaderMenu from "./styles"
 
 function Header() {
-    // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗                          
-    // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣                          
-    // ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩ 
+    // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
+    // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
+    // ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
     const headerLinks = [
         { name: "Home", link: "/" },
         {
-            name: "Favoritos",
-            link: "/filme/:id",
+            name: "Favorites",
+            link: "/movie/:id",
         },
-    ];
+    ]
 
-    // ╦ ╦╔═╗╔═╗╦╔═╔═╗                                   
-    // ╠═╣║ ║║ ║╠╩╗╚═╗                                   
+    // ╦ ╦╔═╗╔═╗╦╔═╔═╗
+    // ╠═╣║ ║║ ║╠╩╗╚═╗
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
-    const location = useLocation();
-    const locationPath = location.pathname;
+    const location = useLocation()
+    const locationPath = location.pathname
 
-    // ╔╦╗╔═╗╔╦╗╦ ╦╔═╗╔╦╗╔═╗                             
-    // ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗                             
+    // ╔╦╗╔═╗╔╦╗╦ ╦╔═╗╔╦╗╔═╗
+    // ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗
     // ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
-    const isActivePage = (link) => link === locationPath;
+    const isActivePage = (link) => link === locationPath
 
     return (
         <HeaderMenu>
@@ -62,12 +62,12 @@ function Header() {
                                     </Typography>
                                 </Link>
                             </ListItem>
-                        );
+                        )
                     })}
                 </List>
             </div>
         </HeaderMenu>
-    );
+    )
 }
 
-export default Header;
+export default Header

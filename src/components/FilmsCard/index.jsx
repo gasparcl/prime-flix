@@ -1,17 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { Typography, CardActions, Button, Accordion } from "@material-ui/core";
-import { Details, FilmContent, FilmMedia, Summary } from "./styles";
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react"
+import { Link } from "react-router-dom"
+import PropTypes from "prop-types"
+import { Typography, CardActions, Accordion } from "@material-ui/core"
+import { Details, FilmContent, FilmMedia, Summary } from "./styles"
+import { makeStyles } from "@material-ui/core/styles"
+import { IMAGE_URL } from "../../environments/development/development"
 
-// ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗                          
-// ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣                          
+// ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
+// ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
 // ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
-const imageUrl = "https://image.tmdb.org/t/p/original";
 
-// ╔═╗╔╦╗╦ ╦╦  ╔═╗╔═╗                                
-// ╚═╗ ║ ╚╦╝║  ║╣ ╚═╗                                
+// ╔═╗╔╦╗╦ ╦╦  ╔═╗╔═╗
+// ╚═╗ ║ ╚╦╝║  ║╣ ╚═╗
 // ╚═╝ ╩  ╩ ╩═╝╚═╝╚═╝
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,24 +21,24 @@ const useStyles = makeStyles((theme) => ({
         fontSize: theme.typography.pxToRem(15),
         fontWeight: theme.typography.fontWeightRegular,
     },
-}));
+}))
 
-export default function FilmsCard({ filmeData, imageHeight, ...props }) {
-    const classes = useStyles();
+export default function FilmsCard({ filmData, imageHeight, ...props }) {
+    const classes = useStyles()
 
-    // ╔╦╗╔═╗╦╔╗╔                                        
-    // ║║║╠═╣║║║║                                        
-    // ╩ ╩╩ ╩╩╝╚╝ 
+    // ╔╦╗╔═╗╦╔╗╔
+    // ║║║╠═╣║║║║
+    // ╩ ╩╩ ╩╩╝╚╝
     return (
         <div className={classes.root}>
-            <Accordion>
+            <Accordion {...props}>
                 <Summary aria-controls="panel1a-content" id="panel1a-header">
                     <FilmMedia
                         component="img"
-                        alt={filmeData.title}
+                        alt={filmData.title}
                         height={imageHeight}
-                        image={imageUrl + filmeData.poster_path}
-                        title={filmeData.title}
+                        image={`${IMAGE_URL}${filmData.poster_path}`}
+                        title={filmData.title}
                     />
                 </Summary>
                 <Details>
@@ -49,7 +49,7 @@ export default function FilmsCard({ filmeData, imageHeight, ...props }) {
                             component="h2"
                             className="titleMaxLines"
                         >
-                            {filmeData.title}
+                            {filmData.title}
                         </Typography>
                         <Typography
                             variant="body2"
@@ -57,7 +57,7 @@ export default function FilmsCard({ filmeData, imageHeight, ...props }) {
                             component="p"
                             className="description"
                         >
-                            {filmeData.overview}
+                            {filmData.overview}
                         </Typography>
                     </FilmContent>
                 </Details>
@@ -65,15 +65,15 @@ export default function FilmsCard({ filmeData, imageHeight, ...props }) {
                     {/* <Button size="small" color="primary">
                         Share
                     </Button> */}
-                    <Link to={`/filme/${filmeData.id}`}>
-                        <Button size="small" color="primary">
+                    <Link to={`/movie/${filmData.id}`} className="col-12">
+                        <button className="col-12 btn btn-outline-danger">
                             Learn More
-                        </Button>
+                        </button>
                     </Link>
                 </CardActions>
             </Accordion>
         </div>
-    );
+    )
 }
 
 FilmsCard.propTypes = {
@@ -81,9 +81,9 @@ FilmsCard.propTypes = {
         PropTypes.number,
         PropTypes.oneOf(["auto"]),
     ]),
-};
+}
 
 FilmsCard.defaultProps = {
-    filmesData: [],
+    filmData: [],
     imageHeight: "auto",
-};
+}

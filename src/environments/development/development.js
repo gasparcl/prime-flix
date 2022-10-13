@@ -23,4 +23,6 @@ const FETCH_PARAMS = {
     page: 1,
 }
 
-export { FETCH_LANGUAGE, FETCH_PARAMS }
+const IMAGE_URL = "https://image.tmdb.org/t/p/original"
+
+export { FETCH_LANGUAGE, FETCH_PARAMS, IMAGE_URL }

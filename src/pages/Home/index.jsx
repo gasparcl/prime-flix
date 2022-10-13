@@ -1,14 +1,14 @@
 import { useLayoutEffect, useState } from "react"
 
 import api from "../../services/api"
+import { apiEndPoints } from "../../consts/apiEndPoints"
 import { FETCH_PARAMS } from "../../environments/development/development"
 
 import { Grid } from "@material-ui/core"
 import FilmsCard from "../../components/FilmsCard"
-import { MoviesGrid } from "./styles"
 import Loader from "../../components/Loader"
 import PageTitle from "../../components/PageTitle"
-import { apiEndPoints } from "../../consts/apiEndPoints"
+import { MoviesGrid } from "./styles"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -20,7 +20,7 @@ export default function Home() {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
     // ╠═╣║ ║║ ║╠╩╗╚═╗
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
-    const [filmes, setFilmes] = useState([])
+    const [films, setFilms] = useState([])
     const [loading, setLoading] = useState(true)
 
     useLayoutEffect(() => {
@@ -28,10 +28,10 @@ export default function Home() {
             const response = await api.get(apiEndPoints.movies.nowPlaying, {
                 params: FETCH_PARAMS,
             })
-            const listaFilmes = response.data.results
-            const sliceListaFilmes = listaFilmes.slice(0, 12)
+            const filmsList = response.data.results
+            const slicedFilmsList = filmsList.slice(0, 12)
 
-            setFilmes(sliceListaFilmes)
+            setFilms(slicedFilmsList)
             setLoading(false)
         }
         loadFilmes()
@@ -41,12 +41,12 @@ export default function Home() {
     else {
         return (
             <>
-                <PageTitle description="Lançamentos" upperCase />
+                <PageTitle description="Releases" upperCase />
                 <MoviesGrid container spacing={1}>
-                    {filmes.map((filme) => {
+                    {films.map((film) => {
                         return (
-                            <Grid item xs={3} key={filme.id}>
-                                <FilmsCard filmeData={filme} />
+                            <Grid item xs={3} key={film.id}>
+                                <FilmsCard filmData={film} />
                             </Grid>
                         )
                     })}

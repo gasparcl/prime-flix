@@ -13,6 +13,11 @@ export const Summary = styled(AccordionSummary)`
     }
     .MuiAccordionSummary-content {
         margin: 2px 0;
+        transition: all 0.35s;
+    }
+    .MuiAccordionSummary-content.Mui-expanded {
+        margin: 16px 0 4px;
+        transition: all 0.35s;
     }
 `
 
@@ -44,6 +49,7 @@ export const FilmContent = styled(CardContent)`
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
+        min-height: 64px;
     }
 `
 
