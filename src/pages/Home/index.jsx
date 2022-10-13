@@ -1,17 +1,20 @@
-import React, { useLayoutEffect, useState } from "react"
+import { useLayoutEffect, useState } from "react"
+
 import api from "../../services/api"
+import { FETCH_PARAMS } from "../../environments/development/development"
 
 import { Grid } from "@material-ui/core"
 import FilmsCard from "../../components/FilmsCard"
 import { MoviesGrid } from "./styles"
 import Loader from "../../components/Loader"
 import PageTitle from "../../components/PageTitle"
+import { apiEndPoints } from "../../consts/apiEndPoints"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
 // ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
-const API_KEY = "70ab36e8e150acd65f04064fb59504ec"
-const FETCH_LANGUAGE = "en-US"
+//
+// Note: You have to create your api_key to fetch movies from API, to test the application - see more here: src/environments/development/development.js
 
 export default function Home() {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
@@ -22,12 +25,8 @@ export default function Home() {
 
     useLayoutEffect(() => {
         async function loadFilmes() {
-            const response = await api.get("movie/now_playing", {
-                params: {
-                    api_key: API_KEY,
-                    language: FETCH_LANGUAGE,
-                    page: 1,
-                },
+            const response = await api.get(apiEndPoints.movies.nowPlaying, {
+                params: FETCH_PARAMS,
             })
             const listaFilmes = response.data.results
             const sliceListaFilmes = listaFilmes.slice(0, 12)

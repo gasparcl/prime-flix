@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# environments
+/src/environments/development/.apiKey.js
+
 # testing
 /coverage
 

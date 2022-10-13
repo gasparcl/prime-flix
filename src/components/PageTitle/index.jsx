@@ -26,5 +26,5 @@ PageTitle.propTypes = {
 
 PageTitle.defaultProps = {
     upperCase: false,
-    color: "#fff",
+    color: "#ffffff",
 }
