@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 
+import toast from "react-hot-toast"
+
 import formatter from "../../services/formatter"
 import { IMAGE_URL } from "../../consts/apiFetch"
 
@@ -20,7 +22,10 @@ import Loader from "../../components/Loader"
 // ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
 const GET_RATINGS_VALUE = (current) => current.vote_average.toFixed(1)
 
-export default function FilmDetails({ current }) {
+export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
+    // ╦ ╦╔═╗╔═╗╦╔═╔═╗                                   
+    // ╠═╣║ ║║ ║╠╩╗╚═╗                                   
+    // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
     const [trailerVideoId, setTrailerVideoId] = useState('')
     const [loading, setLoading] = useState(true)
 
@@ -31,13 +36,14 @@ export default function FilmDetails({ current }) {
             )
                 .then((response) => response.json())
                 .then((data) => setTrailerVideoId(data.items[0].id.videoId))
-                .catch((err) => console.log(err))
+                .catch(() => toast.error("There was a problem to load trailer...\n Try later"))
                 .finally(() => {
                     setLoading(false)
                 })
         }
         getTrailerVideo()
     }, [current.title])
+
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
     // ╩ ╩╩ ╩╩╝╚╝
@@ -84,7 +90,7 @@ export default function FilmDetails({ current }) {
                 {loading ? (
                     <Loader />
                 ) : (
-                    <Card className="mb-3">
+                    <Card className="mb-3 bg-dark bg-opacity-25">
                         <CardActionArea>
                             <CardMedia
                                 component="iframe"
@@ -96,7 +102,10 @@ export default function FilmDetails({ current }) {
                 )}
 
                 <div className="d-flex align-items-center justify-content-end">
-                    <button className="btn btn-outline-danger">
+                    <button
+                        className={`btn ${isFavorite ? "btn-danger" : "btn-outline-danger"}`}
+                        onClick={onAddToFavorites}
+                    >
                         <span className="d-flex justify-content-around align-items-center gap-2">
                             <FavoriteIcon fontSize="small" />
                             Add to favorites

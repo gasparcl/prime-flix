@@ -11,7 +11,7 @@ function Header() {
         { name: "Home", link: "/" },
         {
             name: "Favorites",
-            link: "/movie/:id",
+            link: "/favorites",
         },
     ]
 

@@ -1,4 +1,5 @@
 import RoutesApp from "./routes"
+import { Toaster  } from "react-hot-toast"
 
 function App() {
     return (
@@ -6,6 +7,10 @@ function App() {
             <div className="App">
                 <RoutesApp />
             </div>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
         </>
     )
 }

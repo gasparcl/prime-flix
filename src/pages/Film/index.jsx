@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
+import toast from "react-hot-toast"
+
 import api from "../../services/api"
+import usePersistedState from "../../hooks/usePersistedState"
+import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
 import { apiEndPoints } from "../../consts/apiEndPoints"
 
@@ -24,6 +28,7 @@ export default function Film() {
     const navigation = useNavigate()
 
     const [currentMovie, setCurrentMovie] = useState({})
+    const [favorites, setFavorites] = usePersistedState(FAVORITE_STORAGE_KEY, [])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -46,6 +51,28 @@ export default function Film() {
         loadFilm()
     }, [id, navigation])
 
+    // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
+    // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
+    // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
+    const isFavoritedFilm = favorites.some(
+        (favorite) => favorite.id === currentMovie.id,
+    )
+
+    const handleAddToFavorites = () => {
+        if (!isFavoritedFilm && currentMovie !== {}) {
+            let newFavoriteFilms = [...favorites, currentMovie]
+
+            setFavorites(newFavoriteFilms)
+            localStorage.setItem(
+                FAVORITE_STORAGE_KEY,
+                JSON.stringify(newFavoriteFilms),
+            )
+            toast.success("Film added to favorites")
+        } else {
+            toast.error("Film already added to favorites")
+        }
+    }
+
     if (loading) return <Loader />
 
     return (
@@ -53,7 +80,11 @@ export default function Film() {
             <PageTitle description="Movie Details" upperCase />
             <Container maxWidth="md" className="mt-4">
                 <div className="d-flex flex-column justify-content-center align-items-center bg-dark bg-opacity-25 rounded-2 pt-2 pb-4 px-sm-2 px-lg-5">
-                    <FilmDetails current={currentMovie} />
+                    <FilmDetails
+                        current={currentMovie}
+                        isFavorite={isFavoritedFilm}
+                        onAddToFavorites={handleAddToFavorites}
+                    />
                 </div>
             </Container>
         </>
