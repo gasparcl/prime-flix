@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { YOUTUBE_API_KEY } from "../../environments/development/.apiKeys" // Insert your own api key
 
 import formatter from "../../services/formatter"
 import { IMAGE_URL } from "../../consts/apiFetch"
