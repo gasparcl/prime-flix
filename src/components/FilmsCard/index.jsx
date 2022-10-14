@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import { Typography, CardActions, Accordion } from "@material-ui/core"
 import { Details, FilmContent, FilmMedia, Summary } from "./styles"
 import { makeStyles } from "@material-ui/core/styles"
-import { IMAGE_URL } from "../../environments/development/development"
+import { IMAGE_URL } from "../../consts/apiFetch"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { IMAGE_URL } from "../../environments/development/development"
-import { YOUTUBE_API_KEY } from "../../environments/development/.environment" // Insert your own api key
+import { YOUTUBE_API_KEY } from "../../environments/development/.apiKeys" // Insert your own api key
 
 import formatter from "../../services/formatter"
+import { IMAGE_URL } from "../../consts/apiFetch"
 
 import FavoriteIcon from "@material-ui/icons/Favorite"
 import {
@@ -28,7 +28,7 @@ export default function FilmDetails({ current }) {
     useEffect(() => {
         const getTrailerVideo = async () => {
             await fetch(
-                `https://www.googleapis.com/youtube/v3/search?snippet&q=${current.title} trailer&key=${YOUTUBE_API_KEY}&maxResults=15`,
+                `https://www.googleapis.com/youtube/v3/search?snippet&q=${current.title} trailer&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=15`, // Get inside .env.example, into app root, to know how to configure your credentials
             )
                 .then((response) => response.json())
                 .then((data) => setTrailerVideoId(data.items[0].id.videoId))

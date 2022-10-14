@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
 import api from "../../services/api"
-import { FETCH_PARAMS } from "../../environments/development/development"
+import { FETCH_PARAMS } from "../../consts/apiFetch"
 import { apiEndPoints } from "../../consts/apiEndPoints"
 
 import { Container } from "@material-ui/core"

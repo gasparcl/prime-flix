@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from "react"
 
 import api from "../../services/api"
 import { apiEndPoints } from "../../consts/apiEndPoints"
-import { FETCH_PARAMS } from "../../environments/development/development"
+import { FETCH_PARAMS } from "../../consts/apiFetch"
 
 import { Grid } from "@material-ui/core"
 import FilmsCard from "../../components/FilmsCard"
