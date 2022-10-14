@@ -1,6 +1,10 @@
+import { useEffect, useState } from "react"
 import { IMAGE_URL } from "../../environments/development/development"
+import { YOUTUBE_API_KEY } from "../../environments/development/.environment" // Insert your own api key
+
 import formatter from "../../services/formatter"
 
+import FavoriteIcon from "@material-ui/icons/Favorite"
 import {
     Card,
     CardActionArea,
@@ -10,6 +14,7 @@ import {
 } from "@material-ui/core"
 import { Rating } from "@material-ui/lab"
 import TextBox from "../TextBox"
+import Loader from "../../components/Loader"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -17,6 +22,23 @@ import TextBox from "../TextBox"
 const GET_RATINGS_VALUE = (current) => current.vote_average.toFixed(1)
 
 export default function FilmDetails({ current }) {
+    const [trailerVideoId, setTrailerVideoId] = useState('')
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const getTrailerVideo = async () => {
+            await fetch(
+                `https://www.googleapis.com/youtube/v3/search?snippet&q=${current.title} trailer&key=${YOUTUBE_API_KEY}&maxResults=15`,
+            )
+                .then((response) => response.json())
+                .then((data) => setTrailerVideoId(data.items[0].id.videoId))
+                .catch((err) => console.log(err))
+                .finally(() => {
+                    setLoading(false)
+                })
+        }
+        getTrailerVideo()
+    }, [current.title])
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
     // ╩ ╩╩ ╩╩╝╚╝
@@ -59,18 +81,27 @@ export default function FilmDetails({ current }) {
                 <TextBox variant="body1">
                     <b>Trailer: </b>
                 </TextBox>
-                <Card>
-                    <CardActionArea>
-                        <CardMedia
-                            component="iframe"
-                            src="https://www.youtube.com/embed/u1GDl8xldqE"
-                            height={400}
-                        />
-                    </CardActionArea>
-                </Card>
+
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <Card className="mb-3">
+                        <CardActionArea>
+                            <CardMedia
+                                component="iframe"
+                                src={`https://www.youtube.com/embed/${trailerVideoId}`}
+                                height={400}
+                            />
+                        </CardActionArea>
+                    </Card>
+                )}
+
                 <div className="d-flex align-items-center justify-content-end">
                     <button className="btn btn-outline-danger">
-                        Add to favorites
+                        <span className="d-flex justify-content-around align-items-center gap-2">
+                            <FavoriteIcon fontSize="small" />
+                            Add to favorites
+                        </span>
                     </button>
                 </div>
             </Paper>
@@ -78,6 +109,6 @@ export default function FilmDetails({ current }) {
     )
 }
 
-fetch(
-    "https://www.googleapis.com/youtube/v3/search?q='Dragon Ball Super: Super Hero trailer'&key=AIzaSyCEe9mV4Tgjx2vqJRXXTS6rKEmRx6jemBA",
-).then((response) => console.log(response.url))
+
+
+
