@@ -8,22 +8,37 @@ import {
 } from "@material-ui/core"
 
 export const FilmBox = styled(Box)`
+    transition: all 0.5s;
 `
 
 export const FilmLink = styled(Link)`
     text-decoration: none;
-    height: 0;
-    display: inline-block;
+    display: block;
+    transition: all 0.5s;
+    max-height: 307.5px;
+    transition-delay: 0.75s;
+
+    &:hover {
+        max-height: 700px;
+        transition: all 0.75s;
+    }
+
+    &:hover .MuiCardContent-root {
+        transform: translateY(0%);
+        transition: all 0.5s;
+        position: relative;
+    }
 `
 
 export const FilmContent = styled(CardContent)`
     transform: translateY(-100%);
     z-index: 0;
     transition: all 0.5s;
-    border-radius: 0.375rem;
+    border-radius: 0 0 0.375rem 0.375rem;
 
     &.MuiCardContent-root {
         padding: 0.5rem;
+        transition: all 0.5s;
     }
     .description {
         overflow: hidden;
@@ -44,16 +59,12 @@ export const FilmContent = styled(CardContent)`
 `
 
 export const FilmMedia = styled(CardMedia)`
-    border-radius: 0.375rem;
+    border-radius: 0.375rem 0.375rem 0.1rem 0.1rem;
     z-index: 10;
     position: relative;
+    transition: all 0.5s;
     &.MuiCardMedia-img {
         object-fit: cover;
-    }
-
-    &:hover ~ .MuiCardContent-root {
-        transform: translateY(0%);
         transition: all 0.5s;
-        position: relative;
     }
 `
