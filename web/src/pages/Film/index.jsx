@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import toast from "react-hot-toast"
 
 import api from "../../services/api"
+import { isFavoritedFilm } from "../../services/utils"
 import usePersistedState from "../../hooks/usePersistedState"
 import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
@@ -28,7 +29,10 @@ export default function Film() {
     const navigation = useNavigate()
 
     const [currentMovie, setCurrentMovie] = useState({})
-    const [favorites, setFavorites] = usePersistedState(FAVORITE_STORAGE_KEY, [])
+    const [favorites, setFavorites] = usePersistedState(
+        FAVORITE_STORAGE_KEY,
+        [],
+    )
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -54,12 +58,9 @@ export default function Film() {
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
     // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
-    const isFavoritedFilm = favorites.some(
-        (favorite) => favorite.id === currentMovie.id,
-    )
 
     const handleAddToFavorites = () => {
-        if (!isFavoritedFilm && currentMovie !== {}) {
+        if (!isFavoritedFilm(favorites, currentMovie) && currentMovie !== {}) {
             let newFavoriteFilms = [...favorites, currentMovie]
 
             setFavorites(newFavoriteFilms)

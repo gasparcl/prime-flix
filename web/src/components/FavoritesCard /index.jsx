@@ -1,4 +1,3 @@
-import React from "react"
 import PropTypes from "prop-types"
 import { Typography } from "@material-ui/core"
 import { FilmBox, FilmContent, FilmLink, FilmMedia } from "./styles"
@@ -9,7 +8,6 @@ import { IMAGE_URL } from "../../consts/apiFetch"
 // ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
 
 export default function FavoritesCard({ favoriteData, imageHeight }) {
-
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
     // ╩ ╩╩ ╩╩╝╚╝
@@ -25,7 +23,6 @@ export default function FavoritesCard({ favoriteData, imageHeight }) {
                 />
                 <FilmContent className="bg-body rounded-bottom">
                     <Typography
-                        gutterBottom
                         variant="h5"
                         component="h2"
                         className="titleMaxLines text-body"
@@ -40,7 +37,7 @@ export default function FavoritesCard({ favoriteData, imageHeight }) {
                     >
                         {favoriteData.overview}
                     </Typography>
-                </FilmContent>     
+                </FilmContent>
             </FilmLink>
         </FilmBox>
     )

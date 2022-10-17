@@ -14,8 +14,9 @@ import {
     Typography,
 } from "@material-ui/core"
 import { Rating } from "@material-ui/lab"
-import TextBox from "../TextBox"
 import Loader from "../../components/Loader"
+import TextBox from "../TextBox"
+import FavoriteButton from "../FavoriteButton"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -23,10 +24,10 @@ import Loader from "../../components/Loader"
 const GET_RATINGS_VALUE = (current) => current.vote_average.toFixed(1)
 
 export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
-    // ╦ ╦╔═╗╔═╗╦╔═╔═╗                                   
-    // ╠═╣║ ║║ ║╠╩╗╚═╗                                   
+    // ╦ ╦╔═╗╔═╗╦╔═╔═╗
+    // ╠═╣║ ║║ ║╠╩╗╚═╗
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
-    const [trailerVideoId, setTrailerVideoId] = useState('')
+    const [trailerVideoId, setTrailerVideoId] = useState("")
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -36,7 +37,11 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
             )
                 .then((response) => response.json())
                 .then((data) => setTrailerVideoId(data.items[0].id.videoId))
-                .catch(() => toast.error("There was a problem to load trailer...\n Try later"))
+                .catch(() =>
+                    toast.error(
+                        "There was a problem to load trailer...\n Try later",
+                    ),
+                )
                 .finally(() => {
                     setLoading(false)
                 })
@@ -100,23 +105,15 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
                         </CardActionArea>
                     </Card>
                 )}
-
                 <div className="d-flex align-items-center justify-content-end">
-                    <button
-                        className={`btn ${isFavorite ? "btn-danger" : "btn-outline-danger"}`}
-                        onClick={onAddToFavorites}
-                    >
-                        <span className="d-flex justify-content-around align-items-center gap-2">
-                            <FavoriteIcon fontSize="small" />
-                            Add to favorites
-                        </span>
-                    </button>
+                    <FavoriteButton
+                        label="Add to favorites"
+                        iconSize="small"
+                        isFavorite={isFavorite}
+                        onToggleFavorites={onAddToFavorites}
+                    />
                 </div>
             </Paper>
         </>
     )
 }
-
-
-
-
