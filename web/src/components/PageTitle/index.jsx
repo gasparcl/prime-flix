@@ -1,5 +1,6 @@
 import PropTypes from "prop-types"
-import { Typography } from "@material-ui/core"
+
+import { TitleText } from "./styles"
 
 export default function PageTitle({
     description,
@@ -10,16 +11,16 @@ export default function PageTitle({
     return (
         <>
             <div
-                className={`d-flex justify-content-center align-items-center ${props.className}`}
+                className={`d-flex flex-column justify-content-center align-items-center ${props.className}`}
             >
-                <Typography
+                <TitleText
                     {...props}
                     variant="h4"
                     component="h4"
                     style={{ color: props.color, fontSize: fontSize }}
                 >
                     {upperCase ? description.toUpperCase() : description}
-                </Typography>
+                </TitleText>
             </div>
         </>
     )
