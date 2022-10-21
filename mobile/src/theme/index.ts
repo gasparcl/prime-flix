@@ -2,6 +2,7 @@ import {StyleSheet} from "react-native"
 
 const DEFAULT_THEME = {
     COLORS: {
+        BACKGROUND: "#000000",
         BACKGROUND_900: "#121214",
         BACKGROUND_800: "#18181B",
         BACKGROUND_400: "#F9FAFC",

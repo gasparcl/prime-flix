@@ -1,26 +1,10 @@
-import {Dimensions, StyleSheet} from "react-native"
+import {StyleSheet} from "react-native"
 import {THEME} from "../../theme"
-
-const headerSize = Dimensions.get('screen').height / 1.5
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    // HEADER
-    cover: {
-        width: Dimensions.get('screen').width,
-        height: headerSize,
-        borderRadius: 8,
-        justifyContent: "flex-end",
-        overflow: "hidden",
-    },
-    footer: {
-        width: "100%",
-        height: headerSize / 2,
-        padding: 16,
-        justifyContent: "flex-end",
-        alignItems: 'center'
+        backgroundColor: THEME.COLORS.BACKGROUND
     },
     title: {
         color: THEME.COLORS.TEXT,
@@ -44,22 +28,12 @@ export const styles = StyleSheet.create({
         fontSize: THEME.FONT_SIZE.XS,
         marginTop: 6
     },
-    trailerButton: {
+    controlButton: {
         flex: 1,
         backgroundColor: THEME.COLORS.BACKGROUND_PAPER,
         marginHorizontal: 16
     },
-    trailerButtonTitle: {
+    controlButtonTitle: {
         color: THEME.COLORS.CAPTION_900,
-    },
-
-    // MOVIE LIST
-    content: {
-        padding: 12,
-    },
-    subtitle: {
-        color: THEME.COLORS.TEXT,
-        fontFamily: THEME.FONT_FAMILY.SANS.BOLD,
-        fontSize: THEME.FONT_SIZE.MD,
     },
 })
