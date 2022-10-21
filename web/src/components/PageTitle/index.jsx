@@ -8,13 +8,20 @@ export default function PageTitle({
     ...props
 }) {
     return (
-        <Typography
-            {...props}
-            variant="h4"
-            style={{ color: props.color, fontSize: fontSize }}
-        >
-            {upperCase ? description.toUpperCase() : description}
-        </Typography>
+        <>
+            <div
+                className={`d-flex justify-content-center align-items-center ${props.className}`}
+            >
+                <Typography
+                    {...props}
+                    variant="h4"
+                    component="h4"
+                    style={{ color: props.color, fontSize: fontSize }}
+                >
+                    {upperCase ? description.toUpperCase() : description}
+                </Typography>
+            </div>
+        </>
     )
 }
 

@@ -6,11 +6,11 @@ import { FETCH_PARAMS } from "../../consts/apiFetch"
 
 import toast from "react-hot-toast"
 
-import { Grid } from "@material-ui/core"
 import FilmsCard from "../../components/FilmsCard"
 import Loader from "../../components/Loader"
 import PageTitle from "../../components/PageTitle"
 import { MoviesGrid, MoviesGridItem } from "./styles"
+import Slider from "../../components/slider"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -32,8 +32,7 @@ export default function Home() {
                     params: FETCH_PARAMS,
                 })
                 const filmsList = response.data.results
-                const slicedFilmsList = filmsList.slice(0, 12)
-                setFilms(slicedFilmsList)
+                setFilms(filmsList)
             } catch (error) {
                 toast.error(
                     `There's a problem loading films...
@@ -55,15 +54,7 @@ export default function Home() {
         return (
             <>
                 <PageTitle description="Releases" upperCase />
-                <MoviesGrid container spacing={1}>
-                    {films.map((film) => {
-                        return (
-                            <MoviesGridItem item xs={3} key={film.id}>
-                                <FilmsCard filmData={film} className="mb-2" />
-                            </MoviesGridItem>
-                        )
-                    })}
-                </MoviesGrid>
+                <Slider data={films} />
             </>
         )
     }

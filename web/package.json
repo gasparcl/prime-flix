@@ -15,6 +15,7 @@
     "dotenv": "^16.0.3",
     "googleapi": "^1.0.2",
     "googleapis": "^108.0.0",
+    "keen-slider": "^6.8.3",
     "path-browserify": "^1.0.1",
     "prettier": "^2.7.1",
     "proptypes": "^1.1.0",

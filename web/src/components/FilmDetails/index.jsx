@@ -5,7 +5,6 @@ import toast from "react-hot-toast"
 import formatter from "../../services/formatter"
 import { IMAGE_URL } from "../../consts/apiFetch"
 
-import FavoriteIcon from "@material-ui/icons/Favorite"
 import {
     Card,
     CardActionArea,

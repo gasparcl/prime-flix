@@ -74,6 +74,8 @@ export default function Film() {
         }
     }
 
+    const isFavorite = isFavoritedFilm(favorites, currentMovie)
+
     if (loading) return <Loader />
 
     return (
@@ -83,7 +85,7 @@ export default function Film() {
                 <div className="d-flex flex-column justify-content-center align-items-center bg-dark bg-opacity-25 rounded-2 pt-2 pb-4 px-sm-2 px-lg-5">
                     <FilmDetails
                         current={currentMovie}
-                        isFavorite={isFavoritedFilm}
+                        isFavorite={isFavorite}
                         onAddToFavorites={handleAddToFavorites}
                     />
                 </div>
