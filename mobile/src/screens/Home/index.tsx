@@ -12,12 +12,15 @@ import {MovieHeader} from "../../components/MovieHeader"
 import {Movies, IMovie} from "../../components/Movies"
 import {Button} from "../../components/Button"
 
+import {MovieSummary} from "../MovieSummary"
+
 export function Home() {
     const [movies, setMovies] = useState<IMovie[]>([])
     const [loading, setLoading] = useState(true)
+    const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
     const sampleRelease = useMemo(() => {
-        return movies[0]
+        return movies[6]
     }, [movies])
 
     useEffect(() => {
@@ -77,18 +80,26 @@ export function Home() {
                 title='Lançamentos'
                 data={movies}
                 loading={loading}
+                onPressMovie={setSelectedMovie}
             />
             <Movies 
                 title='Em alta'
                 data={[...movies].reverse()}
                 loading={loading}
+                onPressMovie={setSelectedMovie}
             />
             <Movies 
                 title='Minha lista'
                 data={movies.slice(0, 2)}
                 loading={loading}
+                onPressMovie={setSelectedMovie}
             />
 
+            <MovieSummary 
+                current={selectedMovie}
+                visible={!!selectedMovie}
+                onRequestClose={() => setSelectedMovie(null)}
+            />
         </ScrollView>
     )
 }

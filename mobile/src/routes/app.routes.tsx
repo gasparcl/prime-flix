@@ -48,6 +48,19 @@ export function AppRoutes() {
                     ),
                 }}
             />
+            <Screen
+                name="preferences"
+                component={Home}
+                options={{
+                    title: 'Preferências',
+                    tabBarIcon: (props) => (
+                        <TabBarIcon
+                            {...props}
+                            Icon={<Octicons name="gear" />}
+                        />
+                    ),
+                }}
+            />
         </Navigator>
     )
 }

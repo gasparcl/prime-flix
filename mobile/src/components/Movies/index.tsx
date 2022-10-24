@@ -1,4 +1,4 @@
-import {FlatList, View, ViewProps, ImageBackground,Text} from "react-native"
+import {FlatList, View, ViewProps, Image,Text, Pressable} from "react-native"
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
 
 import {styles} from "./styles"
@@ -7,15 +7,20 @@ export interface IMovie {
     id: string
     title: string
     poster_path: string
+    release_date: string
+    vote_average: string
+    vote_count: string
+    overview: string
 }
 
 export interface MoviesProps extends ViewProps {
     title: string
     data: IMovie[]
     loading?: boolean
+    onPressMovie: (movie: IMovie) => void
 }
 
-export function Movies({title, data, loading, ...props}: MoviesProps) {
+export function Movies({title, data, loading, onPressMovie, ...props}: MoviesProps) {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
@@ -26,13 +31,17 @@ export function Movies({title, data, loading, ...props}: MoviesProps) {
                     data={data}
                     keyExtractor={(item) => item.id}
                     renderItem={({item}) => (
-                        <ImageBackground
-                            resizeMode="cover"
-                            style={styles.cover}
-                            source={{
-                                uri: `${THEMOVIEDB_BANNER_URL}/${item.poster_path}`,
-                            }}
-                        />
+                        <Pressable
+                            onPress={() => onPressMovie(item)}
+                        >
+                            <Image
+                                resizeMode="cover"
+                                style={styles.cover}
+                                source={{
+                                    uri: `${THEMOVIEDB_BANNER_URL}/${item.poster_path}`,
+                                }}
+                            />
+                        </Pressable>
                     )}
                 />
             </View>

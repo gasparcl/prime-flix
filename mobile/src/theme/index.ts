@@ -5,6 +5,8 @@ const DEFAULT_THEME = {
         BACKGROUND: "#000000",
         BACKGROUND_900: "#121214",
         BACKGROUND_800: "#18181B",
+        BACKGROUND_700: "#333333",
+        BACKGROUND_600: "#555555",
         BACKGROUND_400: "#F9FAFC",
         BACKGROUND_PAPER: "#FFFFFF",
 
@@ -23,9 +25,10 @@ const DEFAULT_THEME = {
         PRIMARY: "#c4161c",
         SUCCESS: "#34D399",
         ALERT: "#F87171",
+        WARNING: "#FFCC00",
 
         FOOTER: ["rgba(0,0,0,0)", "rgba(0,0,0,0.9)"],
-        OVERLAY: "rgba(0,0,0,0.05)",
+        OVERLAY: "rgba(0,0,0,0.25)",
         PRIMARY_OVERLAY: "rgba(3, 26, 110, 0.1)",
         WHITE_OVERLAY: "rgba(255, 255, 255, 0.09)",
     },
