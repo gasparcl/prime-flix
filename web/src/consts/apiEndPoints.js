@@ -4,6 +4,7 @@ export const apiEndPoints = {
         movie(id) {
             return `${this.root}/${id}`
         },
+        get search() {},
         get nowPlaying() {
             return `${this.root}/now_playing`
         },
