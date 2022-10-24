@@ -11,6 +11,7 @@ import { FETCH_PARAMS } from "../../consts/apiFetch"
 import { apiEndPoints } from "../../consts/apiEndPoints"
 
 import { Container } from "@material-ui/core"
+import { confirmation } from "../../components/Confirmation"
 import Loader from "../../components/Loader"
 import PageTitle from "../../components/PageTitle"
 import FilmDetails from "../../components/FilmDetails"
@@ -58,21 +59,36 @@ export default function Film() {
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
     // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
-
-    const handleAddToFavorites = () => {
-        if (!isFavoritedFilm(favorites, currentMovie) && currentMovie !== {}) {
-            let newFavoriteFilms = [...favorites, currentMovie]
-
-            setFavorites(newFavoriteFilms)
-            localStorage.setItem(
-                FAVORITE_STORAGE_KEY,
-                JSON.stringify(newFavoriteFilms),
+    const handleToggleFavorites = async (currentMovie) => {
+        if (isFavoritedFilm(favorites, currentMovie)) {
+            const confirmed = await confirmation.open(
+                "Confirmation",
+                `Do you really want to remove: "${currentMovie.title}"?`,
+                {
+                    agreeLabel: "Remove",
+                },
             )
-            toast.success("Film added to favorites")
+
+            if (confirmed) {
+                let filteredFavorites = favorites.filter(
+                    (favorite) => favorite.id !== currentMovie.id,
+                )
+                setFavorites(filteredFavorites)
+
+                toast.success(
+                    `Film removed from favorites:\n"${currentMovie.title}"`,
+                )
+            }
         } else {
-            toast.error("Film already added to favorites")
+            let newFavoritedFilm = [...favorites, currentMovie]
+
+            setFavorites(newFavoritedFilm)
+
+            toast.success(`Film added to favorites:\n"${currentMovie.title}"`)
         }
     }
+
+    const isFavorite = isFavoritedFilm(favorites, currentMovie)
 
     if (loading) return <Loader />
 
@@ -83,8 +99,10 @@ export default function Film() {
                 <div className="d-flex flex-column justify-content-center align-items-center bg-dark bg-opacity-25 rounded-2 pt-2 pb-4 px-sm-2 px-lg-5">
                     <FilmDetails
                         current={currentMovie}
-                        isFavorite={isFavoritedFilm}
-                        onAddToFavorites={handleAddToFavorites}
+                        isFavorite={isFavorite}
+                        onAddToFavorites={() =>
+                            handleToggleFavorites(currentMovie)
+                        }
                     />
                 </div>
             </Container>

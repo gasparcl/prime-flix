@@ -3196,6 +3196,11 @@ clsx@^1.0.4:
   resolved "https://registry.npmjs.org/clsx/-/clsx-1.2.1.tgz"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
+clsx@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.npmjs.org/co/-/co-4.6.0.tgz"
@@ -6199,6 +6204,11 @@ jws@^4.0.0:
   dependencies:
     jwa "^2.0.0"
     safe-buffer "^5.0.1"
+
+keen-slider@^6.8.3:
+  version "6.8.3"
+  resolved "https://registry.yarnpkg.com/keen-slider/-/keen-slider-6.8.3.tgz#c42b27fb1afca0a2eb722676410cdd3af80f2e0f"
+  integrity sha512-tJFokyUiHAtbGGQHnNMm3MLCpOm+z1JZsaOOMVnzTYAfAqLDT/zI/cE1mf82Bxmp1uHSIeUUkH+EZGzRQrSO/w==
 
 kind-of@^6.0.2:
   version "6.0.3"

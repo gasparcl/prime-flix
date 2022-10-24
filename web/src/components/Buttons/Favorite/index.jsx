@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 
 import FavoriteIcon from "@material-ui/icons/Favorite"
-
+import { FavoriteBtn } from "../styles"
 /**
  * App Favorite Button component
  *
@@ -10,6 +10,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite"
  * @export
  * @param {{
  *      isFavorite: boolean,
+ *      isTag: boolean,
  *      onToggleFavorites: () => void,
  *      iconSize: string,
  *      label: string,
@@ -18,31 +19,35 @@ import FavoriteIcon from "@material-ui/icons/Favorite"
  */
 export default function FavoriteButton({
     isFavorite,
+    isTag,
     onToggleFavorites,
     label,
     iconSize,
+    disabled,
     ...props
 }) {
     return (
         <>
-            <button
+            <FavoriteBtn
                 className={`btn ${
                     isFavorite ? "btn-danger" : "btn-outline-danger"
+                } ${isTag ? "favtag rounded-circle" : ""} ${
+                    disabled ? "disabled" : ""
                 } ${props.className}`}
-                onClick={onToggleFavorites}
+                onClick={onToggleFavorites ? onToggleFavorites : undefined}
             >
                 <span className="d-flex justify-content-around align-items-center gap-2">
-                    <FavoriteIcon fontSize="small" />
-                    {label}
+                    <FavoriteIcon fontSize={iconSize} />
+                    {label && <b>{label}</b>}
                 </span>
-            </button>
+            </FavoriteBtn>
         </>
     )
 }
 
 FavoriteButton.propTypes = {
     isFavorite: PropTypes.bool,
-    onToggleFavorites: PropTypes.func.isRequired,
+    onToggleFavorites: PropTypes.func,
     iconSize: PropTypes.oneOf([
         "default",
         "inherit",
@@ -55,6 +60,7 @@ FavoriteButton.propTypes = {
 
 FavoriteButton.defaultProps = {
     isFavorite: false,
+    isTag: false,
     label: "",
-    iconSize: "medium",
+    iconSize: "small",
 }

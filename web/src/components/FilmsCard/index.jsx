@@ -1,10 +1,21 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
-import { Typography, CardActions, Accordion } from "@material-ui/core"
-import { Details, FilmContent, FilmMedia, Summary } from "./styles"
+import { isFavoritedFilm } from "../../services/utils"
+
+import { Typography, CardActions } from "@material-ui/core"
+
+import {
+    CollapseCard,
+    Details,
+    FilmContent,
+    FilmMedia,
+    Summary,
+} from "./styles"
 import { makeStyles } from "@material-ui/core/styles"
 import { IMAGE_URL } from "../../consts/apiFetch"
+import FavoriteButton from "../Buttons/Favorite"
+import LearnMoreButton from "../Buttons/LearnMore"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -16,6 +27,7 @@ import { IMAGE_URL } from "../../consts/apiFetch"
 const useStyles = makeStyles((theme) => ({
     root: {
         width: "100%",
+        position: "relative",
     },
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -23,15 +35,23 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function FilmsCard({ filmData, imageHeight, ...props }) {
+export default function FilmsCard({
+    filmData,
+    imageHeight,
+    favoritesList,
+    onClickTag,
+    ...props
+}) {
     const classes = useStyles()
+
+    const isFavorite = isFavoritedFilm(favoritesList, filmData)
 
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
     // ╩ ╩╩ ╩╩╝╚╝
     return (
         <div className={classes.root}>
-            <Accordion {...props}>
+            <CollapseCard {...props}>
                 <Summary aria-controls="panel1a-content" id="panel1a-header">
                     <FilmMedia
                         component="img"
@@ -39,39 +59,38 @@ export default function FilmsCard({ filmData, imageHeight, ...props }) {
                         height={imageHeight}
                         image={`${IMAGE_URL}${filmData.poster_path}`}
                         title={filmData.title}
+                        className="rounded rounded-1"
                     />
                 </Summary>
                 <Details>
                     <FilmContent>
                         <Typography
-                            gutterBottom
-                            variant="h5"
+                            variant="h6"
                             component="h2"
-                            className="titleMaxLines"
+                            className="titleMaxLines text-white"
                         >
-                            {filmData.title}
+                            <b>{filmData.title}</b>
                         </Typography>
                         <Typography
                             variant="body2"
-                            color="textSecondary"
                             component="p"
-                            className="description"
+                            className="description text-white"
                         >
                             {filmData.overview}
                         </Typography>
                     </FilmContent>
                 </Details>
                 <CardActions>
-                    {/* <Button size="small" color="primary">
-                        Share
-                    </Button> */}
                     <Link to={`/movie/${filmData.id}`} className="col-12">
-                        <button className="col-12 btn btn-outline-danger">
-                            Learn More
-                        </button>
+                        <LearnMoreButton>Learn More</LearnMoreButton>
                     </Link>
                 </CardActions>
-            </Accordion>
+            </CollapseCard>
+            <FavoriteButton
+                isTag
+                isFavorite={isFavorite}
+                onToggleFavorites={onClickTag}
+            />
         </div>
     )
 }
