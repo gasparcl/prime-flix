@@ -1,5 +1,7 @@
-import {View, StyleSheet, StatusBar} from "react-native"
+import {useEffect} from "react"
+import {View, StyleSheet, StatusBar, Platform} from "react-native"
 import {SafeAreaProvider} from "react-native-safe-area-context"
+import * as NavigationBar from 'expo-navigation-bar'
 
 import {
     useFonts,
@@ -28,6 +30,14 @@ export default function App() {
         Philosopher_700Bold,
         Philosopher_400Regular_Italic,
     })
+
+    useEffect(() => {
+
+        if(Platform.OS === 'android') {
+            NavigationBar.setBackgroundColorAsync(THEME.COLORS.BACKGROUND_900)
+        }
+        
+    }, [])
 
     return (
         <SafeAreaProvider>
