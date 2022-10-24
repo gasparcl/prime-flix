@@ -1,4 +1,7 @@
-import {View, StyleSheet, StatusBar} from "react-native"
+import {useEffect} from "react"
+import {View, StyleSheet, StatusBar, Platform} from "react-native"
+import {SafeAreaProvider} from "react-native-safe-area-context"
+import * as NavigationBar from 'expo-navigation-bar'
 
 import {
     useFonts,
@@ -10,13 +13,13 @@ import {
 import {
     Philosopher_400Regular,
     Philosopher_700Bold,
-    Philosopher_400Regular_Italic
-} from '@expo-google-fonts/philosopher'
+    Philosopher_400Regular_Italic,
+} from "@expo-google-fonts/philosopher"
 
 import {THEME} from "./src/theme"
 
 import {Loading} from "./src/components/Loading"
-import {Home} from "./src/screens/Home"
+import {Routes} from "./src/routes"
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -25,25 +28,35 @@ export default function App() {
         Roboto_900Black,
         Philosopher_400Regular,
         Philosopher_700Bold,
-        Philosopher_400Regular_Italic
+        Philosopher_400Regular_Italic,
     })
 
-    return (
-        <View style={styles.container}>
-            <StatusBar
-                barStyle="light-content"
-                backgroundColor="transparent"
-                translucent
-            />
+    useEffect(() => {
 
-            {fontsLoaded ? <Home /> : <Loading />}
-        </View>
+        if(Platform.OS === 'android') {
+            NavigationBar.setBackgroundColorAsync(THEME.COLORS.BACKGROUND_900)
+        }
+        
+    }, [])
+
+    return (
+        <SafeAreaProvider>
+            <View style={styles.container}>
+                <StatusBar
+                    barStyle="light-content"
+                    backgroundColor="transparent"
+                    translucent
+                />
+
+                {fontsLoaded ? <Routes /> : <Loading />}
+            </View>
+        </SafeAreaProvider>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: THEME.COLORS.BACKGROUND_900,
+        backgroundColor: THEME.COLORS.BACKGROUND,
     },
 })
