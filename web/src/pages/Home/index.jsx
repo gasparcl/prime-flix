@@ -56,7 +56,6 @@ export default function Home() {
                 const popularList = responsePopular.data.results
                 const topRatedList = responseTopRated.data.results
                 const upcomingList = responseUpcoming.data.results
-                console.log(responseUpcoming.data)
 
                 // Setting Data
                 setNowPlaying(nowPlayingList)
