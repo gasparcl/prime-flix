@@ -16,7 +16,7 @@ export const Summary = styled(AccordionSummary)`
         transition: all 0.35s;
     }
     .MuiAccordionSummary-content.Mui-expanded {
-        margin: 16px 0 4px;
+        margin: 2px 0 4px;
         transition: all 0.35s;
     }
 `

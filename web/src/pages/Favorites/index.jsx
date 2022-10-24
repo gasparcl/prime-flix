@@ -2,7 +2,7 @@ import usePersistedState from "../../hooks/usePersistedState"
 import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
 
 import PageTitle from "../../components/PageTitle"
-import FavoritesCard from "../../components/FavoritesCard "
+import FilmsCard from "../../components/FilmsCard"
 import { FavoriteGridItem, FavoritesGrid } from "./styles"
 
 export default function Favorites() {
@@ -20,11 +20,11 @@ export default function Favorites() {
     return (
         <>
             <PageTitle description="Favorited Films" upperCase />
-            <FavoritesGrid container spacing={1}>
+            <FavoritesGrid container spacing={2}>
                 {favorites.map((favorite) => {
                     return (
                         <FavoriteGridItem item xs={3} key={favorite.id}>
-                            <FavoritesCard favoriteData={favorite} />
+                            <FilmsCard filmData={favorite} />
                         </FavoriteGridItem>
                     )
                 })}

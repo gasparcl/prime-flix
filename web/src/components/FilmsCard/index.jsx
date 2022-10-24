@@ -62,9 +62,6 @@ export default function FilmsCard({ filmData, imageHeight, ...props }) {
                     </FilmContent>
                 </Details>
                 <CardActions>
-                    {/* <Button size="small" color="primary">
-                        Share
-                    </Button> */}
                     <Link to={`/movie/${filmData.id}`} className="col-12">
                         <button className="col-12 btn btn-outline-danger">
                             Learn More

@@ -6,10 +6,7 @@ import { FETCH_PARAMS } from "../../consts/apiFetch"
 
 import toast from "react-hot-toast"
 
-import FilmsCard from "../../components/FilmsCard"
 import Loader from "../../components/Loader"
-import PageTitle from "../../components/PageTitle"
-import { MoviesGrid, MoviesGridItem } from "./styles"
 import Slider from "../../components/slider"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
@@ -22,17 +19,50 @@ export default function Home() {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
     // ╠═╣║ ║║ ║╠╩╗╚═╗
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
-    const [films, setFilms] = useState([])
+    const [popular, setPopular] = useState([])
+    const [nowPlaying, setNowPlaying] = useState([])
+    const [topRated, setTopRated] = useState([])
+    const [upcoming, setUpcoming] = useState([])
     const [loading, setLoading] = useState(true)
 
     useLayoutEffect(() => {
         async function loadFilms() {
             try {
-                const response = await api.get(apiEndPoints.movies.nowPlaying, {
-                    params: FETCH_PARAMS,
-                })
-                const filmsList = response.data.results
-                setFilms(filmsList)
+                const responseNowPlaying = await api.get(
+                    apiEndPoints.movies.nowPlaying,
+                    {
+                        params: FETCH_PARAMS,
+                    },
+                )
+                const responsePopular = await api.get(
+                    apiEndPoints.movies.popular,
+                    {
+                        params: FETCH_PARAMS,
+                    },
+                )
+                const responseTopRated = await api.get(
+                    apiEndPoints.movies.topRated,
+                    {
+                        params: FETCH_PARAMS,
+                    },
+                )
+                const responseUpcoming = await api.get(
+                    apiEndPoints.movies.upcoming,
+                    {
+                        params: FETCH_PARAMS,
+                    },
+                )
+                const nowPlayingList = responseNowPlaying.data.results
+                const popularList = responsePopular.data.results
+                const topRatedList = responseTopRated.data.results
+                const upcomingList = responseUpcoming.data.results
+                console.log(responseUpcoming.data)
+
+                // Setting Data
+                setNowPlaying(nowPlayingList)
+                setPopular(popularList)
+                setTopRated(topRatedList)
+                setUpcoming(upcomingList)
             } catch (error) {
                 toast.error(
                     `There's a problem loading films...
@@ -42,9 +72,8 @@ export default function Home() {
                         duration: 6000,
                     },
                 )
-            } finally {
-                setLoading(false)
             }
+            setLoading(false)
         }
         loadFilms()
     }, [])
@@ -53,8 +82,10 @@ export default function Home() {
     else {
         return (
             <>
-                <PageTitle description="Releases" upperCase />
-                <Slider data={films} />
+                <Slider data={nowPlaying} title="Now Playing" />
+                <Slider data={upcoming} title="Upcoming next" />
+                <Slider data={topRated} title="Top Rated" />
+                <Slider data={popular} title="Most Popular" />
             </>
         )
     }

@@ -7,5 +7,14 @@ export const apiEndPoints = {
         get nowPlaying() {
             return `${this.root}/now_playing`
         },
+        get popular() {
+            return `${this.root}/popular`
+        },
+        get topRated() {
+            return `${this.root}/top_rated`
+        },
+        get upcoming() {
+            return `${this.root}/upcoming`
+        },
     },
 }

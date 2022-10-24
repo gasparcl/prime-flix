@@ -17,7 +17,7 @@ const FETCH_LANGUAGE = "en-US" // example: "pt-BR"
 const FETCH_PARAMS = {
     api_key: process.env.REACT_APP_THEMOVIEDB_API_KEY, // GET INSIDE .env.example to know how to get your credentials
     language: FETCH_LANGUAGE,
-    page: 1,
+    region: "US",
 }
 
 const IMAGE_URL = "https://image.tmdb.org/t/p/original" // default apiEndPoint link to get images
