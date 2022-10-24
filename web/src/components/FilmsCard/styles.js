@@ -1,22 +1,30 @@
 import styled from "styled-components"
 
 import {
+    Accordion,
     AccordionDetails,
     AccordionSummary,
     CardContent,
     CardMedia,
 } from "@material-ui/core"
 
+export const CollapseCard = styled(Accordion)`
+    .MuiCollapse-root {
+        background: #222;
+    }
+`
+
 export const Summary = styled(AccordionSummary)`
     &.MuiAccordionSummary-root {
         padding: 0;
+        background: #222;
     }
     .MuiAccordionSummary-content {
-        margin: 2px 0;
+        margin: 0;
         transition: all 0.35s;
     }
     .MuiAccordionSummary-content.Mui-expanded {
-        margin: 2px 0 4px;
+        margin: 0;
         transition: all 0.35s;
     }
 `
@@ -49,7 +57,8 @@ export const FilmContent = styled(CardContent)`
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-        min-height: 64px;
+        min-height: 55px;
+        line-height: 1.2;
     }
 `
 

@@ -1,13 +1,29 @@
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 
+import usePersistedState from "../../hooks/usePersistedState"
 import { IMAGE_URL } from "../../consts/apiFetch"
+import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
+import { isFavoritedFilm } from "../../services/utils"
 
 import { Typography } from "@material-ui/core"
 
-import { ButtonIcon, DetailsButton, FilmMedia, HoverDiv } from "./styles"
+import { FilmMedia, HoverDiv } from "./styles"
+import LearnMoreButton from "../Buttons/LearnMore"
+import FavoriteButton from "../Buttons/Favorite"
 
 export default function SliderItem({ itemData, imageHeight, ...props }) {
+    // ╦ ╦╔═╗╔═╗╦╔═╔═╗
+    // ╠═╣║ ║║ ║╠╩╗╚═╗
+    // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
+    // eslint-disable-next-line
+    const [favorites, setFavorites] = usePersistedState(
+        FAVORITE_STORAGE_KEY,
+        [],
+    )
+
+    const isFavorite = isFavoritedFilm(favorites, itemData)
+
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
     // ╩ ╩╩ ╩╩╝╚╝
@@ -27,25 +43,23 @@ export default function SliderItem({ itemData, imageHeight, ...props }) {
                         variant="h6"
                         className="titleMaxLines"
                     >
-                        {itemData.title}
+                        <b>{itemData.title}</b>
                     </Typography>
                     <Typography
-                        variant="body1"
+                        variant="body2"
                         component="p"
                         className="description"
                     >
                         {itemData.overview}
                     </Typography>
                     <Link to={`/movie/${itemData.id}`} className="col-12">
-                        <DetailsButton className="btn btn-outline-danger">
-                            <span className="d-flex align-items-center justify-content-center">
-                                Learn More
-                                <ButtonIcon fontSize="small" />
-                            </span>
-                        </DetailsButton>
+                        <LearnMoreButton>Learn More</LearnMoreButton>
                     </Link>
                 </div>
             </HoverDiv>
+            {isFavorite && (
+                <FavoriteButton isTag isFavorite={isFavorite} disabled />
+            )}
         </div>
     )
 }

@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 import { CardMedia } from "@material-ui/core"
-import { DoubleArrowOutlined } from "@material-ui/icons"
 
 export const FilmMedia = styled(CardMedia)`
     &.MuiCardMedia-img {
@@ -55,17 +54,4 @@ export const HoverDiv = styled.div`
         -webkit-box-orient: vertical;
         color: #fff;
     }
-`
-export const DetailsButton = styled.button`
-    width: 100%;
-
-    &:hover .MuiSvgIcon-root {
-        left: 0.45rem;
-        transition: all 0.25s;
-    }
-`
-
-export const ButtonIcon = styled(DoubleArrowOutlined)`
-    position: relative;
-    left: 0.25rem;
 `

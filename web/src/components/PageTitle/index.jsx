@@ -19,7 +19,7 @@ export default function PageTitle({
                     component="h4"
                     style={{ color: props.color, fontSize: fontSize }}
                 >
-                    {upperCase ? description.toUpperCase() : description}
+                    <b>{upperCase ? description.toUpperCase() : description}</b>
                 </TitleText>
             </div>
         </>
