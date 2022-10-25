@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 export const HeaderMenu = styled(Box)`
     width: 100%;
-    padding: 0 4rem;
+    padding: 0.5rem 4rem;
     background: #c4161c;
     display: block;
     position: sticky;
@@ -27,7 +27,7 @@ export const HeaderMenu = styled(Box)`
     & a {
         text-decoration: initial;
         color: #000;
-        transition: all 0.2s;
+        transition: all 0.25s;
     }
     & a:hover {
         color: #fff;
@@ -35,16 +35,21 @@ export const HeaderMenu = styled(Box)`
 
     & a.logo {
         color: #000;
-        transition: all 0.35s;
+        transition: all 0.25s;
     }
 
     & a.logo:hover {
-        transform: scale(1.15);
+        transform: scale(1.1);
     }
 
     & a.logo:hover {
         text-decoration: initial;
         color: initial;
+    }
+
+    .logo-brand {
+        height: 105px;
+        width: auto;
     }
 
     .logo-text {
