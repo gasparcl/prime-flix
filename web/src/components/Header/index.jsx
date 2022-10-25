@@ -1,8 +1,11 @@
-import React from "react"
 import { Link, useLocation } from "react-router-dom"
+
 import { ListItem, List, Typography } from "@material-ui/core"
+
+import blackLogo from "../../assets/images/logo_transp.png"
+import SearchBar from "../SearchBar"
+
 import HeaderMenu from "./styles"
-import whiteLogo from "../../assets/images/transp_black_logo.png"
 
 function Header() {
     // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
@@ -30,9 +33,19 @@ function Header() {
     return (
         <HeaderMenu>
             <div className="header">
-                <Link to="/" className="logo">
-                    <img alt="logo" src={whiteLogo} className="logo-brand" />
-                </Link>
+                <div className="d-flex gap-5 justify-content-between align-items-center">
+                    <Link to="/" className="logo">
+                        <div className="logo__container">
+                            <img
+                                id="logoBrand"
+                                alt="logo"
+                                src={blackLogo}
+                                className="logo-brand"
+                            />
+                        </div>
+                    </Link>
+                    <SearchBar />
+                </div>
                 <List>
                     {headerLinks.map((item, key) => {
                         return (
@@ -53,7 +66,9 @@ function Header() {
                                         variant="body1"
                                         style={
                                             isActivePage(item.link)
-                                                ? { transform: "scale(1.3)" }
+                                                ? {
+                                                      transform: "scale(1.2)",
+                                                  }
                                                 : { undefined }
                                         }
                                     >

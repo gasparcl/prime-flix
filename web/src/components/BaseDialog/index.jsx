@@ -32,6 +32,7 @@ export const BASE_DIALOG_Z_INDEX = 10001
  *   disagreeLabel: string | React.ReactNode | object,
  *   agreeLabel: string | React.ReactNode | object,
  *   disagreeColor: string,
+ *   disagreeVariant: string,
  *   agreeColor: string,
  *   onConfirm: () => void,
  *   onCancel: () => void,
@@ -45,6 +46,7 @@ export default function BaseDialog({
     disagreeLabel,
     agreeLabel,
     disagreeColor,
+    disagreeVariant,
     agreeColor,
     onConfirm,
     onCancel,
@@ -93,7 +95,7 @@ export default function BaseDialog({
                 {onCancel && (
                     <Button
                         onClick={onCancel}
-                        variant="text"
+                        variant={disagreeVariant}
                         color={disagreeColor}
                         disabled={loading}
                         style={{ color: disagreeColor }}
@@ -148,6 +150,7 @@ BaseDialog.propTypes = {
     onConfirm: PropTypes.func,
     onCancel: PropTypes.func,
     zIndex: PropTypes.number,
+    disagreeVariant: PropTypes.string,
 }
 
 BaseDialog.defaultProps = {
@@ -158,4 +161,5 @@ BaseDialog.defaultProps = {
     disagreeColor: "#222",
     agreeColor: "#222",
     zIndex: BASE_DIALOG_Z_INDEX,
+    disagreeVariant: "text",
 }
