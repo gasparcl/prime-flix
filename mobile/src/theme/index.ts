@@ -23,8 +23,8 @@ const DEFAULT_THEME = {
         DISABLED: "#CBCBDD",
 
         PRIMARY: "#c4161c",
-        SUCCESS: "#34D399",
-        ALERT: "#F87171",
+        SUCCESS: "#2E7D32",
+        ALERT: "#D32F2F",
         WARNING: "#FFCC00",
 
         FOOTER: ["rgba(0,0,0,0)", "rgba(0,0,0,0.9)"],

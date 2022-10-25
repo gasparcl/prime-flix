@@ -11,6 +11,7 @@ import {Ionicons, AntDesign} from "@expo/vector-icons"
 import moment from "moment"
 
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
+import {getAverageColor} from '../../utils/getAverageColor'
 import {IMovie} from "../../components/Movies"
 
 import {styles} from "./styles"
@@ -21,8 +22,6 @@ interface MovieSummaryProps extends ModalProps {
 }
 
 export function MovieSummary({current, ...props}: MovieSummaryProps) {
-    console.log(current)
-
     return (
         <Modal animationType="slide" transparent {...props}>
             <View style={styles.screen}>
@@ -49,7 +48,7 @@ export function MovieSummary({current, ...props}: MovieSummaryProps) {
                                         "YYYY"
                                     )}
                                 </Text>
-                                <Text style={styles.movieVoteAverage}>
+                                <Text style={[styles.movieVoteAverage, {backgroundColor: getAverageColor(current?.vote_average)}]}>
                                     {current?.vote_average}
                                 </Text>
                                 <Text style={styles.movieTextSecondary}>
