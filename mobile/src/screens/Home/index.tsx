@@ -20,7 +20,7 @@ export function Home() {
     const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
     const sampleRelease = useMemo(() => {
-        return movies[6]
+        return movies[2]
     }, [movies])
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export function Home() {
     return (
         <ScrollView style={styles.container}>
 
-            <MovieHeader bannerUrl={sampleRelease?.poster_path}>
+            <MovieHeader bannerUrl={sampleRelease?.backdrop_path}>
                 <Text style={styles.title}>{sampleRelease?.title}</Text>
 
                 <View style={styles.controls}>

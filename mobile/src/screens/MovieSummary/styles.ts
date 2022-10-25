@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
         fontFamily: THEME.FONT_FAMILY.SANS.BOLD
     },
     movieInnerContent: {
-        padding: 12,
+        paddingHorizontal: 12,
         flex: 2
     },
     movieDetail: {

@@ -53,7 +53,7 @@ export function MovieSummary({current, ...props}: MovieSummaryProps) {
                                     {current?.vote_average}
                                 </Text>
                                 <Text style={styles.movieTextSecondary}>
-                                    {current?.vote_count}
+                                    {current?.vote_count} Avaliações
                                 </Text>
                             </View>
 
