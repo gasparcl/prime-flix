@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, memo} from "react"
 import {FlatList, View, ViewProps, Image,Text, Pressable} from "react-native"
 
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
@@ -87,3 +87,5 @@ export function Movies({title, url, initialData = [], onPressMovie, onLoadMovies
         </View>
     )
 }
+
+export default memo(Movies)

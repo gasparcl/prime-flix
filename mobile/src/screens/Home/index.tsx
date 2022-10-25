@@ -8,9 +8,9 @@ import {THEME} from "../../theme"
 import {styles} from "./styles"
 
 import {MovieHeader} from "../../components/MovieHeader"
-import {Movies, IMovie} from "../../components/Movies"
 import {Button} from "../../components/Button"
 import {Background} from "../../components/Background"
+import Movies, {IMovie} from "../../components/Movies"
 
 import {MovieSummary} from "../MovieSummary"
 
