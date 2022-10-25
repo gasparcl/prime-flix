@@ -1,9 +1,8 @@
-import {useEffect, useState, useMemo} from "react"
-import {Text, View, ScrollView, TouchableOpacity} from "react-native"
+import {useState} from "react"
+import {Text, View, TouchableOpacity} from "react-native"
 import {Entypo, AntDesign, Feather} from '@expo/vector-icons'
 
-import {THEMOVIEDB_CONFIG} from "../../config/themoviedb"
-import api from "../../services/api"
+import {sample} from "../../utils/sample"
 
 import {THEME} from "../../theme"
 import {styles} from "./styles"
@@ -11,42 +10,19 @@ import {styles} from "./styles"
 import {MovieHeader} from "../../components/MovieHeader"
 import {Movies, IMovie} from "../../components/Movies"
 import {Button} from "../../components/Button"
+import {Background} from "../../components/Background"
 
 import {MovieSummary} from "../MovieSummary"
 
 export function Home() {
-    const [movies, setMovies] = useState<IMovie[]>([])
-    const [loading, setLoading] = useState(true)
+    const [bannerMovie, setBannerMovie] = useState<IMovie | null>(null)
     const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
-    const sampleRelease = useMemo(() => {
-        return movies[2]
-    }, [movies])
-
-    useEffect(() => {
-        const loadMovies = async () => {
-            try {
-                const response = await api.get("movie/upcoming", {
-                    params: THEMOVIEDB_CONFIG,
-                })
-
-                const movies = response.data.results
-                setMovies(movies)
-                
-            } catch (error) {
-            }
-
-            setLoading(false)
-        }
-
-        loadMovies()
-    }, [])
-
     return (
-        <ScrollView style={styles.container}>
+        <Background>
 
-            <MovieHeader bannerUrl={sampleRelease?.backdrop_path}>
-                <Text style={styles.title}>{sampleRelease?.title}</Text>
+            <MovieHeader bannerUrl={bannerMovie?.backdrop_path}>
+                <Text style={styles.title}>{bannerMovie?.title}</Text>
 
                 <View style={styles.controls}>
                     <TouchableOpacity style={styles.control}>
@@ -77,22 +53,30 @@ export function Home() {
             </MovieHeader>
 
             <Movies 
-                title='Lançamentos'
-                data={movies}
-                loading={loading}
+                title='Em alta'
+                url="movie/popular"
+                onPressMovie={setSelectedMovie}
+                onLoadMovies={movies => setBannerMovie(sample(movies))}
+            />
+            <Movies 
+                title='Com estreia marcarda'
+                url="movie/upcoming"
                 onPressMovie={setSelectedMovie}
             />
             <Movies 
-                title='Em alta'
-                data={[...movies].reverse()}
-                loading={loading}
+                title='Lançamentos'
+                url="movie/now_playing"
+                onPressMovie={setSelectedMovie}
+            />
+            <Movies 
+                title='Bem avaliados pela crítica'
+                url="movie/top_rated"
                 onPressMovie={setSelectedMovie}
             />
             <Movies 
                 title='Minha lista'
-                data={movies.slice(0, 2)}
-                loading={loading}
                 onPressMovie={setSelectedMovie}
+                initialData={[]}
             />
 
             <MovieSummary 
@@ -100,6 +84,7 @@ export function Home() {
                 visible={!!selectedMovie}
                 onRequestClose={() => setSelectedMovie(null)}
             />
-        </ScrollView>
+
+        </Background>
     )
 }
