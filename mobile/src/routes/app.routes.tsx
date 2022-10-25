@@ -1,10 +1,12 @@
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
 import {Octicons, MaterialIcons} from "@expo/vector-icons"
 
+import {styles} from "./styles"
+
 import {TabBarIcon} from "../components/TabBarIcon"
 import {Home} from "../screens/Home"
-
-import {styles} from "./styles"
+import {Favorites} from "../screens/Favorites"
+import {Preferences} from "../screens/Preferences"
 
 const {Navigator, Screen} = createBottomTabNavigator()
 
@@ -36,7 +38,7 @@ export function AppRoutes() {
             />
             <Screen
                 name="favorites"
-                component={Home}
+                component={Favorites}
                 options={{
                     title: 'Favoritos',
                     tabBarIcon: (props) => (
@@ -50,7 +52,7 @@ export function AppRoutes() {
             />
             <Screen
                 name="preferences"
-                component={Home}
+                component={Preferences}
                 options={{
                     title: 'Preferências',
                     tabBarIcon: (props) => (
