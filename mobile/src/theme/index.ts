@@ -22,7 +22,7 @@ const DEFAULT_THEME = {
         DIVIDER: "#EFEFEF",
         DISABLED: "#CBCBDD",
 
-        PRIMARY: "#c4161c",
+        PRIMARY: "#1565C0",
         SUCCESS: "#2E7D32",
         ALERT: "#D32F2F",
         WARNING: "#FFCC00",
