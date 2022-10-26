@@ -95,6 +95,7 @@ export default function BaseDialog({
                 {onCancel && (
                     <Button
                         onClick={onCancel}
+                        id="close__dialog__btn"
                         variant={disagreeVariant}
                         color={disagreeColor}
                         disabled={loading}

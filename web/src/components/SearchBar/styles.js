@@ -8,10 +8,6 @@ export const StyledSearchBar = styled(TextField)`
         min-width: 300px;
     }
 
-    .MuiDialog-scrollPaper {
-        align-items: end;
-    }
-
     .MuiFormLabel-root {
         color: rgba(0, 0, 0, 0.54);
         transition: all 0.25s;
@@ -69,6 +65,11 @@ export const StyledSearchBar = styled(TextField)`
         color: #fff;
     }
 
+    .MuiInputAdornment-root {
+        height: 100%;
+        cursor: pointer;
+    }
+
     .MuiSvgIcon-root {
         transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     }
@@ -83,21 +84,31 @@ export const StyledSearchBar = styled(TextField)`
 `
 
 export const ResultsDialog = styled(BaseDialog)`
+    .MuiDialog-root {
+        z-index: 998;
+    }
+
     .MuiBackdrop-root {
         background: transparent;
     }
 
+    .MuiDialog-scrollPaper {
+        align-items: end;
+    }
+
     .MuiDialog-paperFullScreen {
-        height: calc(100vh - 111px);
-        width: calc(100vw - 485px);
+        height: calc(100vh - 100px);
+        width: 70vw;
     }
 
     .MuiDialogTitle-root {
         background: #181818;
+        padding: 16px 24px 4px;
     }
 
     .MuiDialogContent-root {
         background: #181818;
+        padding: 4px 24px 8px;
     }
 
     .MuiDialogActions-root {

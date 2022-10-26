@@ -7,14 +7,9 @@ import { FETCH_PARAMS } from "../../consts/apiFetch"
 import { InputAdornment } from "@material-ui/core"
 import { SearchOutlined } from "@material-ui/icons"
 
-import FilmsCard from "../../components/FilmsCard"
+import Loader from "../Loader"
 
-import {
-    ResultsDialog,
-    ResultsGrid,
-    ResultGridItem,
-    StyledSearchBar,
-} from "./styles"
+import { ResultsDialog, StyledSearchBar } from "./styles"
 import SearchResults from "../SearchResults"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
@@ -90,7 +85,10 @@ export default function SearchBar() {
                     margin="dense"
                     InputProps={{
                         endAdornment: (
-                            <InputAdornment position="end">
+                            <InputAdornment
+                                position="end"
+                                onClick={handleSubmit}
+                            >
                                 <SearchOutlined />
                             </InputAdornment>
                         ),
@@ -109,7 +107,11 @@ export default function SearchBar() {
                     disagreeLabel="close"
                     disagreeVariant="outlined"
                 >
-                    <SearchResults resultsData={results} />
+                    {loading ? (
+                        <Loader />
+                    ) : (
+                        <SearchResults resultsData={results} />
+                    )}
                 </ResultsDialog>
             )}
         </>

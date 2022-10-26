@@ -29,9 +29,12 @@ function Header() {
     // ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗
     // ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
     const isActivePage = (link) => link === locationPath
+    const searchDialogBtnAction = document
+        .getElementById("close__dialog__btn")
+        .click()
 
     return (
-        <HeaderMenu>
+        <HeaderMenu onClick={() => searchDialogBtnAction()}>
             <div className="header">
                 <div className="d-flex gap-5 justify-content-between align-items-center">
                     <Link to="/" className="logo">
