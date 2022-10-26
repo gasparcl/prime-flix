@@ -4,7 +4,8 @@ import {Octicons, MaterialIcons} from "@expo/vector-icons"
 import {styles} from "./styles"
 
 import {TabBarIcon} from "../components/TabBarIcon"
-import {Home} from "../screens/Home"
+
+import {HomeRoutes} from './home.routes'
 import {Favorites} from "../screens/Favorites"
 import {Preferences} from "../screens/Preferences"
 
@@ -17,7 +18,7 @@ export function AppRoutes() {
             screenOptions={{
                 headerShown: false,
                 headerStyle: styles.headerStyle,
-                headerTitleStyle: styles.headerTitleStyle,
+                headerTitleStyle: styles.bottomTitleStyle,
                 tabBarStyle: styles.tabBarStyle,
                 tabBarLabelStyle: styles.tabBarLabelStyle,
                 tabBarItemStyle: styles.tabBarItemStyle,
@@ -25,7 +26,7 @@ export function AppRoutes() {
         >
             <Screen
                 name="home"
-                component={Home}
+                component={HomeRoutes}
                 options={{
                     title: 'Início',
                     tabBarIcon: (props) => (
