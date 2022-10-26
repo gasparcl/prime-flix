@@ -77,15 +77,16 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     control: {
-        alignItems: 'center'
-    },
-    controlIcon: {
-        padding: 12,
-        backgroundColor: THEME.COLORS.BACKGROUND_600,
-        borderRadius: 40,
-
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    controlIcon: {
+        height: 50,
+        width: 50,
+        borderRadius: 25,       
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: THEME.COLORS.BACKGROUND_600,
     },
     controlIconActive: {
         backgroundColor: THEME.COLORS.BACKGROUND_400,

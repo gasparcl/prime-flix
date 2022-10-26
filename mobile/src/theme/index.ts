@@ -29,8 +29,12 @@ const DEFAULT_THEME = {
 
         FOOTER: ["rgba(0,0,0,0)", "rgba(0,0,0,0.9)"],
         OVERLAY: "rgba(0,0,0,0.25)",
-        PRIMARY_OVERLAY: "rgba(3, 26, 110, 0.1)",
-        WHITE_OVERLAY: "rgba(255, 255, 255, 0.09)",
+        PRIMARY_OVERLAY: "rgba(21, 101, 192, 0.35)",
+        WHITE_OVERLAY: "rgba(255, 255, 255, 0.45)",
+
+        CUSTOM: {
+            RATING_STAR: '#FFE234'
+        }
     },
 
     FONT_FAMILY: {

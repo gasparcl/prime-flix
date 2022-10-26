@@ -7,6 +7,8 @@ import {
     Image,
     TouchableOpacity,
 } from "react-native"
+import {useNavigation} from "@react-navigation/native"
+
 import {Ionicons, AntDesign} from "@expo/vector-icons"
 import moment from "moment"
 
@@ -21,11 +23,26 @@ interface MovieSummaryProps extends ModalProps {
     current: IMovie | null
 }
 
-export function MovieSummary({current, ...props}: MovieSummaryProps) {
+export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryProps) {
+    const navigation = useNavigation()
+
+    const handleShowMovieDetail = (event: any) => {
+
+        if (current && onRequestClose) {
+            navigation.navigate("movieDetail", {
+                movieId: current?.id,
+                title: current.title,
+            })
+            
+            onRequestClose(event)
+        }
+        
+    }
+
     return (
         <Modal animationType="slide" transparent {...props}>
             <View style={styles.screen}>
-                <Pressable onPress={props.onRequestClose} style={{flex: 1}} />
+                <Pressable onPress={onRequestClose} style={{flex: 1}} />
 
                 <View style={styles.container}>
                     <View style={styles.content}>
@@ -63,7 +80,7 @@ export function MovieSummary({current, ...props}: MovieSummaryProps) {
                     </View>
 
                     <View style={styles.controls}>
-                        <TouchableOpacity style={styles.control}>
+                        <TouchableOpacity style={styles.control} onPress={handleShowMovieDetail}>
                             <View
                                 style={[
                                     styles.controlIcon,

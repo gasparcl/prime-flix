@@ -7,6 +7,10 @@ import api from "../../services/api"
 
 import {styles} from "./styles"
 
+export interface Genre {
+    id: number
+    name: string
+}
 export interface IMovie {
     id: string
     title: string
@@ -14,8 +18,11 @@ export interface IMovie {
     backdrop_path: string
     release_date: string
     vote_average: number
-    vote_count: string
+    vote_count: number
     overview: string
+
+    runtime?: number,
+    genres?: Genre[]
 }
 
 export interface MoviesProps extends ViewProps {

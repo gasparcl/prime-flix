@@ -21,7 +21,7 @@ export function Home() {
     return (
         <Background>
 
-            <MovieHeader bannerUrl={bannerMovie?.backdrop_path}>
+            <MovieHeader bannerUrl={bannerMovie?.poster_path}>
                 <Text style={styles.title}>{bannerMovie?.title}</Text>
 
                 <View style={styles.controls}>
@@ -59,7 +59,7 @@ export function Home() {
                 onLoadMovies={movies => setBannerMovie(sample(movies))}
             />
             <Movies 
-                title='Com estreia marcarda'
+                title='Agora nos cinemas'
                 url="movie/upcoming"
                 onPressMovie={setSelectedMovie}
             />
