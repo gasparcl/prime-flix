@@ -9,7 +9,7 @@ export const ResultGridItem = styled(Grid)``
 
 export const ResultItemCard = styled(SliderItem)`
     .description {
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
     }
 
     .kRkwDv {

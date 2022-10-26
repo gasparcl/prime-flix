@@ -92,7 +92,7 @@ export default function BaseDialog({
                 )}
             </DialogContent>
             <DialogActions>
-                {onCancel && (
+                {onCancel && !loading && (
                     <Button
                         onClick={onCancel}
                         id="close__dialog__btn"

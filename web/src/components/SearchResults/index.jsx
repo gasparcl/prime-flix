@@ -2,7 +2,7 @@ import { useMemo } from "react"
 
 import { ResultsGrid, ResultGridItem, ResultItemCard } from "./styles"
 
-export default function SearchResults({ resultsData }) {
+export default function SearchResults({ resultsData, onClose }) {
     const renderResults = useMemo(() => {
         return (
             <>
@@ -10,7 +10,10 @@ export default function SearchResults({ resultsData }) {
                     {resultsData.map((result) => {
                         return (
                             <ResultGridItem item xs={3} key={result.id}>
-                                <ResultItemCard itemData={result} />
+                                <ResultItemCard
+                                    itemData={result}
+                                    onClose={onClose}
+                                />
                             </ResultGridItem>
                         )
                     })}

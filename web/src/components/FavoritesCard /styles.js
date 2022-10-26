@@ -33,6 +33,8 @@ export const FilmMedia = styled(CardMedia)`
     transition: all 0.5s;
     &.MuiCardMedia-img {
         object-fit: cover;
+        height: 350px;
+        min-height: auto;
         transition: all 0.5s;
     }
 `

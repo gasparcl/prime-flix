@@ -5,6 +5,7 @@ import { CardMedia } from "@material-ui/core"
 export const FilmMedia = styled(CardMedia)`
     &.MuiCardMedia-img {
         object-fit: cover;
+        min-height: 375px;
     }
 `
 

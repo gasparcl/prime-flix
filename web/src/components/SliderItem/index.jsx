@@ -12,7 +12,12 @@ import { FilmMedia, HoverDiv } from "./styles"
 import LearnMoreButton from "../Buttons/LearnMore"
 import FavoriteButton from "../Buttons/Favorite"
 
-export default function SliderItem({ itemData, imageHeight, ...props }) {
+export default function SliderItem({
+    itemData,
+    imageHeight,
+    onClose,
+    ...props
+}) {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
     // ╠═╣║ ║║ ║╠╩╗╚═╗
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
@@ -52,7 +57,11 @@ export default function SliderItem({ itemData, imageHeight, ...props }) {
                     >
                         {itemData.overview}
                     </Typography>
-                    <Link to={`/movie/${itemData.id}`} className="col-12">
+                    <Link
+                        to={`/movie/${itemData.id}`}
+                        onClick={onClose}
+                        className="col-12"
+                    >
                         <LearnMoreButton>Learn More</LearnMoreButton>
                     </Link>
                 </div>
@@ -69,9 +78,11 @@ SliderItem.propTypes = {
         PropTypes.number,
         PropTypes.oneOf(["auto"]),
     ]),
+    onClose: PropTypes.func,
 }
 
 SliderItem.defaultProps = {
     item: [],
     imageHeight: "auto",
+    onClose: undefined,
 }

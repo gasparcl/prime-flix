@@ -1,75 +1,36 @@
-import { useState, useEffect } from "react"
-
-import api from "../../services/api"
-import { apiEndPoints } from "../../consts/apiEndPoints"
-import { FETCH_PARAMS } from "../../consts/apiFetch"
-
 import { InputAdornment } from "@material-ui/core"
 import { SearchOutlined } from "@material-ui/icons"
 
 import Loader from "../Loader"
 
-import { ResultsDialog, StyledSearchBar } from "./styles"
+import { StyledSearchBar, ResultsDialog } from "./styles"
 import SearchResults from "../SearchResults"
+import SearchPagination from "../Pagination"
 
-// ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
-// ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
-// ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
-const SEARCH_DELAY_TIME = 1000 * 1 // 1 seconds
-
-export default function SearchBar() {
-    // ╦ ╦╔═╗╔═╗╦╔═╔═╗
-    // ╠═╣║ ║║ ║╠╩╗╚═╗
-    // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
-    const [search, setSearch] = useState("")
-    const [results, setResults] = useState([])
-    const [open, setOpen] = useState(false)
-    const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        let timeOut = undefined
-        const value = search
-
-        if (value) {
-            setLoading(true)
-
-            timeOut = setTimeout(() => {
-                api.get(apiEndPoints.search.movie, {
-                    params: { query: value, ...FETCH_PARAMS },
-                })
-                    .then((response) => setResults(response.data.results))
-                    .catch(() => setResults([]))
-                    .finally(() => setLoading(false))
-            }, SEARCH_DELAY_TIME)
-        }
-
-        return () => clearTimeout(timeOut)
-    }, [search])
-
-    console.log(results)
-
+export default function SearchBar({
+    search,
+    results,
+    isLoading,
+    handleChange,
+    handleClose,
+    handleSearchDelayClose,
+    paginationData,
+    onChangePage,
+}) {
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
     // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
-    const handleOpen = () => {
-        if (search) setOpen(true)
-    }
-
-    const handleClose = () => {
-        setSearch("")
-        setResults([])
-        setOpen(false)
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
-        handleOpen()
     }
 
-    const handleChange = async (e) => {
-        const searchValue = await e.target.value
-        setSearch(searchValue)
-    }
+    // ╔╦╗╔═╗╔╦╗╦ ╦╔═╗╔╦╗╔═╗
+    // ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗
+    // ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
+    const hasResults = results.length > 0
+    const dialogTitle = `Results for the search: "${search}"`
+
+    let totalPages = paginationData.totalPages
 
     return (
         <>
@@ -82,36 +43,42 @@ export default function SearchBar() {
                     variant="outlined"
                     value={search}
                     onChange={handleChange}
+                    onClick={handleClose}
                     margin="dense"
                     InputProps={{
                         endAdornment: (
-                            <InputAdornment
-                                position="end"
-                                onClick={handleSubmit}
-                            >
+                            <InputAdornment position="end">
                                 <SearchOutlined />
                             </InputAdornment>
                         ),
                     }}
                 />
             </form>
-            {results && (
+            {hasResults && (
                 <ResultsDialog
-                    title={`Results for the search: "${search}"`}
+                    title={!isLoading ? dialogTitle : null}
+                    loading={isLoading}
                     fullWidth
                     fullScreen
-                    open={open}
+                    open={hasResults}
                     onCancel={handleClose}
                     maxWidth="lg"
                     disagreeColor="#fff"
                     disagreeLabel="close"
                     disagreeVariant="outlined"
                 >
-                    {loading ? (
+                    {isLoading ? (
                         <Loader />
                     ) : (
-                        <SearchResults resultsData={results} />
+                        <SearchResults
+                            resultsData={results}
+                            onClose={handleSearchDelayClose}
+                        />
                     )}
+                    <SearchPagination
+                        totalPages={totalPages}
+                        handleChange={onChangePage}
+                    />
                 </ResultsDialog>
             )}
         </>

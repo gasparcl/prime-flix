@@ -16,6 +16,7 @@ import { Rating } from "@material-ui/lab"
 import Loader from "../../components/Loader"
 import TextBox from "../TextBox"
 import FavoriteButton from "../Buttons/Favorite"
+import { DetailsImage } from "./styles"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -29,10 +30,12 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
     const [trailerVideoId, setTrailerVideoId] = useState("")
     const [loading, setLoading] = useState(true)
 
+    const getReleaseYear = current.release_date.split("-").shift()
+
     useEffect(() => {
         const getTrailerVideo = async () => {
             await fetch(
-                `https://www.googleapis.com/youtube/v3/search?snippet&q=${current.title} trailer&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=15`, // Get inside .env.example, into app root, to know how to configure your credentials
+                `https://www.googleapis.com/youtube/v3/search?snippet&q=${current.title} ${getReleaseYear} trailer&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=15`, // Get inside .env.example, into app root, to know how to configure your credentials
             )
                 .then((response) => response.json())
                 .then((data) => setTrailerVideoId(data.items[0].id.videoId))
@@ -46,7 +49,7 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
                 })
         }
         getTrailerVideo()
-    }, [current.title])
+    }, [current.title, getReleaseYear])
 
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
@@ -54,12 +57,16 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
     return (
         <>
             <TextBox variant="h4">{current.title}</TextBox>
-            <img
+            <DetailsImage
                 className="w-100 rounded-2"
-                src={`${IMAGE_URL}${current.backdrop_path}`}
+                src={`${IMAGE_URL}${
+                    current.backdrop_path
+                        ? current.backdrop_path
+                        : current.poster_path
+                }`}
                 alt={current.title}
             />
-            <Paper className="py-3 px-5 bg-dark bg-opacity-25 rounded-2">
+            <Paper className="py-3 px-5 bg-dark bg-opacity-25 rounded-2 w-100">
                 <TextBox
                     variant="body1"
                     className="d-flex justify-content-center align-items-center"

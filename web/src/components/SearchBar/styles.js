@@ -65,11 +65,6 @@ export const StyledSearchBar = styled(TextField)`
         color: #fff;
     }
 
-    .MuiInputAdornment-root {
-        height: 100%;
-        cursor: pointer;
-    }
-
     .MuiSvgIcon-root {
         transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     }
