@@ -2,8 +2,15 @@ import {StyleSheet} from "react-native"
 import {THEME} from "../theme"
 
 export const styles = StyleSheet.create({
-    headerStyle: {},
+    headerStyle: {
+        backgroundColor: THEME.COLORS.BACKGROUND_800,
+    },
     headerTitleStyle: {
+        color: THEME.COLORS.TEXT,
+        fontFamily: THEME.FONT_FAMILY.SANS.BLACK,
+        fontSize: THEME.FONT_SIZE.MD,
+    },
+    bottomTitleStyle: {
         color: THEME.COLORS.CAPTION_900,
         fontFamily: THEME.FONT_FAMILY.SANS.BOLD,
         fontSize: THEME.FONT_SIZE.MD,

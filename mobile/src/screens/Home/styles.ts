@@ -2,10 +2,6 @@ import {StyleSheet} from "react-native"
 import {THEME} from "../../theme"
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: THEME.COLORS.BACKGROUND
-    },
     title: {
         color: THEME.COLORS.TEXT,
         fontFamily: THEME.FONT_FAMILY.SERIF.BOLD,

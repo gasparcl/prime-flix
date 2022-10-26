@@ -9,12 +9,13 @@ export const styles = StyleSheet.create({
         borderRadius: 8,
         justifyContent: "flex-end",
         overflow: "hidden",
+        position: 'relative',
     },
-    footer: {
+    container: {
         width: "100%",
         height: headerSize / 2,
         padding: 16,
         justifyContent: "flex-end",
-        alignItems: 'center'
+        alignItems: 'center',
     },
 })
