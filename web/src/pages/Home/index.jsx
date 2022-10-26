@@ -7,7 +7,7 @@ import { FETCH_PARAMS } from "../../consts/apiFetch"
 import toast from "react-hot-toast"
 
 import Loader from "../../components/Loader"
-import Slider from "../../components/slider"
+import Slider from "../../components/Slider"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -81,10 +81,14 @@ export default function Home() {
     else {
         return (
             <>
-                <Slider data={nowPlaying} title="Now Playing" />
-                <Slider data={upcoming} title="Upcoming next" />
-                <Slider data={topRated} title="Top Rated" />
-                <Slider data={popular} title="Most Popular" />
+                <div id="homepage">
+                    <div id="slider_section">
+                        <Slider data={nowPlaying} title="Now Playing" />
+                        <Slider data={upcoming} title="Upcoming next" />
+                        <Slider data={topRated} title="Top Rated" />
+                        <Slider data={popular} title="Most Popular" />
+                    </div>
+                </div>
             </>
         )
     }

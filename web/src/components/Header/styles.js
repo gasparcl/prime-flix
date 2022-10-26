@@ -8,7 +8,7 @@ export const HeaderMenu = styled(Box)`
     display: block;
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 10002;
 
     .header {
         display: flex;
@@ -39,7 +39,7 @@ export const HeaderMenu = styled(Box)`
     }
 
     & a.logo:hover {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 
     & a.logo:hover {
@@ -47,8 +47,24 @@ export const HeaderMenu = styled(Box)`
         color: initial;
     }
 
+    .logo__container {
+        border: 2px solid #151515;
+        background: #181818;
+        border-radius: 50%;
+        height: 85px;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.25s;
+    }
+
+    .logo__container:hover {
+        opacity: 0.95;
+    }
+
     .logo-brand {
-        height: 105px;
+        height: 115px;
         width: auto;
     }
 
@@ -63,7 +79,7 @@ export const HeaderMenu = styled(Box)`
     }
 
     & p:hover {
-        transform: scale(1.6);
+        transform: scale(1.2);
     }
 
     .MuiTypography-h4 {

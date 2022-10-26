@@ -1,16 +1,26 @@
-import { Typography } from "@material-ui/core";
-import { ScaleLoader } from "react-spinners";
-import { LoaderDiv } from "./styles";
+import PropTypes from "prop-types"
 
-export default function Loader() {
+import { Typography } from "@material-ui/core"
+import { ScaleLoader } from "react-spinners"
+import { LoaderDiv } from "./styles"
+
+export default function Loader({ loaderText }) {
     return (
         <>
             <LoaderDiv>
                 <ScaleLoader color="#d40e0e" height={100} width={8} />
                 <Typography color="error" variant="h5">
-                    Wait...Data still loading...
+                    {loaderText}
                 </Typography>
             </LoaderDiv>
         </>
-    );
+    )
+}
+
+Loader.propTypes = {
+    loaderText: PropTypes.string,
+}
+
+Loader.defaultProps = {
+    loaderText: "Wait...Data still loading...",
 }

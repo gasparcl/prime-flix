@@ -44,7 +44,9 @@ export default function FilmsCard({
 }) {
     const classes = useStyles()
 
-    const isFavorite = isFavoritedFilm(favoritesList, filmData)
+    const isFavorite = favoritesList
+        ? isFavoritedFilm(favoritesList, filmData)
+        : false
 
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
@@ -57,7 +59,11 @@ export default function FilmsCard({
                         component="img"
                         alt={filmData.title}
                         height={imageHeight}
-                        image={`${IMAGE_URL}${filmData.poster_path}`}
+                        image={`${IMAGE_URL}${
+                            filmData.poster_path
+                                ? filmData.poster_path
+                                : filmData.backdrop_path
+                        }`}
                         title={filmData.title}
                         className="rounded rounded-1"
                     />
@@ -86,11 +92,13 @@ export default function FilmsCard({
                     </Link>
                 </CardActions>
             </CollapseCard>
-            <FavoriteButton
-                isTag
-                isFavorite={isFavorite}
-                onToggleFavorites={onClickTag}
-            />
+            {onClickTag && (
+                <FavoriteButton
+                    isTag
+                    isFavorite={isFavorite}
+                    onToggleFavorites={onClickTag}
+                />
+            )}
         </div>
     )
 }
@@ -100,9 +108,13 @@ FilmsCard.propTypes = {
         PropTypes.number,
         PropTypes.oneOf(["auto"]),
     ]),
+    favoritesList: PropTypes.array,
+    onClickTag: PropTypes.bool,
 }
 
 FilmsCard.defaultProps = {
     filmData: [],
     imageHeight: "auto",
+    favoritesList: [],
+    onClickTag: false,
 }
