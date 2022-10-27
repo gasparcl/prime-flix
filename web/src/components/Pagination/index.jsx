@@ -1,10 +1,6 @@
 import { PaginationContainer, StyledPagination } from "./styles"
 
-export default function SearchPagination({
-    totalPages,
-    handleChange,
-    ...props
-}) {
+export default function Pagination({ totalPages, handleChange, ...props }) {
     return (
         <>
             <PaginationContainer>

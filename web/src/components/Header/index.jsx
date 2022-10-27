@@ -98,11 +98,6 @@ function Header() {
         setSearch(searchValue)
     }
 
-    const handleChangePage = (_, newPage) => {
-        setPage(newPage)
-        setChangingPage(true)
-    }
-
     // ╔╦╗╔═╗╔╦╗╦ ╦╔═╗╔╦╗╔═╗
     // ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗
     // ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
@@ -134,7 +129,6 @@ function Header() {
                         handleClose={handleClose}
                         handleSearchDelayClose={handleSearchDelayClose}
                         paginationData={paginationData}
-                        onChangePage={handleChangePage}
                         isChangingPage={changingPage}
                     />
                 </div>

@@ -3,7 +3,7 @@ import { SearchOutlined } from "@material-ui/icons"
 
 import { StyledSearchBar, ResultsDialog, ResultsDialogLoader } from "./styles"
 import SearchResults from "../SearchResults"
-import SearchPagination from "../Pagination"
+import Pagination from "../Pagination"
 
 export default function SearchBar({
     search,
@@ -13,8 +13,6 @@ export default function SearchBar({
     handleClose,
     handleSearchDelayClose,
     paginationData,
-    onChangePage,
-    isChangingPage,
 }) {
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
@@ -76,13 +74,6 @@ export default function SearchBar({
                                 onClose={handleSearchDelayClose}
                             />
                         </>
-                    )}
-                    {isChangingPage && (
-                        <SearchPagination
-                            totalPages={totalPages}
-                            handleChange={onChangePage}
-                            page={currentPage}
-                        />
                     )}
                 </ResultsDialog>
             )}

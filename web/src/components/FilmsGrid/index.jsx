@@ -52,6 +52,14 @@ export default function FilmsGrid({
         loadFilms()
     }, [url, page])
 
+    // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
+    // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
+    // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
+    const handleChangePage = (_, newPage) => {
+        setPage(newPage)
+        setChangingPage(true)
+    }
+
     if (loading) return <Loader />
 
     return (
@@ -74,6 +82,13 @@ export default function FilmsGrid({
                     )
                 })}
             </StyledGrid>
+            {isChangingPage && (
+                <Pagination
+                    totalPages={totalPages}
+                    handleChange={onChangePage}
+                    page={currentPage}
+                />
+            )}
         </>
     )
 }
