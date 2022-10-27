@@ -1,15 +1,13 @@
 import styled from "styled-components"
-import { Grid } from "@material-ui/core"
-import SliderItem from "../SliderItem"
+import FilmList from "../FilmList"
 
-export const ResultsGrid = styled(Grid)`
-    padding: 0.5rem;
-`
-export const ResultGridItem = styled(Grid)``
+export const ResultList = styled(FilmList)`
+    .MuiCardMedia-root {
+        border-radius: 0.5rem;
+    }
 
-export const ResultItemCard = styled(SliderItem)`
     .description {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem !important;
     }
 
     .kRkwDv {

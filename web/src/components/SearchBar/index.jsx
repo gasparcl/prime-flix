@@ -1,9 +1,7 @@
 import { InputAdornment } from "@material-ui/core"
 import { SearchOutlined } from "@material-ui/icons"
 
-import Loader from "../Loader"
-
-import { StyledSearchBar, ResultsDialog } from "./styles"
+import { StyledSearchBar, ResultsDialog, ResultsDialogLoader } from "./styles"
 import SearchResults from "../SearchResults"
 import SearchPagination from "../Pagination"
 
@@ -16,6 +14,7 @@ export default function SearchBar({
     handleSearchDelayClose,
     paginationData,
     onChangePage,
+    isChangingPage,
 }) {
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
@@ -31,6 +30,7 @@ export default function SearchBar({
     const dialogTitle = `Results for the search: "${search}"`
 
     let totalPages = paginationData.totalPages
+    let currentPage = paginationData.currentPage
 
     return (
         <>
@@ -68,17 +68,22 @@ export default function SearchBar({
                     disagreeVariant="outlined"
                 >
                     {isLoading ? (
-                        <Loader />
+                        <ResultsDialogLoader className="ResultsLoader" />
                     ) : (
-                        <SearchResults
-                            resultsData={results}
-                            onClose={handleSearchDelayClose}
+                        <>
+                            <SearchResults
+                                url={results}
+                                onClose={handleSearchDelayClose}
+                            />
+                        </>
+                    )}
+                    {isChangingPage && (
+                        <SearchPagination
+                            totalPages={totalPages}
+                            handleChange={onChangePage}
+                            page={currentPage}
                         />
                     )}
-                    <SearchPagination
-                        totalPages={totalPages}
-                        handleChange={onChangePage}
-                    />
                 </ResultsDialog>
             )}
         </>

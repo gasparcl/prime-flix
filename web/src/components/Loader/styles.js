@@ -7,4 +7,9 @@ export const LoaderDiv = styled.div`
     justify-content: center;
     gap: 1rem;
     padding-top: 3rem;
+
+    &.ResultsLoader {
+        min-height: calc(100vh - 281px);
+        padding-top: 0;
+    }
 `

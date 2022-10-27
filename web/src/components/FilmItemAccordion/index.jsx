@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function FilmsCard({
+export default function FilmItemAccordion({
     filmData,
     imageHeight,
     favoritesList,
@@ -103,7 +103,7 @@ export default function FilmsCard({
     )
 }
 
-FilmsCard.propTypes = {
+FilmItemAccordion.propTypes = {
     imageHeight: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.oneOf(["auto"]),
@@ -112,7 +112,7 @@ FilmsCard.propTypes = {
     onClickTag: PropTypes.bool,
 }
 
-FilmsCard.defaultProps = {
+FilmItemAccordion.defaultProps = {
     filmData: [],
     imageHeight: "auto",
     favoritesList: [],

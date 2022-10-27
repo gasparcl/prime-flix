@@ -22,6 +22,7 @@ export const HoverDiv = styled.div`
     cursor: pointer;
     transition: all 0.35s;
     opacity: 0;
+    border-radius: 0.5rem;
 
     &:hover {
         background: rgba(0, 0, 0, 0.3);
@@ -35,6 +36,7 @@ export const HoverDiv = styled.div`
             rgba(0, 0, 0, 0.9)
         );
         padding: 0 0.5rem;
+        border-radius: 0.5rem;
     }
 
     .description {

@@ -12,12 +12,7 @@ import { FilmMedia, HoverDiv } from "./styles"
 import LearnMoreButton from "../Buttons/LearnMore"
 import FavoriteButton from "../Buttons/Favorite"
 
-export default function SliderItem({
-    itemData,
-    imageHeight,
-    onClose,
-    ...props
-}) {
+export default function FilmItem({ filmData, imageHeight, onClose, ...props }) {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
     // ╠═╣║ ║║ ║╠╩╗╚═╗
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
@@ -27,7 +22,7 @@ export default function SliderItem({
         [],
     )
 
-    const isFavorite = isFavoritedFilm(favorites, itemData)
+    const isFavorite = isFavoritedFilm(favorites, filmData)
 
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
@@ -36,10 +31,10 @@ export default function SliderItem({
         <div className={`position-relative ${props.className}`}>
             <FilmMedia
                 component="img"
-                alt={itemData.title}
+                alt={filmData.title}
                 height={imageHeight}
-                image={`${IMAGE_URL}${itemData.poster_path}`}
-                title={itemData.title}
+                image={`${IMAGE_URL}${filmData.poster_path}`}
+                title={filmData.title}
             />
             <HoverDiv>
                 <div className="content">
@@ -48,17 +43,17 @@ export default function SliderItem({
                         variant="h6"
                         className="titleMaxLines"
                     >
-                        <b>{itemData.title}</b>
+                        <b>{filmData.title}</b>
                     </Typography>
                     <Typography
                         variant="body2"
                         component="p"
                         className="description"
                     >
-                        {itemData.overview}
+                        {filmData.overview}
                     </Typography>
                     <Link
-                        to={`/movie/${itemData.id}`}
+                        to={`/movie/${filmData.id}`}
                         onClick={onClose}
                         className="col-12"
                     >
@@ -73,7 +68,7 @@ export default function SliderItem({
     )
 }
 
-SliderItem.propTypes = {
+FilmItem.propTypes = {
     imageHeight: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.oneOf(["auto"]),
@@ -81,7 +76,7 @@ SliderItem.propTypes = {
     onClose: PropTypes.func,
 }
 
-SliderItem.defaultProps = {
+FilmItem.defaultProps = {
     item: [],
     imageHeight: "auto",
     onClose: undefined,

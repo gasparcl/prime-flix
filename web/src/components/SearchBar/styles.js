@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { TextField } from "@material-ui/core"
 
 import BaseDialog from "../BaseDialog"
+import Loader from "../Loader"
 
 export const StyledSearchBar = styled(TextField)`
     .MuiFormControl-root {
@@ -114,3 +115,5 @@ export const ResultsDialog = styled(BaseDialog)`
         border: 1px solid #fff;
     }
 `
+
+export const ResultsDialogLoader = styled(Loader)``

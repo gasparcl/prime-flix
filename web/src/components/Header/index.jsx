@@ -36,6 +36,7 @@ function Header() {
     const [loading, setLoading] = useState(false)
     const [page, setPage] = useState(1)
     const [paginationData, setPaginationData] = useState({})
+    const [changingPage, setChangingPage] = useState(true)
 
     useEffect(() => {
         let timeOut = undefined
@@ -75,15 +76,19 @@ function Header() {
     const handleClose = () => {
         setSearch("")
         setResults([])
+        setPage(1)
+        setChangingPage(true)
     }
 
     const handleSearchDelayClose = () => {
         let timeOut = undefined
+        setChangingPage(false)
         setLoading(true)
 
         timeOut = setTimeout(() => {
             setSearch("")
             setResults([])
+            setPage(1)
             setLoading(false)
         }, SEARCH_CLOSE_DELAY_TIME)
     }
@@ -95,6 +100,7 @@ function Header() {
 
     const handleChangePage = (_, newPage) => {
         setPage(newPage)
+        setChangingPage(true)
     }
 
     // ╔╦╗╔═╗╔╦╗╦ ╦╔═╗╔╦╗╔═╗
@@ -129,6 +135,7 @@ function Header() {
                         handleSearchDelayClose={handleSearchDelayClose}
                         paginationData={paginationData}
                         onChangePage={handleChangePage}
+                        isChangingPage={changingPage}
                     />
                 </div>
                 <List>

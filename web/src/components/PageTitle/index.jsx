@@ -1,18 +1,19 @@
 import PropTypes from "prop-types"
+import { Link } from "react-router-dom"
+import LearnMoreButton from "../Buttons/LearnMore"
 
-import { TitleText } from "./styles"
+import { TitleDiv, TitleText } from "./styles"
 
 export default function PageTitle({
     description,
     upperCase,
     fontSize,
+    isLink,
     ...props
 }) {
     return (
         <>
-            <div
-                className={`d-flex flex-column justify-content-center align-items-center ${props.className}`}
-            >
+            <TitleDiv className={props.className}>
                 <TitleText
                     {...props}
                     variant="h4"
@@ -21,7 +22,12 @@ export default function PageTitle({
                 >
                     <b>{upperCase ? description.toUpperCase() : description}</b>
                 </TitleText>
-            </div>
+                {isLink && (
+                    <span className="Link">
+                        <LearnMoreButton>See all</LearnMoreButton>
+                    </span>
+                )}
+            </TitleDiv>
         </>
     )
 }
