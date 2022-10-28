@@ -1,9 +1,5 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-
-import api from "../../services/api"
-import { apiEndPoints } from "../../consts/apiEndPoints"
-import { FETCH_PARAMS } from "../../consts/apiFetch"
 
 import { ListItem, List, Typography } from "@material-ui/core"
 
@@ -12,85 +8,41 @@ import SearchBar from "../SearchBar"
 
 import HeaderMenu from "./styles"
 
-function Header() {
-    // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
-    // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
-    // ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
-    const headerLinks = [
-        { name: "Home", link: "/" },
-        {
-            name: "Favorites",
-            link: "/favorites",
-        },
-    ]
-    const SEARCH_DELAY_TIME = 1000 * 1 // 1 seconds
-    const SEARCH_CLOSE_DELAY_TIME = 1000 * 1.5 // 1.5 seconds
+// ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
+// ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
+// ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
+const headerLinks = [
+    { name: "Home", link: "/" },
+    {
+        name: "Favorites",
+        link: "/favorites",
+    },
+]
 
+const SEARCH_CLOSE_DELAY_TIME = 1000 * 1.5 // 1.5 seconds
+
+function Header() {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
     // ╠═╣║ ║║ ║╠╩╗╚═╗
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
     const location = useLocation()
     const locationPath = location.pathname
     const [search, setSearch] = useState("")
-    const [results, setResults] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [page, setPage] = useState(1)
-    const [paginationData, setPaginationData] = useState({})
-    const [changingPage, setChangingPage] = useState(true)
-
-    useEffect(() => {
-        let timeOut = undefined
-        const value = search.trim()
-        const hasSearch = value.length > 0
-
-        if (hasSearch) {
-            setLoading(true)
-
-            timeOut = setTimeout(() => {
-                api.get(apiEndPoints.search.movie, {
-                    params: {
-                        query: value,
-                        page: page,
-                        ...FETCH_PARAMS,
-                    },
-                })
-                    .then((response) => {
-                        setPaginationData({
-                            currentPage: response.data.page,
-                            totalItems: response.data.total_results,
-                            totalPages: response.data.total_pages,
-                        })
-                        setResults(response.data.results)
-                    })
-                    .catch(() => setResults([]))
-                    .finally(() => setLoading(false))
-            }, SEARCH_DELAY_TIME)
-        }
-
-        return () => clearTimeout(timeOut)
-    }, [search, page])
 
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
     // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
     const handleClose = () => {
         setSearch("")
-        setResults([])
-        setPage(1)
-        setChangingPage(true)
     }
 
     const handleSearchDelayClose = () => {
         let timeOut = undefined
-        setChangingPage(false)
-        setLoading(true)
-
         timeOut = setTimeout(() => {
             setSearch("")
-            setResults([])
-            setPage(1)
-            setLoading(false)
         }, SEARCH_CLOSE_DELAY_TIME)
+
+        return () => clearTimeout(timeOut)
     }
 
     const handleChange = (e) => {
@@ -123,13 +75,9 @@ function Header() {
                     </Link>
                     <SearchBar
                         search={search}
-                        results={results}
-                        isLoading={loading}
                         handleChange={handleChange}
                         handleClose={handleClose}
                         handleSearchDelayClose={handleSearchDelayClose}
-                        paginationData={paginationData}
-                        isChangingPage={changingPage}
                     />
                 </div>
                 <List>

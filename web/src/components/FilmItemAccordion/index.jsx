@@ -109,12 +109,12 @@ FilmItemAccordion.propTypes = {
         PropTypes.oneOf(["auto"]),
     ]),
     favoritesList: PropTypes.array,
-    onClickTag: PropTypes.bool,
+    onClickTag: PropTypes.func,
 }
 
 FilmItemAccordion.defaultProps = {
     filmData: [],
     imageHeight: "auto",
     favoritesList: [],
-    onClickTag: false,
+    onClickTag: undefined,
 }

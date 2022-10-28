@@ -9,56 +9,104 @@ import FilmItem from "../FilmItem"
 import FilmItemAccordion from "../FilmItemAccordion"
 import PageTitle from "../PageTitle"
 import Loader from "../Loader"
+import Pagination from "../Pagination"
 import { StyledGrid, StyledGridItem } from "./styles"
 
+// ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
+// ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
+// ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
+const hasSearch = (search) => {
+    const validSearch = search.trim()
+    const isValidSearch = validSearch.length > 0
+
+    return isValidSearch
+}
+
+let SEARCH_DELAY_TIME = 1000 * 2 // 0 seconds
 export default function FilmsGrid({
     title,
     url,
     onClose,
-    isAccordion,
     favoritesList,
     onClickTag,
+    search,
     ...props
 }) {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
     // ╠═╣║ ║║ ║╠╩╗╚═╗
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [films, setFilms] = useState([])
     const [page, setPage] = useState(1)
+    const [paginationData, setPaginationData] = useState({})
 
     useLayoutEffect(() => {
-        async function loadFilms() {
-            try {
-                const response = await api.get(url, {
-                    params: { page: page, ...FETCH_PARAMS },
-                })
-                const filmsList = response.data.results
+        if (url) {
+            setLoading(true)
 
-                // Setting Data
-                setFilms(filmsList)
-            } catch (error) {
-                toast.error(
-                    `There's a problem loading films...
-                    Code: ${error.code}\n
-                    "Message: ${error.message}"`,
-                    {
-                        duration: 6000,
-                    },
-                )
+            const apiParams = {
+                ...FETCH_PARAMS,
+                page,
             }
-            setLoading(false)
+
+            // Insert query
+            if (hasSearch(search)) {
+                apiParams.query = search
+                SEARCH_DELAY_TIME = 1000 * 5 // 1 second
+            }
+
+            let timeOut = undefined
+            timeOut = setTimeout(() => {
+                api.get(url, { params: { ...apiParams } })
+                    .then((response) => {
+                        const filmsList = response.data.results
+                        const paginationData = {
+                            currentPage: response.data.page,
+                            totalItems: response.data.total_results,
+                            totalPages: response.data.total_pages,
+                        }
+
+                        // Setting Data
+                        setFilms(filmsList)
+                        setPaginationData(paginationData)
+                    })
+                    .catch((error) => {
+                        toast.error(
+                            `There's a problem loading results...
+                            Code: ${error.code}\n
+                            "Message: ${error.message}"`,
+                            {
+                                duration: 6000,
+                            },
+                        )
+                        setFilms([])
+                    })
+                    .finally(() => setLoading(false))
+            }, SEARCH_DELAY_TIME)
+
+            return () => clearTimeout(timeOut)
         }
-        loadFilms()
-    }, [url, page])
+    }, [url, page, search])
 
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
     // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
     const handleChangePage = (_, newPage) => {
+        setLoading(true)
         setPage(newPage)
-        setChangingPage(true)
     }
+
+    // ╔═╗╔═╗╔═╗╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔
+    // ╠═╝╠═╣║ ╦║║║║╠═╣ ║ ║║ ║║║║
+    // ╩  ╩ ╩╚═╝╩╝╚╝╩ ╩ ╩ ╩╚═╝╝╚╝
+    const favoritesTotalItems = favoritesList.length
+    const favoritesItemPerPage = 20
+    const favoritesTotalPages = Math.ceil(
+        favoritesTotalItems / favoritesItemPerPage,
+    )
+
+    const hasPagination =
+        paginationData.totalPages > 1 || favoritesTotalPages > 1
 
     if (loading) return <Loader />
 
@@ -66,27 +114,53 @@ export default function FilmsGrid({
         <>
             {title && <PageTitle description={title} upperCase />}
             <StyledGrid container spacing={2}>
-                {films.map((film) => {
-                    return (
-                        <StyledGridItem item xs={3} key={film.id} {...props}>
-                            {isAccordion ? (
-                                <FilmItemAccordion
-                                    filmData={film}
-                                    favoritesList={favoritesList}
-                                    onClickTag={() => onClickTag(film)}
-                                />
-                            ) : (
-                                <FilmItem filmData={film} onClose={onClose} />
-                            )}
-                        </StyledGridItem>
-                    )
-                })}
+                {favoritesList && (
+                    <>
+                        {favoritesList.map((favorite) => {
+                            return (
+                                <StyledGridItem
+                                    item
+                                    xs={3}
+                                    key={favorite.id}
+                                    {...props}
+                                >
+                                    <FilmItemAccordion
+                                        filmData={favorite}
+                                        favoritesList={favoritesList}
+                                        onClickTag={() => onClickTag(favorite)}
+                                    />
+                                </StyledGridItem>
+                            )
+                        })}
+                    </>
+                )}
+                {url && (
+                    <>
+                        {films.map((film) => {
+                            return (
+                                <StyledGridItem
+                                    item
+                                    xs={3}
+                                    key={film.id}
+                                    {...props}
+                                >
+                                    <FilmItem
+                                        filmData={film}
+                                        onClose={onClose}
+                                    />
+                                </StyledGridItem>
+                            )
+                        })}
+                    </>
+                )}
             </StyledGrid>
-            {isChangingPage && (
+            {hasPagination && (
                 <Pagination
-                    totalPages={totalPages}
-                    handleChange={onChangePage}
-                    page={currentPage}
+                    totalPages={
+                        paginationData.totalPages || favoritesTotalPages
+                    }
+                    handleChange={handleChangePage}
+                    page={paginationData.currentPage}
                 />
             )}
         </>
@@ -97,16 +171,16 @@ FilmsGrid.propTypes = {
     title: PropTypes.string,
     url: PropTypes.string,
     onClose: PropTypes.func,
-    isAccordion: PropTypes.bool,
     favoritesList: PropTypes.array,
     onClickTag: PropTypes.func,
+    search: PropTypes.string,
 }
 
 FilmsGrid.defaultProps = {
     title: "",
     url: "",
     onClose: undefined,
-    isAccordion: false,
     favoritesList: [],
     onClickTag: undefined,
+    search: "",
 }

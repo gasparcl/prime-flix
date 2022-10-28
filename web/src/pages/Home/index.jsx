@@ -2,7 +2,7 @@ import { useState } from "react"
 
 import { apiEndPoints } from "../../consts/apiEndPoints"
 
-import FilmList from "../../components/FilmList"
+import FilmsSlider from "../../components/FilmsSlider"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -28,29 +28,25 @@ export default function Home() {
             <div id="homepage">
                 {!viewSpecificSection && (
                     <div id="slider_section">
-                        <FilmList
+                        <FilmsSlider
                             url={apiEndPoints.movies.nowPlaying}
                             title="Now Playing"
                             onClickAll={handleClickSeeAll}
-                            isSlider
                         />
-                        <FilmList
+                        <FilmsSlider
                             url={apiEndPoints.movies.upcoming}
                             title="Upcoming next"
                             onClickAll={handleClickSeeAll}
-                            isSlider
                         />
-                        <FilmList
+                        <FilmsSlider
                             url={apiEndPoints.movies.topRated}
                             title="Top Rated"
                             onClickAll={handleClickSeeAll}
-                            isSlider
                         />
-                        <FilmList
+                        <FilmsSlider
                             url={apiEndPoints.movies.popular}
                             title="Most Popular"
                             onClickAll={handleClickSeeAll}
-                            isSlider
                         />
                     </div>
                 )}

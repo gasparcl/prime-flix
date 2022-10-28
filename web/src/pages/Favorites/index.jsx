@@ -54,12 +54,11 @@ export default function Favorites() {
     // ╩ ╩╩ ╩╩╝╚╝
     return (
         <>
-            <PageTitle description="Favorited Films" upperCase />
+            <PageTitle description="" upperCase />
             <FavoritesGrid
-                filmsData={favorites}
+                title={"Favorited Films"}
                 favoritesList={favorites}
                 onClickTag={handleToggleFavorites}
-                isAccordion
             />
         </>
     )

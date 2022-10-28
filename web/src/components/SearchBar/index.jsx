@@ -1,18 +1,14 @@
 import { InputAdornment } from "@material-ui/core"
 import { SearchOutlined } from "@material-ui/icons"
 
-import { StyledSearchBar, ResultsDialog, ResultsDialogLoader } from "./styles"
+import { StyledSearchBar, ResultsDialog } from "./styles"
 import SearchResults from "../SearchResults"
-import Pagination from "../Pagination"
 
 export default function SearchBar({
     search,
-    results,
-    isLoading,
     handleChange,
     handleClose,
     handleSearchDelayClose,
-    paginationData,
 }) {
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
@@ -24,11 +20,8 @@ export default function SearchBar({
     // ╔╦╗╔═╗╔╦╗╦ ╦╔═╗╔╦╗╔═╗
     // ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗
     // ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
-    const hasResults = results.length > 0
+    const hasSearch = search.trim().length > 0
     const dialogTitle = `Results for the search: "${search}"`
-
-    let totalPages = paginationData.totalPages
-    let currentPage = paginationData.currentPage
 
     return (
         <>
@@ -52,29 +45,27 @@ export default function SearchBar({
                     }}
                 />
             </form>
-            {hasResults && (
+            {hasSearch && (
                 <ResultsDialog
-                    title={!isLoading ? dialogTitle : null}
-                    loading={isLoading}
+                    title={dialogTitle}
                     fullWidth
                     fullScreen
-                    open={hasResults}
+                    open={hasSearch}
                     onCancel={handleClose}
                     maxWidth="lg"
                     disagreeColor="#fff"
                     disagreeLabel="close"
                     disagreeVariant="outlined"
                 >
-                    {isLoading ? (
+                    {/* {isLoading ? (
                         <ResultsDialogLoader className="ResultsLoader" />
                     ) : (
-                        <>
-                            <SearchResults
-                                url={results}
-                                onClose={handleSearchDelayClose}
-                            />
-                        </>
-                    )}
+                        <> */}
+                    <SearchResults
+                        search={search}
+                        onClose={handleSearchDelayClose}
+                    />
+                    {/* </> */}
                 </ResultsDialog>
             )}
         </>

@@ -1,7 +1,7 @@
 import styled from "styled-components"
-import FilmList from "../FilmList"
+import FilmsGrid from "../FilmsGrid"
 
-export const ResultList = styled(FilmList)`
+export const ResultList = styled(FilmsGrid)`
     .MuiCardMedia-root {
         border-radius: 0.5rem;
     }

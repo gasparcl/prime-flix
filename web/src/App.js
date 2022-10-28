@@ -8,7 +8,11 @@ function App() {
             <div className="App">
                 <RoutesApp />
             </div>
-            <Toaster position="top-right" reverseOrder={false} />
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+                containerStyle={{ zIndex: 9999999999999 }}
+            />
             <Confirmation />
         </>
     )
