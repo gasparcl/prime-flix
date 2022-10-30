@@ -1,8 +1,6 @@
 import styled from "styled-components"
-import { TextField } from "@material-ui/core"
-
-import BaseDialog from "../BaseDialog"
-import Loader from "../Loader"
+import TextField from "@material-ui/core/TextField"
+import SearchResults from "../SearchResults"
 
 export const StyledSearchBar = styled(TextField)`
     .MuiFormControl-root {
@@ -79,41 +77,20 @@ export const StyledSearchBar = styled(TextField)`
     }
 `
 
-export const ResultsDialog = styled(BaseDialog)`
-    .MuiDialog-root {
-        z-index: 998;
+export const SearchResultsGrid = styled(SearchResults)`
+    .MuiCardMedia-root {
+        border-radius: 0.5rem;
     }
 
-    .MuiBackdrop-root {
-        background: transparent;
+    .description {
+        margin-bottom: 1rem !important;
     }
 
-    .MuiDialog-scrollPaper {
-        align-items: end;
+    .kRkwDv {
+        margin: 0 0 0.5rem;
     }
 
-    .MuiDialog-paperFullScreen {
-        height: calc(100vh - 100px);
-        width: 70vw;
-    }
-
-    .MuiDialogTitle-root {
-        background: #181818;
-        padding: 16px 24px 4px;
-    }
-
-    .MuiDialogContent-root {
-        background: #181818;
-        padding: 4px 24px 8px;
-    }
-
-    .MuiDialogActions-root {
-        background: #181818;
-    }
-
-    .MuiButton-outlined {
-        border: 1px solid #fff;
+    button {
+        margin-bottom: 1rem;
     }
 `
-
-export const ResultsDialogLoader = styled(Loader)``

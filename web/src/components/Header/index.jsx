@@ -28,6 +28,7 @@ function Header() {
     const location = useLocation()
     const locationPath = location.pathname
     const [search, setSearch] = useState("")
+    const [isLoadingSearch, setIsLoadingSearch] = useState(false)
 
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
@@ -37,9 +38,11 @@ function Header() {
     }
 
     const handleSearchDelayClose = () => {
+        setIsLoadingSearch(true)
         let timeOut = undefined
         timeOut = setTimeout(() => {
             setSearch("")
+            setIsLoadingSearch(false)
         }, SEARCH_CLOSE_DELAY_TIME)
 
         return () => clearTimeout(timeOut)
@@ -78,6 +81,7 @@ function Header() {
                         handleChange={handleChange}
                         handleClose={handleClose}
                         handleSearchDelayClose={handleSearchDelayClose}
+                        loadingSearch={isLoadingSearch}
                     />
                 </div>
                 <List>

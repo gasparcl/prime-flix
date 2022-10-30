@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import toast from "react-hot-toast"
 
 import usePersistedState from "../../hooks/usePersistedState"
@@ -6,7 +8,13 @@ import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
 
 import PageTitle from "../../components/PageTitle"
 import { confirmation } from "../../components/Confirmation"
+import Loader from "../../components/Loader"
 import { FavoritesGrid } from "./styles"
+
+// ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
+// ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
+// ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
+const LOADING_FAVORITES_PAGE_TIMEOUT = 1000 * 0.75 // 0.75 seconds
 
 export default function Favorites() {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
@@ -16,6 +24,7 @@ export default function Favorites() {
         FAVORITE_STORAGE_KEY,
         [],
     )
+    const [loading, setLoading] = useState(true)
 
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
@@ -49,17 +58,32 @@ export default function Favorites() {
         }
     }
 
+    const handleLazyLoading = () => {
+        let timeOut = undefined
+
+        timeOut = setTimeout(() => {
+            setLoading(false)
+        }, LOADING_FAVORITES_PAGE_TIMEOUT)
+
+        return () => clearTimeout(timeOut)
+    }
+
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
     // ╩ ╩╩ ╩╩╝╚╝
     return (
         <>
+            {handleLazyLoading()}
             <PageTitle description="" upperCase />
-            <FavoritesGrid
-                title={"Favorited Films"}
-                favoritesList={favorites}
-                onClickTag={handleToggleFavorites}
-            />
+            {loading ? (
+                <Loader />
+            ) : (
+                <FavoritesGrid
+                    title={"Favorited Films"}
+                    favoritesList={favorites}
+                    onClickTag={handleToggleFavorites}
+                />
+            )}
         </>
     )
 }

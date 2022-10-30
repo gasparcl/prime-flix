@@ -65,7 +65,7 @@ export default function FilmsSlider({ url, title, onClickAll, ...props }) {
                 description={title}
                 upperCase
                 isLink
-                onClick={onClickAll}
+                onClickAll={onClickAll}
                 {...props}
             />
             <div ref={sliderRef} className="keen-slider my-4">

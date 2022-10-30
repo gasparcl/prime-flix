@@ -12,24 +12,12 @@ import Loader from "../Loader"
 import Pagination from "../Pagination"
 import { StyledGrid, StyledGridItem } from "./styles"
 
-// ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
-// ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
-// ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
-const hasSearch = (search) => {
-    const validSearch = search.trim()
-    const isValidSearch = validSearch.length > 0
-
-    return isValidSearch
-}
-
-let SEARCH_DELAY_TIME = 1000 * 2 // 0 seconds
 export default function FilmsGrid({
     title,
     url,
     onClose,
     favoritesList,
     onClickTag,
-    search,
     ...props
 }) {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
@@ -49,44 +37,33 @@ export default function FilmsGrid({
                 page,
             }
 
-            // Insert query
-            if (hasSearch(search)) {
-                apiParams.query = search
-                SEARCH_DELAY_TIME = 1000 * 5 // 1 second
-            }
+            api.get(url, { params: { ...apiParams } })
+                .then((response) => {
+                    const filmsList = response.data.results
+                    const paginationData = {
+                        currentPage: response.data.page,
+                        totalItems: response.data.total_results,
+                        totalPages: response.data.total_pages,
+                    }
 
-            let timeOut = undefined
-            timeOut = setTimeout(() => {
-                api.get(url, { params: { ...apiParams } })
-                    .then((response) => {
-                        const filmsList = response.data.results
-                        const paginationData = {
-                            currentPage: response.data.page,
-                            totalItems: response.data.total_results,
-                            totalPages: response.data.total_pages,
-                        }
-
-                        // Setting Data
-                        setFilms(filmsList)
-                        setPaginationData(paginationData)
-                    })
-                    .catch((error) => {
-                        toast.error(
-                            `There's a problem loading results...
-                            Code: ${error.code}\n
-                            "Message: ${error.message}"`,
-                            {
-                                duration: 6000,
-                            },
-                        )
-                        setFilms([])
-                    })
-                    .finally(() => setLoading(false))
-            }, SEARCH_DELAY_TIME)
-
-            return () => clearTimeout(timeOut)
+                    // Setting Data
+                    setFilms(filmsList)
+                    setPaginationData(paginationData)
+                })
+                .catch((error) => {
+                    toast.error(
+                        `There's a problem loading results...
+                        Code: ${error.code}\n
+                        "Message: ${error.message}"`,
+                        {
+                            duration: 6000,
+                        },
+                    )
+                    setFilms([])
+                })
+                .finally(() => setLoading(false))
         }
-    }, [url, page, search])
+    }, [url, page])
 
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
@@ -173,7 +150,6 @@ FilmsGrid.propTypes = {
     onClose: PropTypes.func,
     favoritesList: PropTypes.array,
     onClickTag: PropTypes.func,
-    search: PropTypes.string,
 }
 
 FilmsGrid.defaultProps = {
@@ -182,5 +158,4 @@ FilmsGrid.defaultProps = {
     onClose: undefined,
     favoritesList: [],
     onClickTag: undefined,
-    search: "",
 }

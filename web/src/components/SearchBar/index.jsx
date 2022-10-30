@@ -1,14 +1,14 @@
 import { InputAdornment } from "@material-ui/core"
 import { SearchOutlined } from "@material-ui/icons"
 
-import { StyledSearchBar, ResultsDialog } from "./styles"
-import SearchResults from "../SearchResults"
+import { SearchResultsGrid, StyledSearchBar } from "./styles"
 
 export default function SearchBar({
     search,
     handleChange,
     handleClose,
     handleSearchDelayClose,
+    loadingSearch,
 }) {
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
@@ -21,7 +21,6 @@ export default function SearchBar({
     // ║║║║╣  ║ ╠═╣║ ║ ║║╚═╗
     // ╩ ╩╚═╝ ╩ ╩ ╩╚═╝═╩╝╚═╝
     const hasSearch = search.trim().length > 0
-    const dialogTitle = `Results for the search: "${search}"`
 
     return (
         <>
@@ -46,27 +45,12 @@ export default function SearchBar({
                 />
             </form>
             {hasSearch && (
-                <ResultsDialog
-                    title={dialogTitle}
-                    fullWidth
-                    fullScreen
-                    open={hasSearch}
+                <SearchResultsGrid
+                    search={search}
+                    onClose={handleSearchDelayClose}
                     onCancel={handleClose}
-                    maxWidth="lg"
-                    disagreeColor="#fff"
-                    disagreeLabel="close"
-                    disagreeVariant="outlined"
-                >
-                    {/* {isLoading ? (
-                        <ResultsDialogLoader className="ResultsLoader" />
-                    ) : (
-                        <> */}
-                    <SearchResults
-                        search={search}
-                        onClose={handleSearchDelayClose}
-                    />
-                    {/* </> */}
-                </ResultsDialog>
+                    loadingSearch={loadingSearch}
+                />
             )}
         </>
     )
