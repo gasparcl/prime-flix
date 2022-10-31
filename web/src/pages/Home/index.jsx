@@ -4,6 +4,7 @@ import { apiEndPoints } from "../../consts/apiEndPoints"
 
 import FilmsSlider from "../../components/FilmsSlider"
 import FilmsGrid from "../../components/FilmsGrid"
+import { BackButton, HomeDiv } from "./styles"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -30,9 +31,14 @@ export default function Home() {
         setCurrent(current)
     }
 
+    const handleSetDefaultSliderView = () => {
+        setViewSpecificSection(false)
+        setCurrent({})
+    }
+
     return (
         <>
-            <div id="homepage">
+            <HomeDiv id="homepage">
                 {!viewSpecificSection ? (
                     <div id="slider_section">
                         <FilmsSlider
@@ -77,9 +83,17 @@ export default function Home() {
                         />
                     </div>
                 ) : (
-                    <FilmsGrid title={current.title} url={current.url} />
+                    <>
+                        <BackButton
+                            isBackButton
+                            onClick={handleSetDefaultSliderView}
+                        >
+                            Back
+                        </BackButton>
+                        <FilmsGrid title={current.title} url={current.url} />
+                    </>
                 )}
-            </div>
+            </HomeDiv>
         </>
     )
 }

@@ -8,11 +8,20 @@ export const DetailsButton = styled.button`
         left: 0.45rem;
         transition: all 0.25s;
     }
+
+    &:hover .backbutton {
+        left: -0.45rem;
+    }
 `
 
 export const ButtonIcon = styled(DoubleArrowOutlined)`
     position: relative;
     left: 0.25rem;
+
+    &.backbutton {
+        transform: rotate(180deg);
+        left: -0.25rem;
+    }
 `
 
 export const FavoriteBtn = styled.button`
