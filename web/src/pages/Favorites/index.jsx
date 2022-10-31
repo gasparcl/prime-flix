@@ -74,7 +74,6 @@ export default function Favorites() {
     return (
         <>
             {handleLazyLoading()}
-            <PageTitle description="" upperCase />
             {loading ? (
                 <Loader />
             ) : (
@@ -82,6 +81,7 @@ export default function Favorites() {
                     title={"Favorited Films"}
                     favoritesList={favorites}
                     onClickTag={handleToggleFavorites}
+                    hasParagraphBottom
                 />
             )}
         </>

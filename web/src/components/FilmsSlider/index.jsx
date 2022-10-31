@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import { useKeenSlider } from "keen-slider/react"
 import toast from "react-hot-toast"
 import "keen-slider/keen-slider.min.css"
-import { Divider } from "@material-ui/core"
+import { Divider, useMediaQuery, useTheme } from "@material-ui/core"
 
 import api from "../../services/api"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
@@ -19,13 +19,17 @@ export default function FilmsSlider({ url, title, onClickAll, ...props }) {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
     // ╠═╣║ ║║ ║╠╩╗╚═╗
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
+    const theme = useTheme()
+    const IS_TABLET_XL = useMediaQuery(theme.breakpoints.between("sm", "md"))
+    const IS_MOBILE = useMediaQuery(theme.breakpoints.down("xs"))
+
     const [sliderRef] = useKeenSlider({
         loop: true,
         mode: "free",
         renderMode: "performance",
         slides: {
-            perView: 4,
-            spacing: 8,
+            perView: IS_MOBILE ? 1 : IS_TABLET_XL ? 2 : 4,
+            spacing: IS_MOBILE ? 4 : 8,
         },
     })
 

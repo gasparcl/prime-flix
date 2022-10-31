@@ -65,7 +65,7 @@ export const FilmContent = styled(CardContent)`
 export const FilmMedia = styled(CardMedia)`
     &.MuiCardMedia-img {
         object-fit: cover;
-        height: 350px;
-        min-height: auto;
+        min-height: 350px;
+        height: auto;
     }
 `

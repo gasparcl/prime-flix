@@ -99,8 +99,9 @@ export default function SearchResults({
             {hasResults && (
                 <ResultsDialog
                     title={
-                        !loadingSearch &&
-                        `${paginationData.totalItems} - results for the search: "${search}"...`
+                        !loadingSearch
+                            ? `${paginationData.totalItems} - results for the search: "${search}"...`
+                            : ""
                     }
                     fullWidth
                     fullScreen
@@ -125,7 +126,9 @@ export default function SearchResults({
                                                 return (
                                                     <StyledGridItem
                                                         item
-                                                        xs={3}
+                                                        xs={12}
+                                                        sm={6}
+                                                        md={3}
                                                         key={result.id}
                                                         {...props}
                                                     >
@@ -154,8 +157,9 @@ export default function SearchResults({
             {noResult && (
                 <ResultsDialog
                     title={
-                        !loadingSearch &&
-                        `0 - results for the search: "${search}"... Try searching for a different term.`
+                        !loadingSearch
+                            ? `0 - results for the search: "${search}"... Try searching for a different term.`
+                            : ""
                     }
                     fullWidth
                     fullScreen

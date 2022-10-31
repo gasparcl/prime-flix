@@ -1,4 +1,5 @@
 import PropTypes from "prop-types"
+import { useMediaQuery, useTheme } from "@material-ui/core"
 
 import LearnMoreButton from "../Buttons/LearnMore"
 import { TitleDiv, TitleText } from "./styles"
@@ -8,16 +9,29 @@ export default function PageTitle({
     upperCase,
     isLink,
     onClickAll,
+    hasParagraph,
     ...props
 }) {
+    // ╦ ╦╔═╗╔═╗╦╔═╔═╗
+    // ╠═╣║ ║║ ║╠╩╗╚═╗
+    // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
+    const theme = useTheme()
+    const IS_TABLET_XL = useMediaQuery(theme.breakpoints.between("sm", "md"))
+    const IS_MOBILE = useMediaQuery(theme.breakpoints.down("xs"))
+
     return (
         <>
-            <TitleDiv className={props.className}>
+            <TitleDiv
+                className={`${
+                    IS_MOBILE || IS_TABLET_XL ? "mobileTitle" : "centerTitle"
+                }`}
+            >
                 <TitleText
                     {...props}
-                    variant="h4"
-                    component="h4"
+                    variant={IS_MOBILE || IS_TABLET_XL ? "h5" : "h4"}
+                    component={IS_MOBILE || IS_TABLET_XL ? "h5" : "h4"}
                     style={{ color: props.color, fontSize: props.fontSize }}
+                    paragraph={hasParagraph ? true : false}
                 >
                     <b>{upperCase ? description.toUpperCase() : description}</b>
                 </TitleText>
@@ -40,6 +54,7 @@ PageTitle.propTypes = {
     fontSize: PropTypes.string,
     isLink: PropTypes.bool,
     onClickAll: PropTypes.func,
+    hasParagraph: PropTypes.bool,
 }
 
 PageTitle.defaultProps = {
@@ -47,4 +62,5 @@ PageTitle.defaultProps = {
     upperCase: false,
     color: "#ffffff",
     isLink: false,
+    hasParagraph: false,
 }

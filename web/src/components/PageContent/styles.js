@@ -8,4 +8,9 @@ export const ContentContainer = styled(Box)`
     background: #181818;
     width: 70vw;
     min-height: calc(100vh - 92px);
+
+    &.mobileContainer {
+        padding: 2.5rem 0.75rem;
+        width: 97.5vw;
+    }
 `

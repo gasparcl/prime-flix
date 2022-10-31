@@ -1,6 +1,7 @@
 import { useLayoutEffect, useState } from "react"
 import PropTypes from "prop-types"
 import toast from "react-hot-toast"
+import { useMediaQuery, useTheme } from "@material-ui/core"
 
 import api from "../../services/api"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
@@ -11,6 +12,7 @@ import PageTitle from "../PageTitle"
 import Loader from "../Loader"
 import Pagination from "../Pagination"
 import { StyledGrid, StyledGridItem } from "./styles"
+import { Typography } from "@material-ui/core"
 
 export default function FilmsGrid({
     title,
@@ -18,6 +20,8 @@ export default function FilmsGrid({
     onClose,
     favoritesList,
     onClickTag,
+    showRegisters,
+    hasParagraphBottom,
     ...props
 }) {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
@@ -27,6 +31,9 @@ export default function FilmsGrid({
     const [films, setFilms] = useState([])
     const [page, setPage] = useState(1)
     const [paginationData, setPaginationData] = useState({})
+    const theme = useTheme()
+    const IS_TABLET_XL = useMediaQuery(theme.breakpoints.between("sm", "md"))
+    const IS_MOBILE = useMediaQuery(theme.breakpoints.down("xs"))
 
     useLayoutEffect(() => {
         if (url) {
@@ -89,7 +96,29 @@ export default function FilmsGrid({
 
     return (
         <>
-            {title && <PageTitle description={title} upperCase />}
+            {title && (
+                <>
+                    <PageTitle
+                        description={`${title} ${
+                            showRegisters ? " - All " : ""
+                        }`}
+                        upperCase
+                        hasParagraph={hasParagraphBottom ? true : false}
+                    />
+                    {showRegisters && (
+                        <Typography
+                            variant={IS_MOBILE || IS_TABLET_XL ? "body1" : "h6"}
+                            align={
+                                IS_MOBILE || IS_TABLET_XL ? "left" : "center"
+                            }
+                            paragraph
+                            style={{ color: "#fff" }}
+                        >
+                            {paginationData?.totalItems} movies found
+                        </Typography>
+                    )}
+                </>
+            )}
             <StyledGrid container spacing={2}>
                 {favoritesList && (
                     <>
@@ -97,7 +126,9 @@ export default function FilmsGrid({
                             return (
                                 <StyledGridItem
                                     item
-                                    xs={3}
+                                    xs={12}
+                                    sm={6}
+                                    md={3}
                                     key={favorite.id}
                                     {...props}
                                 >
@@ -117,7 +148,9 @@ export default function FilmsGrid({
                             return (
                                 <StyledGridItem
                                     item
-                                    xs={3}
+                                    xs={12}
+                                    sm={6}
+                                    md={3}
                                     key={film.id}
                                     {...props}
                                 >
@@ -150,6 +183,8 @@ FilmsGrid.propTypes = {
     onClose: PropTypes.func,
     favoritesList: PropTypes.array,
     onClickTag: PropTypes.func,
+    showRegisters: PropTypes.bool,
+    hasParagraphBottom: PropTypes.bool,
 }
 
 FilmsGrid.defaultProps = {
@@ -158,4 +193,6 @@ FilmsGrid.defaultProps = {
     onClose: undefined,
     favoritesList: [],
     onClickTag: undefined,
+    showRegisters: false,
+    hasParagraphBottom: false,
 }

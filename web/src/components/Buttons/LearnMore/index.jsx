@@ -17,7 +17,7 @@ export default function LearnMoreButton({ children, isBackButton, ...props }) {
                     <>
                         <ButtonIcon
                             fontSize="small"
-                            className={isBackButton && "backbutton"}
+                            className={isBackButton ? "backbutton" : ""}
                         />
                         <b>{children}</b>
                     </>

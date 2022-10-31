@@ -1,10 +1,10 @@
 import { useState } from "react"
 
+import { useMediaQuery, useTheme } from "@material-ui/core"
 import { apiEndPoints } from "../../consts/apiEndPoints"
 
 import FilmsSlider from "../../components/FilmsSlider"
-import FilmsGrid from "../../components/FilmsGrid"
-import { BackButton, HomeDiv } from "./styles"
+import { BackButton, HomeDiv, HomeGrid } from "./styles"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -22,6 +22,9 @@ export default function Home() {
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
     const [viewSpecificSection, setViewSpecificSection] = useState(false)
     const [current, setCurrent] = useState({})
+    const theme = useTheme()
+    const IS_TABLET_XL = useMediaQuery(theme.breakpoints.between("sm", "md"))
+    const IS_MOBILE = useMediaQuery(theme.breakpoints.down("xs"))
 
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
@@ -87,10 +90,15 @@ export default function Home() {
                         <BackButton
                             isBackButton
                             onClick={handleSetDefaultSliderView}
+                            className={IS_MOBILE ? "mobileButton" : "absButton"}
                         >
                             Back
                         </BackButton>
-                        <FilmsGrid title={current.title} url={current.url} />
+                        <HomeGrid
+                            title={current.title}
+                            url={current.url}
+                            showRegisters
+                        />
                     </>
                 )}
             </HomeDiv>
