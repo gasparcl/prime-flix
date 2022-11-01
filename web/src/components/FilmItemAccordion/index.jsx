@@ -53,8 +53,12 @@ export default function FilmItemAccordion({
     // ╩ ╩╩ ╩╩╝╚╝
     return (
         <div className={classes.root}>
-            <CollapseCard {...props}>
-                <Summary aria-controls="panel1a-content" id="panel1a-header">
+            <CollapseCard {...props} className="rouded-2">
+                <Summary
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                    className="rouded-2"
+                >
                     <FilmMedia
                         component="img"
                         alt={filmData.title}
@@ -65,7 +69,7 @@ export default function FilmItemAccordion({
                                 : filmData.backdrop_path
                         }`}
                         title={filmData.title}
-                        className="rounded rounded-1"
+                        className="rounded-2"
                     />
                 </Summary>
                 <Details>

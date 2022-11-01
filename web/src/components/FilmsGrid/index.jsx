@@ -10,7 +10,6 @@ import { FETCH_PARAMS } from "../../consts/apiFetch"
 import FilmItem from "../FilmItem"
 import FilmItemAccordion from "../FilmItemAccordion"
 import PageTitle from "../PageTitle"
-import Loader from "../Loader"
 import Pagination from "../Pagination"
 import { StyledGrid, StyledGridItem } from "./styles"
 
@@ -128,24 +127,15 @@ export default function FilmsGrid({
                                     sm={6}
                                     md={3}
                                     key={favorite.id}
+                                    className="rounded-2"
                                     {...props}
                                 >
-                                    {loading ? (
-                                        <Skeleton
-                                            variant="rect"
-                                            style={{
-                                                minHeight: "375px",
-                                            }}
-                                        />
-                                    ) : (
-                                        <FilmItemAccordion
-                                            filmData={favorite}
-                                            favoritesList={favoritesList}
-                                            onClickTag={() =>
-                                                onClickTag(favorite)
-                                            }
-                                        />
-                                    )}
+                                    <FilmItemAccordion
+                                        filmData={favorite}
+                                        favoritesList={favoritesList}
+                                        onClickTag={() => onClickTag(favorite)}
+                                        className="rounded-2"
+                                    />
                                 </StyledGridItem>
                             )
                         })}
@@ -166,10 +156,13 @@ export default function FilmsGrid({
                                     {loading ? (
                                         <Skeleton
                                             variant="rect"
-                                            style={{
-                                                minHeight: "375px",
-                                            }}
-                                        />
+                                            className="rounded-2"
+                                        >
+                                            <FilmItem
+                                                filmData={film}
+                                                onClose={onClose}
+                                            />
+                                        </Skeleton>
                                     ) : (
                                         <FilmItem
                                             filmData={film}

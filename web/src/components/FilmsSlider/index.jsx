@@ -12,7 +12,6 @@ import { FETCH_PARAMS } from "../../consts/apiFetch"
 
 import FilmItem from "../FilmItem"
 import PageTitle from "../PageTitle"
-import Loader from "../Loader"
 
 import "./styles.css"
 

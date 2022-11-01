@@ -7,13 +7,13 @@ import { isFavoritedFilm } from "../../services/utils"
 import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
 
 import { confirmation } from "../../components/Confirmation"
-import Loader from "../../components/Loader"
 import { FavoritesGrid } from "./styles"
+import FavoritesSkeleton from "./Skeleton"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
 // ╩ ╩╚═╝ ╩ ╩ ╩═╩╝╩ ╩ ╩ ╩ ╩
-const LOADING_FAVORITES_PAGE_TIMEOUT = 1000 * 0.75 // 0.75 seconds
+const LOADING_FAVORITES_PAGE_TIMEOUT = 1000 * 1.25 // 1.25 seconds
 
 export default function Favorites() {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
@@ -67,14 +67,15 @@ export default function Favorites() {
         return () => clearTimeout(timeOut)
     }
 
+    handleLazyLoading()
+
     // ╔╦╗╔═╗╦╔╗╔
     // ║║║╠═╣║║║║
     // ╩ ╩╩ ╩╩╝╚╝
     return (
         <>
-            {handleLazyLoading()}
             {loading ? (
-                <Loader />
+                <FavoritesSkeleton totalItems={favorites} />
             ) : (
                 <FavoritesGrid
                     title={"Favorited Films"}
