@@ -5,6 +5,7 @@ import { useKeenSlider } from "keen-slider/react"
 import toast from "react-hot-toast"
 import "keen-slider/keen-slider.min.css"
 import { Divider, useMediaQuery, useTheme } from "@material-ui/core"
+import { Skeleton } from "@material-ui/lab"
 
 import api from "../../services/api"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
@@ -61,29 +62,75 @@ export default function FilmsSlider({ url, title, onClickAll, ...props }) {
         loadFilms()
     }, [url])
 
-    if (loading) return <Loader />
-
     return (
         <>
-            <PageTitle
-                description={title}
-                upperCase
-                isLink
-                onClickAll={onClickAll}
-                {...props}
-            />
-            <div ref={sliderRef} className="keen-slider my-4">
-                {films.map((film) => {
-                    return (
-                        <div
-                            key={film.id}
-                            className="keen-slider__slide number-slide rounded-2"
-                        >
-                            <FilmItem filmData={film} />
-                        </div>
-                    )
-                })}
-            </div>
+            {loading ? (
+                <>
+                    <div className="d-flex align-items-center justify-content-center">
+                        <Skeleton variant="text">
+                            <PageTitle
+                                description={title}
+                                upperCase
+                                isLink
+                                onClickAll={onClickAll}
+                                {...props}
+                            />
+                        </Skeleton>
+                    </div>
+                    <div className="d-flex align-items-center justify-content-end">
+                        <Skeleton height={35} width={80} />
+                    </div>
+                    <div className="d-flex gap-2 mt-4 align-items-center justify-content-center">
+                        <Skeleton
+                            className="rounded-2"
+                            variant="rect"
+                            height={375}
+                            width={213}
+                        />
+                        <Skeleton
+                            className="rounded-2"
+                            variant="rect"
+                            height={375}
+                            width={213}
+                        />
+                        <Skeleton
+                            className="rounded-2"
+                            variant="rect"
+                            height={375}
+                            width={213}
+                        />
+                        <Skeleton
+                            className="rounded-2"
+                            variant="rect"
+                            height={375}
+                            width={213}
+                        />
+                    </div>
+                </>
+            ) : (
+                <>
+                    <PageTitle
+                        description={title}
+                        upperCase
+                        isLink
+                        onClickAll={onClickAll}
+                        {...props}
+                    />
+                    <div ref={sliderRef} className="keen-slider my-4">
+                        {films.map((film) => {
+                            return (
+                                <div
+                                    key={film.id}
+                                    className="keen-slider__slide number-slide rounded-2"
+                                >
+                                    <FilmItem filmData={film} />
+                                </div>
+                            )
+                        })}
+                    </div>
+                </>
+            )}
+
             <Divider
                 className="mb-5 pb-1 bg-black bg-opacity-25 rounded-5"
                 {...props}

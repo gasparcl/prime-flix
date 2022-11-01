@@ -6,7 +6,6 @@ import usePersistedState from "../../hooks/usePersistedState"
 import { isFavoritedFilm } from "../../services/utils"
 import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
 
-import PageTitle from "../../components/PageTitle"
 import { confirmation } from "../../components/Confirmation"
 import Loader from "../../components/Loader"
 import { FavoritesGrid } from "./styles"

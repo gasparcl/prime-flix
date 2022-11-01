@@ -1,7 +1,8 @@
 import { useLayoutEffect, useState } from "react"
 import PropTypes from "prop-types"
 import toast from "react-hot-toast"
-import { useMediaQuery, useTheme } from "@material-ui/core"
+import { useMediaQuery, useTheme, Typography } from "@material-ui/core"
+import { Skeleton } from "@material-ui/lab"
 
 import api from "../../services/api"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
@@ -12,7 +13,6 @@ import PageTitle from "../PageTitle"
 import Loader from "../Loader"
 import Pagination from "../Pagination"
 import { StyledGrid, StyledGridItem } from "./styles"
-import { Typography } from "@material-ui/core"
 
 export default function FilmsGrid({
     title,
@@ -92,8 +92,6 @@ export default function FilmsGrid({
     const hasPagination =
         paginationData.totalPages > 1 || favoritesTotalPages > 1
 
-    if (loading) return <Loader />
-
     return (
         <>
             {title && (
@@ -132,11 +130,22 @@ export default function FilmsGrid({
                                     key={favorite.id}
                                     {...props}
                                 >
-                                    <FilmItemAccordion
-                                        filmData={favorite}
-                                        favoritesList={favoritesList}
-                                        onClickTag={() => onClickTag(favorite)}
-                                    />
+                                    {loading ? (
+                                        <Skeleton
+                                            variant="rect"
+                                            style={{
+                                                minHeight: "375px",
+                                            }}
+                                        />
+                                    ) : (
+                                        <FilmItemAccordion
+                                            filmData={favorite}
+                                            favoritesList={favoritesList}
+                                            onClickTag={() =>
+                                                onClickTag(favorite)
+                                            }
+                                        />
+                                    )}
                                 </StyledGridItem>
                             )
                         })}
@@ -154,10 +163,19 @@ export default function FilmsGrid({
                                     key={film.id}
                                     {...props}
                                 >
-                                    <FilmItem
-                                        filmData={film}
-                                        onClose={onClose}
-                                    />
+                                    {loading ? (
+                                        <Skeleton
+                                            variant="rect"
+                                            style={{
+                                                minHeight: "375px",
+                                            }}
+                                        />
+                                    ) : (
+                                        <FilmItem
+                                            filmData={film}
+                                            onClose={onClose}
+                                        />
+                                    )}
                                 </StyledGridItem>
                             )
                         })}

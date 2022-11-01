@@ -23,7 +23,6 @@ export default function Home() {
     const [viewSpecificSection, setViewSpecificSection] = useState(false)
     const [current, setCurrent] = useState({})
     const theme = useTheme()
-    const IS_TABLET_XL = useMediaQuery(theme.breakpoints.between("sm", "md"))
     const IS_MOBILE = useMediaQuery(theme.breakpoints.down("xs"))
 
     // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
