@@ -31,23 +31,6 @@ export default function FavoritesGrid({
     const theme = useTheme()
     const IS_MOBILE = useMediaQuery(theme.breakpoints.down("xs"))
 
-    // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
-    // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
-    // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
-    const handleChangePage = (_, newPage) => {
-        setLoading(true)
-        setFavoritesPage(newPage)
-
-        scrollTop()
-        // set lazy loading timeout
-        let timeOut = undefined
-        timeOut = setTimeout(() => {
-            setLoading(false)
-        }, LOADING_FAVORITES_PAGE_TIMEOUT)
-
-        return () => clearTimeout(timeOut)
-    }
-
     // Filtering favoristesList - removing movies without photos
     favoritesList = favoritesList.filter(
         (favorite) => !!favorite.backdrop_path || !!favorite.poster_path,
@@ -63,6 +46,25 @@ export default function FavoritesGrid({
 
     const hasPagination = favoritesTotalPages > 1
     const currentPage = favoritesPage === 0 ? favoritesPage + 1 : favoritesPage
+
+    // ╦ ╦╔═╗╔╗╔╔╦╗╦  ╔═╗╦═╗╔═╗
+    // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
+    // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
+    const handleChangePage = (_, newPage) => {
+        if (newPage !== currentPage) {
+            setLoading(true)
+            setFavoritesPage(newPage)
+
+            scrollTop()
+            // set lazy loading timeout
+            let timeOut = undefined
+            timeOut = setTimeout(() => {
+                setLoading(false)
+            }, LOADING_FAVORITES_PAGE_TIMEOUT)
+
+            return () => clearTimeout(timeOut)
+        }
+    }
 
     return (
         <>

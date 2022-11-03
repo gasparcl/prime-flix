@@ -54,6 +54,7 @@ export default function BaseDialog({
     lazyConfirmation, // eslint-disable-line no-unused-vars
     zIndex,
     className,
+    isSearch,
     ...props
 }) {
     const isMessage = typeof content === "string"
@@ -82,7 +83,7 @@ export default function BaseDialog({
                     </Typography>
                 </StyledDialogSubtitle>
             )}
-            <DialogContent>
+            <DialogContent id={isSearch ? "searchModal" : ""}>
                 {isMessage ? (
                     <DialogContentText id="base-dialog-description">
                         {content}
@@ -124,6 +125,7 @@ export default function BaseDialog({
 BaseDialog.propTypes = {
     open: PropTypes.bool,
     loading: PropTypes.bool,
+    isSearch: PropTypes.bool,
     lazyConfirmation: PropTypes.bool,
     title: PropTypes.oneOfType([
         PropTypes.string,
@@ -157,6 +159,7 @@ BaseDialog.propTypes = {
 BaseDialog.defaultProps = {
     open: false,
     loading: false,
+    isSearch: false,
     disagreeLabel: "Cancel",
     agreeLabel: "Confirm",
     disagreeColor: "#222",

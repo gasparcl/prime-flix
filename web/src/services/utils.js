@@ -34,10 +34,16 @@ const paginateFromArr = (arr, size) => {
 }
 
 /**
- * Function to make pagination from array and slice it's items into groups of new arrays
+ * Functions to make current element scroll up
  */
 const scrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
 }
 
-export { isFavoritedFilm, paginateFromArr, scrollTop }
+const scrollTopModal = () => {
+    window.document
+        .getElementById("searchModal")
+        .scrollTo({ top: 0, behavior: "smooth" })
+}
+
+export { isFavoritedFilm, paginateFromArr, scrollTop, scrollTopModal }
