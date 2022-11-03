@@ -3,6 +3,7 @@ import React, { useLayoutEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 
 import api from "../../services/api"
+import { scrollTop } from "../../services/utils"
 import { apiEndPoints } from "../../consts/apiEndPoints"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
 
@@ -90,8 +91,11 @@ export default function SearchResults({
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
     // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
     const handleChangePage = (_, newPage) => {
-        setLoading(true)
-        setPage(newPage)
+        if (newPage !== page) {
+            setLoading(true)
+            setPage(newPage)
+            scrollTop()
+        }
     }
 
     const hasResults = results.length > 0

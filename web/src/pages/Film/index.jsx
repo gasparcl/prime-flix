@@ -10,11 +10,11 @@ import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
 import { apiEndPoints } from "../../consts/apiEndPoints"
 
-import { Container } from "@material-ui/core"
 import { confirmation } from "../../components/Confirmation"
 import Loader from "../../components/Loader"
 import PageTitle from "../../components/PageTitle"
 import FilmDetails from "../../components/FilmDetails"
+import DefaultContainer from "../../components/DefaultContainer"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -93,19 +93,15 @@ export default function Film() {
     if (loading) return <Loader />
 
     return (
-        <>
-            <PageTitle description="Movie Details" upperCase />
-            <Container maxWidth="md" className="mt-4">
-                <div className="d-flex flex-column justify-content-center align-items-center bg-dark bg-opacity-25 rounded-2 pt-2 pb-4 px-sm-2 px-lg-5">
-                    <FilmDetails
-                        current={currentMovie}
-                        isFavorite={isFavorite}
-                        onAddToFavorites={() =>
-                            handleToggleFavorites(currentMovie)
-                        }
-                    />
-                </div>
-            </Container>
-        </>
+        <DefaultContainer smPadding>
+            <PageTitle description="Movie Details" upperCase centered />
+            <div className="d-flex flex-column justify-content-center align-items-center rounded-2 pt-2 pb-4">
+                <FilmDetails
+                    current={currentMovie}
+                    isFavorite={isFavorite}
+                    onAddToFavorites={() => handleToggleFavorites(currentMovie)}
+                />
+            </div>
+        </DefaultContainer>
     )
 }

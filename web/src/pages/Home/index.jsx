@@ -4,6 +4,7 @@ import { useMediaQuery, useTheme } from "@material-ui/core"
 import { apiEndPoints } from "../../consts/apiEndPoints"
 
 import FilmsSlider from "../../components/FilmsSlider"
+import DefaultContainer from "../../components/DefaultContainer"
 import { BackButton, HomeDiv, HomeGrid } from "./styles"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
@@ -39,7 +40,7 @@ export default function Home() {
     }
 
     return (
-        <>
+        <DefaultContainer>
             <HomeDiv id="homepage">
                 {!viewSpecificSection ? (
                     <div id="slider_section">
@@ -101,6 +102,6 @@ export default function Home() {
                     </>
                 )}
             </HomeDiv>
-        </>
+        </DefaultContainer>
     )
 }

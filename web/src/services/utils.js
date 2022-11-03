@@ -33,4 +33,11 @@ const paginateFromArr = (arr, size) => {
     }, [])
 }
 
-export { isFavoritedFilm, paginateFromArr }
+/**
+ * Function to make pagination from array and slice it's items into groups of new arrays
+ */
+const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+}
+
+export { isFavoritedFilm, paginateFromArr, scrollTop }

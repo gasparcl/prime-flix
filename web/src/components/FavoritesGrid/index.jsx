@@ -3,7 +3,7 @@ import { useState } from "react"
 import PropTypes from "prop-types"
 import { useMediaQuery, useTheme } from "@material-ui/core"
 
-import { paginateFromArr } from "../../services/utils"
+import { paginateFromArr, scrollTop } from "../../services/utils"
 
 import FilmItemAccordion from "../FilmItemAccordion"
 import PageTitle from "../PageTitle"
@@ -38,6 +38,7 @@ export default function FavoritesGrid({
         setLoading(true)
         setFavoritesPage(newPage)
 
+        scrollTop()
         // set lazy loading timeout
         let timeOut = undefined
         timeOut = setTimeout(() => {

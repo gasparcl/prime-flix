@@ -17,7 +17,7 @@ export default function FavoritesSkeleton({ totalItems }) {
                         <Skeleton
                             variant="rect"
                             height={10}
-                            width={205}
+                            width={180}
                             className="rounded-2"
                         />
                         <Skeleton
@@ -29,7 +29,7 @@ export default function FavoritesSkeleton({ totalItems }) {
                         <Skeleton
                             variant="rect"
                             height={316}
-                            width={205}
+                            width={180}
                             className="rounded-2"
                         />
                     </div>

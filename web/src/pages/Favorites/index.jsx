@@ -8,10 +8,11 @@ import { isFavoritedFilm } from "../../services/utils"
 import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
 
 import { confirmation } from "../../components/Confirmation"
-import { FavoriteGrid } from "./styles"
-import FavoritesSkeleton from "./Skeleton"
 import Loader from "../../components/Loader"
 import PageTitle from "../../components/PageTitle"
+import DefaultContainer from "../../components/DefaultContainer"
+import { FavoriteGrid } from "./styles"
+import FavoritesSkeleton from "./Skeleton"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -81,7 +82,7 @@ export default function Favorites() {
     // ║║║╠═╣║║║║
     // ╩ ╩╩ ╩╩╝╚╝
     return (
-        <>
+        <DefaultContainer>
             {hasFavorites ? (
                 <>
                     {loading ? (
@@ -106,6 +107,6 @@ export default function Favorites() {
                     description={"You have no movies included here..."}
                 />
             )}
-        </>
+        </DefaultContainer>
     )
 }

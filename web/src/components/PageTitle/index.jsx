@@ -10,6 +10,7 @@ export default function PageTitle({
     isLink,
     onClickAll,
     hasParagraph,
+    centered,
     ...props
 }) {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
@@ -23,7 +24,9 @@ export default function PageTitle({
         <>
             <TitleDiv
                 className={`${
-                    IS_MOBILE || IS_TABLET_XL ? "mobileTitle" : "centerTitle"
+                    !centered && (IS_MOBILE || IS_TABLET_XL)
+                        ? "mobileTitle"
+                        : "centerTitle"
                 }`}
             >
                 {isLink && (
@@ -55,6 +58,7 @@ PageTitle.propTypes = {
     isLink: PropTypes.bool,
     onClickAll: PropTypes.func,
     hasParagraph: PropTypes.bool,
+    centered: PropTypes.bool,
 }
 
 PageTitle.defaultProps = {
@@ -63,4 +67,5 @@ PageTitle.defaultProps = {
     color: "#ffffff",
     isLink: false,
     hasParagraph: false,
+    centered: false,
 }

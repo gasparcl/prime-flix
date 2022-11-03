@@ -11,6 +11,8 @@ import {
     CardMedia,
     Paper,
     Typography,
+    useMediaQuery,
+    useTheme,
 } from "@material-ui/core"
 import { Rating } from "@material-ui/lab"
 import Loader from "../../components/Loader"
@@ -29,6 +31,8 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
     // ╩ ╩╚═╝╚═╝╩ ╩╚═╝
     const [trailerVideoId, setTrailerVideoId] = useState("")
     const [loading, setLoading] = useState(true)
+    const theme = useTheme()
+    const IS_MOBILE = useMediaQuery(theme.breakpoints.down("xs"))
 
     const getReleaseYear = current.release_date.split("-").shift()
 
@@ -56,7 +60,6 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
     // ╩ ╩╩ ╩╩╝╚╝
     return (
         <>
-            <TextBox variant="h4">{current.title}</TextBox>
             <DetailsImage
                 className="w-100 rounded-2"
                 src={`${IMAGE_URL}${
@@ -66,16 +69,22 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
                 }`}
                 alt={current.title}
             />
-            <Paper className="py-3 px-5 bg-dark bg-opacity-25 rounded-2 w-100">
+            <TextBox variant="h6" className="mt-1 text-uppercase">
+                {current.title}
+            </TextBox>
+            <Paper className="pb-3 bg-transparent rounded-2 w-100">
                 <TextBox
                     variant="body1"
                     className="d-flex justify-content-center align-items-center"
                 >
-                    <div className="d-inline-flex gap-2 justify-content-center align-items-center bg-light text-body p-1 px-2 rounded-pill">
-                        <Typography variant="h6">Ratings:</Typography>
-                        <Typography variant="h6">{`${GET_RATINGS_VALUE(
-                            current,
-                        )} / 10.00`}</Typography>
+                    <div className="d-inline-flex gap-2 justify-content-center align-items-center bg-dark bg-opacity-25 text-body p-1 px-2 rounded-pill">
+                        <Typography variant="h6" style={{ color: "#fff" }}>
+                            Ratings:
+                        </Typography>
+                        <Typography
+                            variant="h6"
+                            style={{ color: "#fff" }}
+                        >{`${GET_RATINGS_VALUE(current)} / 10.00`}</Typography>
                         <Rating
                             defaultValue={0}
                             value={GET_RATINGS_VALUE(current) / 2}
@@ -86,17 +95,19 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
                         />
                     </div>
                 </TextBox>
-                <TextBox variant="body1">
-                    <b>Overview: </b>
-                    {current.overview}
-                </TextBox>
-                <TextBox variant="body2">
-                    <b>Release Date: </b>
-                    {formatter(current.release_date).toSimpleDate()}
-                </TextBox>
-                <TextBox variant="body1">
-                    <b>Trailer: </b>
-                </TextBox>
+                <div className="px-2">
+                    <TextBox variant="body1">
+                        <b>Overview: </b>
+                        {current.overview}
+                    </TextBox>
+                    <TextBox variant="body2">
+                        <b>Release Date: </b>
+                        {formatter(current.release_date).toSimpleDate()}
+                    </TextBox>
+                    <TextBox variant="body1">
+                        <b>Trailer: </b>
+                    </TextBox>
+                </div>
 
                 {loading ? (
                     <Loader />
@@ -111,7 +122,13 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
                         </CardActionArea>
                     </Card>
                 )}
-                <div className="d-flex align-items-center justify-content-end">
+                <div
+                    className={`d-flex align-items-center px-2 ${
+                        IS_MOBILE
+                            ? "justify-content-center"
+                            : "justify-content-end"
+                    }`}
+                >
                     <FavoriteButton
                         label="Add to favorites"
                         iconSize="small"

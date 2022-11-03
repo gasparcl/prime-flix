@@ -5,6 +5,7 @@ import { useMediaQuery, useTheme, Typography } from "@material-ui/core"
 import { Skeleton } from "@material-ui/lab"
 
 import api from "../../services/api"
+import { scrollTop } from "../../services/utils"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
 
 import FilmItem from "../FilmItem"
@@ -68,7 +69,9 @@ export default function FilmsGrid({
                     )
                     setFilms([])
                 })
-                .finally(() => setLoading(false))
+                .finally(() => {
+                    setLoading(false)
+                })
         }
     }, [url, page])
 
@@ -76,8 +79,11 @@ export default function FilmsGrid({
     // ╠═╣╠═╣║║║ ║║║  ║╣ ╠╦╝╚═╗
     // ╩ ╩╩ ╩╝╚╝═╩╝╩═╝╚═╝╩╚═╚═╝
     const handleChangePage = (_, newPage) => {
-        setLoading(true)
-        setPage(newPage)
+        if (newPage !== page) {
+            setLoading(true)
+            setPage(newPage)
+            scrollTop()
+        }
     }
 
     const hasPagination = paginationData.totalPages > 1

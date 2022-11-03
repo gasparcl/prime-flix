@@ -10,7 +10,7 @@ export const ContentContainer = styled(Box)`
     min-height: calc(100vh - 92px);
 
     &.mobileContainer {
-        padding: 2.5rem 3rem;
         width: 100vw;
+        padding: 0;
     }
 `
