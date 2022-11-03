@@ -11,6 +11,7 @@ import { confirmation } from "../../components/Confirmation"
 import { FavoriteGrid } from "./styles"
 import FavoritesSkeleton from "./Skeleton"
 import Loader from "../../components/Loader"
+import PageTitle from "../../components/PageTitle"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -72,6 +73,8 @@ export default function Favorites() {
         return () => clearTimeout(timeOut)
     }
 
+    const hasFavorites = favorites.length >= 1
+
     handleLazyLoading()
 
     // ╔╦╗╔═╗╦╔╗╔
@@ -79,20 +82,28 @@ export default function Favorites() {
     // ╩ ╩╩ ╩╩╝╚╝
     return (
         <>
-            {loading ? (
+            {hasFavorites ? (
                 <>
-                    {!IS_MOBILE ? (
-                        <FavoritesSkeleton totalItems={favorites} />
+                    {loading ? (
+                        <>
+                            {!IS_MOBILE ? (
+                                <FavoritesSkeleton totalItems={favorites} />
+                            ) : (
+                                <Loader className="ResultsLoader__mobile" />
+                            )}
+                        </>
                     ) : (
-                        <Loader className="ResultsLoader__mobile" />
+                        <FavoriteGrid
+                            title={"Favorited Films"}
+                            favoritesList={favorites}
+                            onClickTag={handleToggleFavorites}
+                            hasParagraphBottom
+                        />
                     )}
                 </>
             ) : (
-                <FavoriteGrid
-                    title={"Favorited Films"}
-                    favoritesList={favorites}
-                    onClickTag={handleToggleFavorites}
-                    hasParagraphBottom
+                <PageTitle
+                    description={"You have no movies included here..."}
                 />
             )}
         </>
