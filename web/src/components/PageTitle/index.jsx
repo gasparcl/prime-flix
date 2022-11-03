@@ -26,6 +26,13 @@ export default function PageTitle({
                     IS_MOBILE || IS_TABLET_XL ? "mobileTitle" : "centerTitle"
                 }`}
             >
+                {isLink && (
+                    <div className={IS_MOBILE ? "mobileButton" : "absButton"}>
+                        <LearnMoreButton onClick={onClickAll}>
+                            See all
+                        </LearnMoreButton>
+                    </div>
+                )}
                 <TitleText
                     {...props}
                     variant={IS_MOBILE || IS_TABLET_XL ? "h5" : "h4"}
@@ -35,13 +42,6 @@ export default function PageTitle({
                 >
                     <b>{upperCase ? description.toUpperCase() : description}</b>
                 </TitleText>
-                {isLink && (
-                    <div className="Link">
-                        <LearnMoreButton onClick={onClickAll}>
-                            See all
-                        </LearnMoreButton>
-                    </div>
-                )}
             </TitleDiv>
         </>
     )

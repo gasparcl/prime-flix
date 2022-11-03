@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 export const HeaderMenu = styled(Box)`
     width: 100%;
-    padding: 0.5rem 4rem;
+    max-width: 100vw;
     background: #c4161c;
     display: block;
     position: sticky;
@@ -12,16 +12,24 @@ export const HeaderMenu = styled(Box)`
 
     .header {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        padding: 1rem 1.5rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .MuiList-padding {
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    .MuiListItem-root {
+        padding-bottom: 0;
+        padding-top: 0;
     }
 
     & ul {
         display: inline-flex;
-    }
-
-    & li {
-        margin: 1rem 0.5rem;
     }
 
     & a {
@@ -48,11 +56,8 @@ export const HeaderMenu = styled(Box)`
     }
 
     .logo__container {
-        border: 2px solid #151515;
-        background: #181818;
         border-radius: 50%;
-        height: 85px;
-        width: 100px;
+        height: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -64,7 +69,7 @@ export const HeaderMenu = styled(Box)`
     }
 
     .logo-brand {
-        height: 115px;
+        height: 100%;
         width: auto;
     }
 

@@ -6,7 +6,7 @@ import { IMAGE_URL } from "../../consts/apiFetch"
 import { FAVORITE_STORAGE_KEY } from "../../consts/storage"
 import { isFavoritedFilm } from "../../services/utils"
 
-import { Typography } from "@material-ui/core"
+import { Typography, useMediaQuery, useTheme } from "@material-ui/core"
 
 import { FilmMedia, HoverDiv } from "./styles"
 import LearnMoreButton from "../Buttons/LearnMore"
@@ -21,6 +21,8 @@ export default function FilmItem({ filmData, imageHeight, onClose, ...props }) {
         FAVORITE_STORAGE_KEY,
         [],
     )
+    const theme = useTheme()
+    const IS_MOBILE = useMediaQuery(theme.breakpoints.down("xs"))
 
     const isFavorite = isFavoritedFilm(favorites, filmData)
 
@@ -33,25 +35,33 @@ export default function FilmItem({ filmData, imageHeight, onClose, ...props }) {
                 component="img"
                 alt={filmData.title}
                 height={imageHeight}
-                image={`${IMAGE_URL}${filmData.poster_path}`}
+                image={`${IMAGE_URL}${
+                    filmData.poster_path
+                        ? filmData.poster_path
+                        : filmData.backdrop_path
+                }`}
                 title={filmData.title}
             />
-            <HoverDiv>
+            <HoverDiv className={IS_MOBILE ? "mobileDiv" : ""}>
                 <div className="content">
-                    <Typography
-                        gutterBottom
-                        variant="h6"
-                        className="titleMaxLines"
-                    >
-                        <b>{filmData.title}</b>
-                    </Typography>
-                    <Typography
-                        variant="body2"
-                        component="p"
-                        className="description"
-                    >
-                        {filmData.overview}
-                    </Typography>
+                    {!IS_MOBILE && (
+                        <>
+                            <Typography
+                                gutterBottom
+                                variant="h6"
+                                className="titleMaxLines"
+                            >
+                                <b>{filmData.title}</b>
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                component="p"
+                                className="description"
+                            >
+                                {filmData.overview}
+                            </Typography>
+                        </>
+                    )}
                     <Link
                         to={`/movie/${filmData.id}`}
                         onClick={onClose}

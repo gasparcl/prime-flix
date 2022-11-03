@@ -8,17 +8,15 @@ import api from "../../services/api"
 import { FETCH_PARAMS } from "../../consts/apiFetch"
 
 import FilmItem from "../FilmItem"
-import FilmItemAccordion from "../FilmItemAccordion"
 import PageTitle from "../PageTitle"
 import Pagination from "../Pagination"
+import Loader from "../Loader"
 import { StyledGrid, StyledGridItem } from "./styles"
 
 export default function FilmsGrid({
     title,
     url,
     onClose,
-    favoritesList,
-    onClickTag,
     showRegisters,
     hasParagraphBottom,
     ...props
@@ -30,6 +28,7 @@ export default function FilmsGrid({
     const [films, setFilms] = useState([])
     const [page, setPage] = useState(1)
     const [paginationData, setPaginationData] = useState({})
+
     const theme = useTheme()
     const IS_TABLET_XL = useMediaQuery(theme.breakpoints.between("sm", "md"))
     const IS_MOBILE = useMediaQuery(theme.breakpoints.down("xs"))
@@ -45,7 +44,9 @@ export default function FilmsGrid({
 
             api.get(url, { params: { ...apiParams } })
                 .then((response) => {
-                    const filmsList = response.data.results
+                    const filmsList = response.data.results.filter(
+                        (film) => !!film.backdrop_path || !!film.poster_path,
+                    )
                     const paginationData = {
                         currentPage: response.data.page,
                         totalItems: response.data.total_results,
@@ -79,17 +80,7 @@ export default function FilmsGrid({
         setPage(newPage)
     }
 
-    // ╔═╗╔═╗╔═╗╦╔╗╔╔═╗╔╦╗╦╔═╗╔╗╔
-    // ╠═╝╠═╣║ ╦║║║║╠═╣ ║ ║║ ║║║║
-    // ╩  ╩ ╩╚═╝╩╝╚╝╩ ╩ ╩ ╩╚═╝╝╚╝
-    const favoritesTotalItems = favoritesList.length
-    const favoritesItemPerPage = 20
-    const favoritesTotalPages = Math.ceil(
-        favoritesTotalItems / favoritesItemPerPage,
-    )
-
-    const hasPagination =
-        paginationData.totalPages > 1 || favoritesTotalPages > 1
+    const hasPagination = paginationData.totalPages > 1
 
     return (
         <>
@@ -116,43 +107,20 @@ export default function FilmsGrid({
                     )}
                 </>
             )}
+
             <StyledGrid container spacing={2}>
-                {favoritesList && (
-                    <>
-                        {favoritesList.map((favorite) => {
-                            return (
-                                <StyledGridItem
-                                    item
-                                    xs={12}
-                                    sm={6}
-                                    md={3}
-                                    key={favorite.id}
-                                    className="rounded-2"
-                                    {...props}
-                                >
-                                    <FilmItemAccordion
-                                        filmData={favorite}
-                                        favoritesList={favoritesList}
-                                        onClickTag={() => onClickTag(favorite)}
-                                        className="rounded-2"
-                                    />
-                                </StyledGridItem>
-                            )
-                        })}
-                    </>
-                )}
-                {url && (
-                    <>
-                        {films.map((film) => {
-                            return (
-                                <StyledGridItem
-                                    item
-                                    xs={12}
-                                    sm={6}
-                                    md={3}
-                                    key={film.id}
-                                    {...props}
-                                >
+                {films.map((film) => {
+                    return (
+                        <StyledGridItem
+                            item
+                            xs={12}
+                            sm={6}
+                            md={3}
+                            key={film.id}
+                            {...props}
+                        >
+                            {!IS_MOBILE ? (
+                                <>
                                     {loading ? (
                                         <Skeleton
                                             variant="rect"
@@ -169,16 +137,29 @@ export default function FilmsGrid({
                                             onClose={onClose}
                                         />
                                     )}
-                                </StyledGridItem>
-                            )
-                        })}
-                    </>
-                )}
+                                </>
+                            ) : (
+                                <>
+                                    {loading ? (
+                                        <Loader />
+                                    ) : (
+                                        <FilmItem
+                                            filmData={film}
+                                            onClose={onClose}
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </StyledGridItem>
+                    )
+                })}
             </StyledGrid>
             {hasPagination && (
                 <Pagination
                     totalPages={
-                        paginationData.totalPages || favoritesTotalPages
+                        paginationData.totalPages > 500
+                            ? 500
+                            : paginationData.totalPages
                     }
                     handleChange={handleChangePage}
                     page={paginationData.currentPage}
@@ -192,8 +173,6 @@ FilmsGrid.propTypes = {
     title: PropTypes.string,
     url: PropTypes.string,
     onClose: PropTypes.func,
-    favoritesList: PropTypes.array,
-    onClickTag: PropTypes.func,
     showRegisters: PropTypes.bool,
     hasParagraphBottom: PropTypes.bool,
 }
@@ -202,8 +181,6 @@ FilmsGrid.defaultProps = {
     title: "",
     url: "",
     onClose: undefined,
-    favoritesList: [],
-    onClickTag: undefined,
     showRegisters: false,
     hasParagraphBottom: false,
 }

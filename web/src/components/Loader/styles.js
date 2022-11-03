@@ -12,4 +12,9 @@ export const LoaderDiv = styled.div`
         min-height: calc(100vh - 281px);
         padding-top: 0;
     }
+
+    &.ResultsLoader__mobile {
+        min-height: calc(100vh - 380px);
+        padding-top: 0;
+    }
 `

@@ -24,6 +24,10 @@ export const HoverDiv = styled.div`
     opacity: 0;
     border-radius: 0.5rem;
 
+    &.mobileDiv {
+        opacity: 0.9;
+    }
+
     &:hover {
         background: rgba(0, 0, 0, 0.3);
         opacity: 1;
@@ -37,6 +41,7 @@ export const HoverDiv = styled.div`
         );
         padding: 0 0.5rem;
         border-radius: 0.5rem;
+        width: 100%;
     }
 
     .description {

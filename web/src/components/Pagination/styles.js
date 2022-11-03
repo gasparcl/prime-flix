@@ -8,6 +8,10 @@ export const PaginationContainer = styled.div`
     margin: 0 0.5rem;
     padding: 1rem 0;
     border-radius: 0.5rem;
+
+    &.mobilePagination {
+        width: 72.5vw;
+    }
 `
 
 export const StyledPagination = styled(Pagination)`

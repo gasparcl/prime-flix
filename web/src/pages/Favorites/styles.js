@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
-import FilmsGrid from "../../components/FilmsGrid"
+import FavoritesGrid from "../../components/FavoritesGrid"
 
-export const FavoritesGrid = styled(FilmsGrid)`
+export const FavoriteGrid = styled(FavoritesGrid)`
     &.MuiGrid-item {
         transition: all 0.3s;
     }

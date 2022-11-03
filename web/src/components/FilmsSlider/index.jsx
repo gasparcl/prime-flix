@@ -14,6 +14,7 @@ import FilmItem from "../FilmItem"
 import PageTitle from "../PageTitle"
 
 import "./styles.css"
+import Loader from "../Loader"
 
 export default function FilmsSlider({ url, title, onClickAll, ...props }) {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
@@ -28,7 +29,7 @@ export default function FilmsSlider({ url, title, onClickAll, ...props }) {
         mode: "free",
         renderMode: "performance",
         slides: {
-            perView: IS_MOBILE ? 1 : IS_TABLET_XL ? 2 : 4,
+            perView: IS_MOBILE ? 1.5 : IS_TABLET_XL ? 2 : 4,
             spacing: IS_MOBILE ? 4 : 8,
         },
     })
@@ -42,7 +43,9 @@ export default function FilmsSlider({ url, title, onClickAll, ...props }) {
                 const response = await api.get(url, {
                     params: FETCH_PARAMS,
                 })
-                const filmsList = response.data.results
+                const filmsList = response.data.results.filter(
+                    (film) => !!film.backdrop_path || !!film.poster_path,
+                )
 
                 // Setting Data
                 setFilms(filmsList)
@@ -61,9 +64,12 @@ export default function FilmsSlider({ url, title, onClickAll, ...props }) {
         loadFilms()
     }, [url])
 
+    if (loading && IS_MOBILE)
+        return <Loader className="ResultsLoader__mobile" />
+
     return (
         <>
-            {loading ? (
+            {loading && !IS_MOBILE ? (
                 <>
                     <div className="d-flex align-items-center justify-content-center">
                         <Skeleton variant="text">

@@ -14,4 +14,23 @@
 const isFavoritedFilm = (filmsArr, currentFilm) =>
     filmsArr.some((favorite) => favorite.id === currentFilm.id)
 
-export { isFavoritedFilm }
+/**
+ * Function to make pagination from array and slice it's items into groups of new arrays
+ *
+ * @param {{
+ * arr: Array
+ * size: number
+ * }} props - paginateFromArr props
+ *
+ */
+const paginateFromArr = (arr, size) => {
+    return arr.reduce((acc, val, i) => {
+        let idx = Math.floor(i / size)
+        let page = acc[idx] || (acc[idx] = [])
+        page.push(val)
+
+        return acc
+    }, [])
+}
+
+export { isFavoritedFilm, paginateFromArr }

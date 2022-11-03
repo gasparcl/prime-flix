@@ -51,7 +51,10 @@ export default function SearchResults({
             timeOut = setTimeout(() => {
                 api.get(FETCH_URL, { params: { ...apiParams } })
                     .then((response) => {
-                        const resultsList = response.data.results
+                        const resultsList = response.data.results.filter(
+                            (film) =>
+                                !!film.backdrop_path || !!film.poster_path,
+                        )
                         const paginationData = {
                             currentPage: response.data.page,
                             totalItems: response.data.total_results,

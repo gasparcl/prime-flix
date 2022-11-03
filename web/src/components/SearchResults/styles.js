@@ -37,4 +37,16 @@ export const ResultsDialog = styled(BaseDialog)`
     .MuiButton-outlined {
         border: 1px solid #fff;
     }
+
+    @media screen and (max-width: 600px) {
+        .MuiDialog-paperFullScreen {
+            height: calc(100vh - 210px);
+            width: 100vw;
+        }
+
+        .MuiDialogContent-root {
+            padding: 1rem 3rem;
+            margin-bottom: 0;
+        }
+    }
 `

@@ -28,7 +28,7 @@ export default function SearchBar({
                 <StyledSearchBar
                     id="outlined-search"
                     fullWidth
-                    label="Find your movies here..."
+                    label="Search here..."
                     type="search"
                     variant="outlined"
                     value={search}

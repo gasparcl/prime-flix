@@ -12,12 +12,18 @@ export const TitleDiv = styled.div`
 
     &.mobileTitle {
         justify-content: flex-start;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .Link {
+    .absButton {
         position: absolute;
         right: 0;
-        top: 1.5rem;
+        top: 1.75rem;
+    }
+
+    .mobileButton {
+        position: initial;
     }
 `
 
