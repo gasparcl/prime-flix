@@ -40,3 +40,24 @@ export const FavoriteBtn = styled.button`
         cursor: default;
     }
 `
+
+export const ScrollTopButton = styled.button`
+    position: fixed;
+    bottom: 3rem;
+    right: 2rem;
+    padding: 0.5rem;
+    opacity: 0.5;
+    transition: all 0.25s;
+    z-index: 10;
+    border-radius: 50%;
+
+    &:hover {
+        transform: scale(1.3);
+    }
+
+    &.mobile {
+        padding: 0.25rem;
+        right: 0.5rem;
+        bottom: 3.5rem;
+    }
+`

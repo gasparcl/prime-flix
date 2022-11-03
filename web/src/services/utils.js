@@ -37,13 +37,27 @@ const paginateFromArr = (arr, size) => {
  * Functions to make current element scroll up
  */
 const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    let timeOut = undefined
+
+    timeOut = setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" })
+    }, 100)
+
+    return () => clearTimeout(timeOut)
 }
 
 const scrollTopModal = () => {
-    window.document
-        .getElementById("searchModal")
-        .scrollTo({ top: 0, behavior: "smooth" })
+    const target = window.document.getElementById("searchModal")
+
+    if (target) {
+        let timeOut = undefined
+
+        timeOut = setTimeout(() => {
+            target.scrollTo({ top: 0, behavior: "smooth" })
+        }, 100)
+
+        return () => clearTimeout(timeOut)
+    }
 }
 
 export { isFavoritedFilm, paginateFromArr, scrollTop, scrollTopModal }

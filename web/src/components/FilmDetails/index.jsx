@@ -46,6 +46,7 @@ export default function FilmDetails({ current, isFavorite, onAddToFavorites }) {
                 .catch(() =>
                     toast.error(
                         "There was a problem to load trailer...\n Try later",
+                        { duration: 4000 },
                     ),
                 )
                 .finally(() => {

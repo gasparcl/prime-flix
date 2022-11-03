@@ -3,6 +3,7 @@ import React from "react"
 import { useMediaQuery, useTheme } from "@material-ui/core"
 
 import { BackPaper, ContentContainer } from "./styles"
+import ScrollTop from "../Buttons/ScrollTop"
 
 export default function PageContent({ children, ...props }) {
     // ╦ ╦╔═╗╔═╗╦╔═╔═╗
@@ -18,6 +19,7 @@ export default function PageContent({ children, ...props }) {
                     className={IS_MOBILE ? "mobileContainer" : ""}
                 >
                     {children}
+                    <ScrollTop />
                 </ContentContainer>
             </BackPaper>
         </>

@@ -13,6 +13,7 @@ import Pagination from "../Pagination"
 import Loader from "../Loader"
 
 import { ResultsDialog } from "./styles"
+import ScrollTop from "../Buttons/ScrollTop"
 
 // ╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗╔╦╗╔═╗
 // ║║║║╣  ║ ╠═╣ ║║╠═╣ ║ ╠═╣
@@ -82,7 +83,6 @@ export default function SearchResults({
                     })
                     .finally(() => {
                         setLoading(false)
-                        scrollTopModal()
                     })
             }, SEARCH_DELAY_TIME)
 
@@ -97,6 +97,7 @@ export default function SearchResults({
         if (newPage !== page) {
             setLoading(true)
             setPage(newPage)
+            scrollTopModal()
         }
     }
 
@@ -162,6 +163,7 @@ export default function SearchResults({
                             )}
                         </>
                     )}
+                    <ScrollTop onModal />
                 </ResultsDialog>
             )}
             {noResult && (
