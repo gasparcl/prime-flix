@@ -2,7 +2,7 @@ import {View, ViewProps} from "react-native"
 import {FontAwesome} from "@expo/vector-icons"
 
 import {styles} from "./styles"
-import { THEME } from "../../theme"
+import {THEME} from "../../theme"
 
 interface RatingProps extends ViewProps {
     value?: number

@@ -1,6 +1,7 @@
 export interface MovieDetailParams {
     movieId: string
     title: string
+    isTrailer?: boolean
 }
 
 export interface AppRootParamList {
