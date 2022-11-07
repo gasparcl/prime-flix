@@ -55,5 +55,6 @@ export const styles = StyleSheet.create({
         fontFamily: THEME.FONT_FAMILY.SANS.REGULAR,
         fontSize: THEME.FONT_SIZE.XS,
         textAlign: 'center',
+        marginBottom: 16,
     }
 })

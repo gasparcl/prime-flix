@@ -1,6 +1,7 @@
 import {useState} from "react"
 import {Text, View, TouchableOpacity} from "react-native"
 import {Entypo, AntDesign, Feather} from '@expo/vector-icons'
+import {useNavigation} from "@react-navigation/native"
 
 import {sample} from "../../utils/sample"
 
@@ -18,14 +19,18 @@ export function Home() {
     const [bannerMovie, setBannerMovie] = useState<IMovie | null>(null)
     const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
+    const { navigate } = useNavigation()
+
     return (
         <Background>
-
             <MovieHeader bannerUrl={bannerMovie?.poster_path}>
                 <Text style={styles.title}>{bannerMovie?.title}</Text>
 
                 <View style={styles.controls}>
-                    <TouchableOpacity style={styles.control}>
+                    <TouchableOpacity
+                        onPress={() => navigate("favorites")}
+                        style={styles.control}
+                    >
                         <AntDesign
                             name="plus"
                             color={THEME.COLORS.TEXT}
@@ -35,13 +40,29 @@ export function Home() {
                     </TouchableOpacity>
 
                     <Button
+                        title="Trailer"
+                        disabled={!bannerMovie}
                         startIcon={<Entypo name="controller-play" size={20} />}
                         titleStyle={styles.controlButtonTitle}
                         style={styles.controlButton}
-                        title="Trailer"
+                        onPress={() =>
+                            navigate("movieDetail", {
+                                movieId: bannerMovie?.id || "",
+                                title: bannerMovie?.title || "",
+                                isTrailer: true
+                            })
+                        }
                     />
 
-                    <TouchableOpacity style={styles.control}>
+                    <TouchableOpacity
+                        style={styles.control}
+                        onPress={() =>
+                            navigate("movieDetail", {
+                                movieId: bannerMovie?.id || "",
+                                title: bannerMovie?.title || "",
+                            })
+                        }
+                    >
                         <Feather
                             name="info"
                             color={THEME.COLORS.TEXT}
@@ -52,39 +73,38 @@ export function Home() {
                 </View>
             </MovieHeader>
 
-            <Movies 
-                title='Em alta'
+            <Movies
+                title="Em alta"
                 url="movie/popular"
                 onPressMovie={setSelectedMovie}
-                onLoadMovies={movies => setBannerMovie(sample(movies))}
+                onLoadMovies={(movies) => setBannerMovie(sample(movies))}
             />
-            <Movies 
-                title='Agora nos cinemas'
+            <Movies
+                title="Agora nos cinemas"
                 url="movie/upcoming"
                 onPressMovie={setSelectedMovie}
             />
-            <Movies 
-                title='Lançamentos'
+            <Movies
+                title="Lançamentos"
                 url="movie/now_playing"
                 onPressMovie={setSelectedMovie}
             />
-            <Movies 
-                title='Bem avaliados pela crítica'
+            <Movies
+                title="Aclamados pela crítica"
                 url="movie/top_rated"
                 onPressMovie={setSelectedMovie}
             />
-            <Movies 
-                title='Minha lista'
+            <Movies
+                title="Minha lista"
                 onPressMovie={setSelectedMovie}
                 initialData={[]}
             />
 
-            <MovieSummary 
+            <MovieSummary
                 current={selectedMovie}
                 visible={!!selectedMovie}
                 onRequestClose={() => setSelectedMovie(null)}
             />
-
         </Background>
     )
 }
