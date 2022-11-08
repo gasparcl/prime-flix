@@ -2,6 +2,7 @@ import {useEffect} from "react"
 import {View, StyleSheet, StatusBar, Platform} from "react-native"
 import {SafeAreaProvider} from "react-native-safe-area-context"
 import * as NavigationBar from 'expo-navigation-bar'
+import Toast from "react-native-toast-message"
 
 import {
     useFonts,
@@ -20,6 +21,8 @@ import {THEME} from "./src/theme"
 
 import {Loading} from "./src/components/Loading"
 import {Routes} from "./src/routes"
+
+import 'moment/locale/pt-br'
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -49,6 +52,8 @@ export default function App() {
                 />
 
                 {fontsLoaded ? <Routes /> : <Loading />}
+
+                <Toast />
             </View>
         </SafeAreaProvider>
     )

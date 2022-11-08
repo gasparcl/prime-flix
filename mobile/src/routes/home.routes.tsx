@@ -4,6 +4,7 @@ import {THEME} from "../theme"
 
 import {Home} from "../screens/Home"
 import {MovieDetail} from "../screens/MovieDetail"
+import {MovieTrailer} from "../screens/MovieTrailer"
 
 import {styles} from './styles'
 
@@ -31,6 +32,15 @@ export function HomeRoutes() {
                 component={MovieDetail}
                 options={() => ({
                     animation: "fade_from_bottom",
+                    title: '',
+                    headerShown: true,
+                })}
+            />
+            <Screen
+                name="movieTrailer"
+                component={MovieTrailer}
+                options={() => ({
+                    animation: "slide_from_right",
                     title: '',
                     headerShown: true,
                 })}

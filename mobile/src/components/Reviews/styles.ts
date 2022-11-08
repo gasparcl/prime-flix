@@ -18,8 +18,8 @@ export const styles = StyleSheet.create({
         marginTop: 16,
     },
     avatar: {
-        width: 40,
-        height: 40,
+        width: 80,
+        height: 80,
         borderRadius: 20,
         borderWidth: 1,
         borderColor: THEME.COLORS.BACKGROUND_600
@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
         fontSize: THEME.FONT_SIZE.MD,
     },
     username: {
-        color: THEME.COLORS.CAPTION_300,
+        color: THEME.COLORS.CAPTION_400,
         fontFamily: THEME.FONT_FAMILY.SANS.REGULAR,
         fontSize: THEME.FONT_SIZE.SM,
     },
