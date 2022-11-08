@@ -7,7 +7,7 @@ import {TabBarIcon} from "../components/TabBarIcon"
 
 import {HomeRoutes} from './home.routes'
 import {Favorites} from "../screens/Favorites"
-import {Preferences} from "../screens/Preferences"
+import {MovieSearch} from "../screens/MovieSearch"
 
 const {Navigator, Screen} = createBottomTabNavigator()
 
@@ -38,6 +38,19 @@ export function AppRoutes() {
                 }}
             />
             <Screen
+                name="search"
+                component={MovieSearch}
+                options={{
+                    title: 'Pesquisar',
+                    tabBarIcon: (props) => (
+                        <TabBarIcon
+                            {...props}
+                            Icon={<Octicons name="search" />}
+                        />
+                    ),
+                }}
+            />
+            <Screen
                 name="favorites"
                 component={Favorites}
                 options={{
@@ -47,19 +60,6 @@ export function AppRoutes() {
                             {...props}
                             Icon={<MaterialIcons name="favorite-border" />}
                             FocusedIcon={<MaterialIcons name="favorite" />}
-                        />
-                    ),
-                }}
-            />
-            <Screen
-                name="preferences"
-                component={Preferences}
-                options={{
-                    title: 'Preferências',
-                    tabBarIcon: (props) => (
-                        <TabBarIcon
-                            {...props}
-                            Icon={<Octicons name="gear" />}
                         />
                     ),
                 }}

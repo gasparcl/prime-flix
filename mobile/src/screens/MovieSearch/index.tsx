@@ -1,5 +1,5 @@
 import {Background} from "../../components/Background"
 
-export function Preferences() {
+export function MovieSearch() {
     return <Background />
 }
