@@ -9,7 +9,7 @@ import {getGravatarUrl} from "../../utils/gravatar"
 import {styles} from "./styles"
 import {THEME} from "../../theme"
 
-interface Impression {
+interface Reviews {
     id: string
     url: string
     author: string
@@ -22,22 +22,22 @@ interface Impression {
     }
 }
 
-interface MovieImpressionsProps {
+interface ReviewsProps {
     movieId: string
 }
 
-export function MovieImpressions({movieId}: MovieImpressionsProps) {
-    const [impressions, setImpressions] = useState<Impression[]>([])
+export function Reviews({movieId}: ReviewsProps) {
+    const [reviews, setReviews] = useState<Reviews[]>([])
     const [_, setIsLoading] = useState(true)
 
-    async function fetchMovieImpressions() {
+    async function fetchReviews() {
         try {
 
             const response = await api.get(`/movie/${movieId}/reviews`, {
                 params: THEMOVIEDB_CONFIG,
             })
 
-            setImpressions(response.data.results)
+            setReviews(response.data.results)
 
         } catch (error) {
             
@@ -47,7 +47,7 @@ export function MovieImpressions({movieId}: MovieImpressionsProps) {
     }
 
     useEffect(() => {
-        fetchMovieImpressions()
+        fetchReviews()
     }, [movieId])
 
     return (
@@ -59,7 +59,7 @@ export function MovieImpressions({movieId}: MovieImpressionsProps) {
             <View style={styles.content}>
                 <FlatList
                     horizontal
-                    data={impressions}
+                    data={reviews}
                     keyExtractor={(item) => item.id}
                     renderItem={({item}) => (
                         <View style={styles.impression}>
