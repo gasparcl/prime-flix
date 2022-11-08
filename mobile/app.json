@@ -25,14 +25,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.joao_alves_expo.smart-cine"
+      "package": "com.joao_alves_expo.smartcine"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "59712a5f-7bfd-4dc1-8192-8a3eda132056"
+        "projectId": "6e92f2e3-8cb9-48be-9ddb-7cbfa3baea88"
       }
     }
   }

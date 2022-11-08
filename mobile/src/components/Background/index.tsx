@@ -2,10 +2,19 @@ import {ScrollView, View, ViewProps} from "react-native"
 
 import {styles} from "./styles"
 
-export function Background({style, children, ...props}: ViewProps) {
+interface BackgroundProps extends ViewProps {
+    component?: typeof ScrollView | typeof View
+}
+
+export function Background({
+    style,
+    children,
+    component: Component = ScrollView,
+    ...props
+}: BackgroundProps) {
     return (
-        <ScrollView {...props} style={[styles.container, style]}>
+        <Component {...props} style={[styles.container, style]}>
             <View style={styles.content}>{children}</View>
-        </ScrollView>
+        </Component>
     )
 }

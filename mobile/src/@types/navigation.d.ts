@@ -9,6 +9,7 @@ export interface AppRootParamList {
     favorites: undefined
     preferences: undefined
     movieDetail: MovieDetailParams
+    movieTrailer: MovieDetailParams
 }
 
 export declare global {

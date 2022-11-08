@@ -2,6 +2,7 @@ import {useState, useEffect} from "react"
 import {View, Text, TouchableOpacity} from "react-native"
 import {Entypo} from '@expo/vector-icons'
 import {useRoute, useNavigation} from "@react-navigation/native"
+import Toast from "react-native-toast-message"
 
 import moment from 'moment'
 
@@ -32,6 +33,8 @@ export function MovieDetail() {
     useEffect(() => {
         const initializeMovie = async () => {
             try {
+                setLoading(true)
+
                 const response = await api.get(`movie/${movieId}`, {
                     params: THEMOVIEDB_CONFIG,
                 })
@@ -40,18 +43,43 @@ export function MovieDetail() {
                 setMovie(data)
                 
             } catch (error) {
+
+                Toast.show({
+                    type: "error",
+                    text1: "Opa!",
+                    text2: "Não foi poosível carregar o filme, tente novamente mais tarde.",
+                })
+
+                throw error
+
+            } finally {
+                setLoading(false)
             }
 
-            setLoading(false)
         }
 
         initializeMovie()
     }, [movieId])
 
+    const handleShowMovie = (movie: IMovie) =>
+        navigate("movieDetail", {
+            movieId: movie.id,
+            title: movie.title,
+        })
+
+
     return (
         <Background>
             <MovieHeader resizeMode="cover" bannerUrl={movie?.backdrop_path}>
-                <TouchableOpacity style={styles.play}>
+                <TouchableOpacity
+                    style={styles.play}
+                    onPress={() =>
+                        navigate("movieTrailer", {
+                            movieId,
+                            title: movie?.title || "",
+                        })
+                    }
+                >
                     <Entypo
                         name="controller-play"
                         color={THEME.COLORS.CAPTION_900}
@@ -81,7 +109,9 @@ export function MovieDetail() {
                                 {borderRightWidth: 0},
                             ]}
                         >
-                            {movie?.genres?.map((genre) => genre.name).join(", ")}
+                            {movie?.genres
+                                ?.map((genre) => genre.name)
+                                .join(", ")}
                         </Text>
                     </View>
                 </View>
@@ -95,12 +125,14 @@ export function MovieDetail() {
                     showSeeAll={false}
                     title="Filmes similares"
                     url={`movie/${movieId}/similar`}
-                    onPressMovie={(movie) =>
-                        navigate("movieDetail", {
-                            movieId: movie.id,
-                            title: movie.title,
-                        })
-                    }
+                    onPressMovie={handleShowMovie}
+                />
+
+                <Movies
+                    showSeeAll={false}
+                    title="Recomendados"
+                    url={`movie/${movieId}/recommendations`}
+                    onPressMovie={handleShowMovie}
                 />
 
                 <MovieImpressions movieId={movieId} />
