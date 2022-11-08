@@ -14,9 +14,10 @@ import {convertMinutesToHourString} from "../../utils/convertMinutesToHourString
 import Movies, {IMovie} from "../../components/Movies"
 import {Background} from "../../components/Background"
 import {MovieHeader} from "../../components/MovieHeader"
-import {Rating} from "../../components/Rating"
-import {MovieImpressions} from "../../components/MovieImpressions"
 import {LoaderContainer} from "../../components/LoaderContainer"
+import {Rating} from "../../components/Rating"
+import {Reviews} from "../../components/Reviews"
+import {Credits} from "../../components/Credits"
 
 import {styles} from "./styles"
 import {THEME} from "../../theme"
@@ -121,6 +122,10 @@ export function MovieDetail() {
                 <Text style={styles.title}>Sinopse</Text>
                 <Text style={styles.storyline}>{movie?.overview}</Text>
 
+                <Credits 
+                    movieId={movieId}
+                />
+
                 <Movies
                     showSeeAll={false}
                     title="Filmes similares"
@@ -135,7 +140,9 @@ export function MovieDetail() {
                     onPressMovie={handleShowMovie}
                 />
 
-                <MovieImpressions movieId={movieId} />
+                <Reviews 
+                    movieId={movieId} 
+                />
             </LoaderContainer>
         </Background>
     )
