@@ -1,0 +1,1 @@
+export const FAVORITE_MOVIES_KEY = "@smartCineApp:FAVORITE_MOVIES"
