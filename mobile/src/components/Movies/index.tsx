@@ -32,7 +32,7 @@ export interface IMovie {
 export interface MoviesProps extends ViewProps {
     title: string
     url?: string
-    initialData?: IMovie[]
+    data?: IMovie[]
     showSeeAll?: boolean
 
     onPressMovie: (movie: IMovie) => void
@@ -44,13 +44,13 @@ const AnimatedLG = Animated.createAnimatedComponent(LinearGradient)
 export function Movies({
     title,
     url,
-    initialData = [],
+    data: externalData,
     showSeeAll = true,
     onPressMovie,
     onLoadMovies,
     ...props
 }: MoviesProps) {
-    const [data, setData] = useState<IMovie[]>(initialData)
+    const [data, setData] = useState<IMovie[]>([])
     const [loading, setLoading] = useState(Boolean(url))
 
     const animatedValue = new Animated.Value(0)
@@ -142,7 +142,7 @@ export function Movies({
                 <View style={styles.content} {...props}>
                     <FlatList
                         horizontal
-                        data={data}
+                        data={externalData || data}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (
                             <Pressable onPress={() => onPressMovie(item)}>

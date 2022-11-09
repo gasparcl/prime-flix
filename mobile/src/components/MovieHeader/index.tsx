@@ -1,26 +1,95 @@
-import {ImageBackground, ImageBackgroundProps, ViewProps} from "react-native"
+import {ImageBackground, ImageBackgroundProps, TouchableOpacity, View} from "react-native"
 import {LinearGradient} from "expo-linear-gradient"
+import {MaterialIcons} from "@expo/vector-icons"
+import {useNavigation} from "@react-navigation/native"
 
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
+import {useFavoriteMovies} from "../../hooks/useFavoriteMovies"
+import {useIsFavorite} from "../../hooks/useIsFavorite"
+
 import {THEME} from "../../theme"
-
 import {styles} from "./styles"
+import {IMovie} from "../Movies"
 
-interface MovieHeaderProps extends ViewProps {
-    bannerUrl?: string
-    resizeMode?: ImageBackgroundProps['resizeMode']
+interface MovieHeaderProps {
+    children?: React.ReactNode
+    resizeMode?: ImageBackgroundProps["resizeMode"]
+    
+    movie: IMovie | null
+    isPoster?: boolean
+    showBackButton?: boolean
+    showFavoriteButton?: boolean
 }
 
-export function MovieHeader({children, bannerUrl, resizeMode = 'cover'}: MovieHeaderProps) {
+export function MovieHeader({
+    children,
+    resizeMode = "cover",
+    movie,
+    isPoster = false,
+    showBackButton,
+    showFavoriteButton,
+}: MovieHeaderProps) {
+
+    const isFavorite = useIsFavorite()
+    const favoriteMovies = useFavoriteMovies()
+    const navigation = useNavigation()
+
+    const EmptyBoxSpace = () => <View style={styles.emptyBox} />
+
+    const renderFavoriteButton = () => {
+        if (showFavoriteButton && movie) {
+            return (
+                <TouchableOpacity
+                    onPress={() => favoriteMovies.toogle(movie)}
+                >
+                    {isFavorite("movies", movie.id) ? (
+                        <MaterialIcons
+                            size={THEME.FONT_SIZE.XL}
+                            color={THEME.COLORS.PRIMARY}
+                            name="favorite"
+                        />
+                    ) : (
+                        <MaterialIcons
+                            size={THEME.FONT_SIZE.XL}
+                            color={THEME.COLORS.DISABLED}
+                            name="favorite-border"
+                        />
+                    )}
+                </TouchableOpacity>
+            )
+        } else return <EmptyBoxSpace />
+    }
+
+    const renderBackButton = () =>
+        showBackButton ? (
+            <TouchableOpacity onPress={navigation.goBack}>
+                <MaterialIcons
+                    name="arrow-back-ios"
+                    size={THEME.FONT_SIZE.LG}
+                    color={THEME.COLORS.TEXT}
+                />
+            </TouchableOpacity>
+        ) : (
+            <EmptyBoxSpace />
+        )
+
     return (
         <ImageBackground
             resizeMode={resizeMode}
             style={styles.cover}
             source={{
-                uri: `${THEMOVIEDB_BANNER_URL}/${bannerUrl}`,
+                uri: `${THEMOVIEDB_BANNER_URL}/${isPoster ? movie?.poster_path : movie?.backdrop_path}`,
             }}
         >
-            <LinearGradient colors={THEME.COLORS.FOOTER} style={styles.container}>
+            <View style={styles.controls}>
+                {renderBackButton()}
+                {renderFavoriteButton()}
+            </View>
+
+            <LinearGradient
+                colors={THEME.COLORS.FOOTER}
+                style={styles.container}
+            >
                 {children}
             </LinearGradient>
         </ImageBackground>

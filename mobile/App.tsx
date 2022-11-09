@@ -19,6 +19,7 @@ import {
 
 import {THEME} from "./src/theme"
 
+import {FavoritesProvider} from "./src/context/Favorite"
 import {Loading} from "./src/components/Loading"
 import {Routes} from "./src/routes"
 
@@ -44,16 +45,18 @@ export default function App() {
 
     return (
         <SafeAreaProvider>
-            <View style={styles.container}>
-                <StatusBar
-                    barStyle="light-content"
-                    backgroundColor="transparent"
-                    translucent
-                />
+            <FavoritesProvider>
+                <View style={styles.container}>
+                    <StatusBar
+                        barStyle="light-content"
+                        backgroundColor="transparent"
+                        translucent
+                    />
 
-                {fontsLoaded ? <Routes /> : <Loading />}
-                <Toast />
-            </View>
+                    {fontsLoaded ? <Routes /> : <Loading />}
+                    <Toast />
+                </View>
+            </FavoritesProvider>
         </SafeAreaProvider>
     )
 }
