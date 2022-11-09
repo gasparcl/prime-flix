@@ -1,27 +1,29 @@
 import {StyleSheet, Dimensions} from "react-native"
 
-const headerSize = Dimensions.get('screen').height / 1.5
+const headerSize = Dimensions.get("screen").height / 1.5
 
 export const styles = StyleSheet.create({
     cover: {
-        width: Dimensions.get('screen').width,
+        width: Dimensions.get("screen").width,
         height: headerSize,
-        borderRadius: 8,
-        justifyContent: "flex-end",
         overflow: "hidden",
-        position: 'relative',
+        position: "relative",
     },
     container: {
-        width: "100%",
-        height: headerSize / 2,
+        flex: 1,
         padding: 16,
+        height: headerSize / 2,
         justifyContent: "flex-end",
-        alignItems: 'center',
+        alignItems: "center",
     },
-
-    favoriteIconContainer: {
-        position: 'absolute',
-        top: 40,
-        right: 14,
+    controls: {
+        marginTop: 40,
+        padding: 14,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
+    emptyBox: {
+        width: 32,
+        height: 32
+    }
 })

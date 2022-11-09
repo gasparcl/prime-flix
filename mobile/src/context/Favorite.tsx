@@ -11,6 +11,7 @@ interface FavoritesContextData {
         loading: boolean,
         add: (movie: IMovie) => void
         remove: (movieId: IMovie['id']) => void
+        toogle: (movie: IMovie) => void
         clear: () => void
     }
 }
@@ -32,14 +33,26 @@ export function FavoritesProvider({children}: FavoritesProviderProps) {
             uniqueArray(previousMovies.concat(movie))
         )
     }, [])
-
+    
     const removeMovie = useCallback((movieId: IMovie['id']) => {
         setMovies(previousMovies => 
             previousMovies.filter(movie => movie.id !== movieId)
         )
     }, [])
 
-    const clearMovie = useCallback(() => {
+    const toogleMovie = useCallback((current: IMovie) => {
+        setMovies((previousMovies) => {
+            const isFavorite = previousMovies.some((movie) => movie.id === current.id)
+
+            if (isFavorite) {
+                return previousMovies.filter((movie) => movie.id !== current.id)
+            } else {
+                return uniqueArray(previousMovies.concat(current))
+            }
+        })
+    }, [])
+
+    const clearMovies = useCallback(() => {
         setMovies([])
     }, [])
 
@@ -51,7 +64,8 @@ export function FavoritesProvider({children}: FavoritesProviderProps) {
                     loading: moviesIsLoading,
                     add: addMovie,
                     remove: removeMovie,
-                    clear: clearMovie
+                    clear: clearMovies,
+                    toogle: toogleMovie
                 },
             }}
         >

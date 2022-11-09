@@ -1,7 +1,7 @@
-import {useState, useEffect} from "react"
+import {useState, useEffect, useCallback} from "react"
 import {View, Text, TouchableOpacity} from "react-native"
 import {Entypo} from '@expo/vector-icons'
-import {useRoute, useNavigation} from "@react-navigation/native"
+import {useRoute, useNavigation, useFocusEffect} from "@react-navigation/native"
 import Toast from "react-native-toast-message"
 
 import moment from 'moment'
@@ -62,6 +62,10 @@ export function MovieDetail() {
         initializeMovie()
     }, [movieId])
 
+    useFocusEffect(useCallback(() => {
+        setMovie(null)
+    }, []))
+
     const handleShowMovie = (movie: IMovie) =>
         navigate("movieDetail", {
             movieId: movie.id,
@@ -71,22 +75,28 @@ export function MovieDetail() {
 
     return (
         <Background>
-            <MovieHeader resizeMode="cover" bannerUrl={movie?.backdrop_path}>
-                <TouchableOpacity
-                    style={styles.play}
-                    onPress={() =>
-                        navigate("movieTrailer", {
-                            movieId,
-                            title: movie?.title || "",
-                        })
-                    }
-                >
-                    <Entypo
-                        name="controller-play"
-                        color={THEME.COLORS.CAPTION_900}
-                        size={40}
-                    />
-                </TouchableOpacity>
+            <MovieHeader
+                movie={movie}
+                showBackButton
+                showFavoriteButton
+            >
+                <View style={styles.playContainer}>
+                    <TouchableOpacity
+                        style={styles.play}
+                        onPress={() =>
+                            navigate("movieTrailer", {
+                                movieId,
+                                title: movie?.title || "",
+                            })
+                        }
+                    >
+                        <Entypo
+                            name="controller-play"
+                            color={THEME.COLORS.CAPTION_900}
+                            size={40}
+                        />
+                    </TouchableOpacity>
+                </View>
 
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>{movie?.title}</Text>

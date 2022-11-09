@@ -23,26 +23,12 @@ export function Home() {
     const { navigate } = useNavigation()
     const favoriteMovies = useFavoriteMovies()
 
-    function handlePressFavorite(isFavoriteMovie: boolean) {
-
-        if (bannerMovie) {
-
-            if (isFavoriteMovie) {
-                favoriteMovies.remove(bannerMovie.id)
-            } else {
-                favoriteMovies.add(bannerMovie)
-
-            }
-            
-        }
-    }
-
     return (
         <Background>
-            <MovieHeader 
-                bannerUrl={bannerMovie?.poster_path} 
-                movieId={bannerMovie?.id}
-                onPressFavorite={handlePressFavorite}
+            <MovieHeader
+                movie={bannerMovie}
+                showFavoriteButton
+                isPoster
             >
                 <Text style={styles.title}>{bannerMovie?.title}</Text>
 
