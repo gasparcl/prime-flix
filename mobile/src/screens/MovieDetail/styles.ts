@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native"
+import {Dimensions, StyleSheet} from "react-native"
 import {THEME} from "../../theme"
 
 export const styles = StyleSheet.create({
@@ -38,6 +38,10 @@ export const styles = StyleSheet.create({
         borderRightColor: THEME.COLORS.CAPTION_500,
         paddingRight: 8,
         marginRight: 8,
+    },
+    genders: {
+        borderRightWidth: 0,
+        maxWidth: Dimensions.get('screen').width / 2
     },
 
     container: {

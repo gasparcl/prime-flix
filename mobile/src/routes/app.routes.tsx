@@ -7,6 +7,7 @@ import {TabBarIcon} from "../components/TabBarIcon"
 
 import {HomeRoutes} from './home.routes'
 import {SearchRoutes} from "./search.routes"
+import {Favorites} from "../screens/Favorites"
 
 const {Navigator, Screen} = createBottomTabNavigator()
 
@@ -16,12 +17,9 @@ export function AppRoutes() {
             initialRouteName="home"
             screenOptions={{
                 headerShown: false,
-                headerStyle: styles.headerStyle,
-                headerTitleStyle: styles.bottomTitleStyle,
                 tabBarStyle: styles.tabBarStyle,
                 tabBarLabelStyle: styles.tabBarLabelStyle,
                 tabBarItemStyle: styles.tabBarItemStyle,
-
             }}
         >
             <Screen
@@ -52,7 +50,7 @@ export function AppRoutes() {
             />
             <Screen
                 name="favorites"
-                component={SearchRoutes}
+                component={Favorites}
                 options={{
                     title: 'Favoritos',
                     tabBarIcon: (props) => (
