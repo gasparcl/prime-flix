@@ -2,12 +2,13 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs"
 import {Octicons, MaterialIcons} from "@expo/vector-icons"
 
 import {styles} from "./styles"
-
 import {TabBarIcon} from "../components/TabBarIcon"
 
-import {HomeRoutes} from './home.routes'
-import {SearchRoutes} from "./search.routes"
-import {FavoritesRoutes} from "./favorites.routes"
+import {Home} from "../screens/Home"
+import {Favorites} from "../screens/Favorites"
+import {MovieSearch} from "../screens/MovieSearch"
+import {MovieDetail} from "../screens/MovieDetail"
+import {MovieTrailer} from "../screens/MovieTrailer"
 
 const {Navigator, Screen} = createBottomTabNavigator()
 
@@ -20,11 +21,12 @@ export function AppRoutes() {
                 tabBarStyle: styles.tabBarStyle,
                 tabBarLabelStyle: styles.tabBarLabelStyle,
                 tabBarItemStyle: styles.tabBarItemStyle,
+                tabBarHideOnKeyboard: true
             }}
         >
             <Screen
                 name="home"
-                component={HomeRoutes}
+                component={Home}
                 options={{
                     title: 'Início',
                     tabBarIcon: (props) => (
@@ -37,7 +39,7 @@ export function AppRoutes() {
             />
             <Screen
                 name="search"
-                component={SearchRoutes}
+                component={MovieSearch}
                 options={{
                     title: 'Pesquisar',
                     tabBarIcon: (props) => (
@@ -50,7 +52,7 @@ export function AppRoutes() {
             />
             <Screen
                 name="favorites"
-                component={FavoritesRoutes}
+                component={Favorites}
                 options={{
                     title: 'Favoritos',
                     tabBarIcon: (props) => (
@@ -60,6 +62,21 @@ export function AppRoutes() {
                             FocusedIcon={<MaterialIcons name="favorite" />}
                         />
                     ),
+                }}
+            />
+
+            <Screen
+                name="movieDetail"
+                component={MovieDetail}
+                options={{
+                    tabBarButton: () => null
+                }}
+            />
+            <Screen
+                name="movieTrailer"
+                component={MovieTrailer}
+                options={{
+                    tabBarButton: () => null
                 }}
             />
         </Navigator>
