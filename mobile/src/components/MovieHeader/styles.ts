@@ -18,4 +18,10 @@ export const styles = StyleSheet.create({
         justifyContent: "flex-end",
         alignItems: 'center',
     },
+
+    favoriteIconContainer: {
+        position: 'absolute',
+        top: 40,
+        right: 14,
+    },
 })

@@ -7,7 +7,7 @@ import {TabBarIcon} from "../components/TabBarIcon"
 
 import {HomeRoutes} from './home.routes'
 import {SearchRoutes} from "./search.routes"
-import {Favorites} from "../screens/Favorites"
+import {FavoritesRoutes} from "./favorites.routes"
 
 const {Navigator, Screen} = createBottomTabNavigator()
 
@@ -50,7 +50,7 @@ export function AppRoutes() {
             />
             <Screen
                 name="favorites"
-                component={Favorites}
+                component={FavoritesRoutes}
                 options={{
                     title: 'Favoritos',
                     tabBarIcon: (props) => (

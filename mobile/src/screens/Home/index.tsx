@@ -3,10 +3,11 @@ import {Text, View, TouchableOpacity} from "react-native"
 import {Entypo, AntDesign, Feather} from '@expo/vector-icons'
 import {useNavigation} from "@react-navigation/native"
 
-import {sample} from "../../utils/sample"
-
 import {THEME} from "../../theme"
 import {styles} from "./styles"
+
+import {sample} from "../../utils/sample"
+import {useFavoriteMovies} from "../../hooks/useFavoriteMovies"
 
 import {MovieHeader} from "../../components/MovieHeader"
 import {Button} from "../../components/Button"
@@ -20,10 +21,29 @@ export function Home() {
     const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
     const { navigate } = useNavigation()
+    const favoriteMovies = useFavoriteMovies()
+
+    function handlePressFavorite(isFavoriteMovie: boolean) {
+
+        if (bannerMovie) {
+
+            if (isFavoriteMovie) {
+                favoriteMovies.remove(bannerMovie.id)
+            } else {
+                favoriteMovies.add(bannerMovie)
+
+            }
+            
+        }
+    }
 
     return (
         <Background>
-            <MovieHeader bannerUrl={bannerMovie?.poster_path}>
+            <MovieHeader 
+                bannerUrl={bannerMovie?.poster_path} 
+                movieId={bannerMovie?.id}
+                onPressFavorite={handlePressFavorite}
+            >
                 <Text style={styles.title}>{bannerMovie?.title}</Text>
 
                 <View style={styles.controls}>
@@ -97,7 +117,7 @@ export function Home() {
             <Movies
                 title="Minha lista"
                 onPressMovie={setSelectedMovie}
-                initialData={[]}
+                data={favoriteMovies.data}
             />
 
             <MovieSummary
