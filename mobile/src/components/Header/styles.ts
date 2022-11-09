@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     },
     title: {
         color: THEME.COLORS.TEXT,
-        fontFamily: THEME.FONT_FAMILY.SERIF.BOLD,
+        fontFamily: THEME.FONT_FAMILY.SANS.BOLD,
         fontSize: THEME.FONT_SIZE.SM,
         textTransform: 'uppercase'
     }

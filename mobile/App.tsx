@@ -52,7 +52,6 @@ export default function App() {
                 />
 
                 {fontsLoaded ? <Routes /> : <Loading />}
-
                 <Toast />
             </View>
         </SafeAreaProvider>

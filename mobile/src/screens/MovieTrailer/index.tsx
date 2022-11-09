@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react"
 import {View, FlatList} from "react-native"
-import {useRoute} from "@react-navigation/native"
+import {useRoute, useNavigation} from "@react-navigation/native"
 import Toast from "react-native-toast-message"
 
 import api from "../../services/api"
@@ -18,6 +18,8 @@ export function MovieTrailer() {
     const [videos, setVideos] = useState<VideoData[]>([])
     const [loading, setLoading] = useState(true)
 
+    const {goBack} = useNavigation()
+
     const route = useRoute()
     const {movieId, title} = route.params as MovieDetailParams
 
@@ -28,15 +30,19 @@ export function MovieTrailer() {
                     params: THEMOVIEDB_CONFIG,
                 })
 
-                const data = response.data.results
+                const data = response.data.results.slice(0, 1)
+
                 setVideos(data)
+                setLoading(false)
 
                 if (data.length === 0) {
                     Toast.show({
                         type: "error",
                         text1: "Opa!",
                         text2: "Esse filme não possui videos cadastrados",
+                        onHide: goBack
                     })
+
                 }
 
             } catch (error) {
@@ -45,7 +51,7 @@ export function MovieTrailer() {
                     text1: "Opa!",
                     text2: "Não foi possível buscar os videos",
                 })
-            } finally {
+
                 setLoading(false)
             }
         }

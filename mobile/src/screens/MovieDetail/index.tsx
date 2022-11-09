@@ -107,7 +107,7 @@ export function MovieDetail() {
                             numberOfLines={1}
                             style={[
                                 styles.headerMovieDetail,
-                                {borderRightWidth: 0},
+                                styles.genders,
                             ]}
                         >
                             {movie?.genres
