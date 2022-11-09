@@ -6,8 +6,7 @@ import {styles} from "./styles"
 import {TabBarIcon} from "../components/TabBarIcon"
 
 import {HomeRoutes} from './home.routes'
-import {Favorites} from "../screens/Favorites"
-import {MovieSearch} from "../screens/MovieSearch"
+import {SearchRoutes} from "./search.routes"
 
 const {Navigator, Screen} = createBottomTabNavigator()
 
@@ -22,6 +21,7 @@ export function AppRoutes() {
                 tabBarStyle: styles.tabBarStyle,
                 tabBarLabelStyle: styles.tabBarLabelStyle,
                 tabBarItemStyle: styles.tabBarItemStyle,
+
             }}
         >
             <Screen
@@ -39,7 +39,7 @@ export function AppRoutes() {
             />
             <Screen
                 name="search"
-                component={MovieSearch}
+                component={SearchRoutes}
                 options={{
                     title: 'Pesquisar',
                     tabBarIcon: (props) => (
@@ -52,7 +52,7 @@ export function AppRoutes() {
             />
             <Screen
                 name="favorites"
-                component={Favorites}
+                component={SearchRoutes}
                 options={{
                     title: 'Favoritos',
                     tabBarIcon: (props) => (
