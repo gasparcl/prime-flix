@@ -25,7 +25,7 @@ const DEFAULT_THEME = {
         PRIMARY: "#1565C0",
         SUCCESS: "#2E7D32",
         ALERT: "#D32F2F",
-        WARNING: "#FFCC00",
+        WARNING: "#F3C200",
 
         FOOTER: ["rgba(0,0,0,0)", "rgba(0,0,0,0.9)"],
         OVERLAY: "rgba(0,0,0,0.25)",

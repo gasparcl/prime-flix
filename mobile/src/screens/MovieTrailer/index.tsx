@@ -66,6 +66,7 @@ export function MovieTrailer() {
         >
             <Header 
                 title={title}
+                showBackButton
             />
             
             <LoaderContainer isLoading={loading} style={styles.content}>

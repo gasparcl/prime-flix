@@ -29,8 +29,15 @@ export function FavoritesProvider({children}: FavoritesProviderProps) {
     )
 
     const addMovie = useCallback((movie: IMovie) => {
-        setMovies(previousMovies => 
-            uniqueArray(previousMovies.concat(movie))
+        setMovies(previousMovies => {
+            const isFavorite = previousMovies.some(({id}) => id === movie.id)
+
+            if (isFavorite) {
+                return previousMovies
+            } else {
+                return uniqueArray(previousMovies.concat(movie))
+            }
+        }
         )
     }, [])
     
@@ -40,14 +47,14 @@ export function FavoritesProvider({children}: FavoritesProviderProps) {
         )
     }, [])
 
-    const toogleMovie = useCallback((current: IMovie) => {
+    const toogleMovie = useCallback((movie: IMovie) => {
         setMovies((previousMovies) => {
-            const isFavorite = previousMovies.some((movie) => movie.id === current.id)
+            const isFavorite = previousMovies.some(({id}) => id === movie.id)
 
             if (isFavorite) {
-                return previousMovies.filter((movie) => movie.id !== current.id)
+                return previousMovies.filter(({id}) => id !== movie.id)
             } else {
-                return uniqueArray(previousMovies.concat(current))
+                return uniqueArray(previousMovies.concat(movie))
             }
         })
     }, [])

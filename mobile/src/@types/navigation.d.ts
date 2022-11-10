@@ -1,13 +1,17 @@
+export interface MovieSearchParams {
+    url?: string
+    title?: string
+}
+
 export interface MovieDetailParams {
     movieId: string
     title: string
-    isTrailer?: boolean
 }
 
 export interface AppRootParamList {
     home: undefined
     favorites: undefined
-    preferences: undefined
+    search: MovieSearchParams
     movieDetail: MovieDetailParams
     movieTrailer: MovieDetailParams
 }

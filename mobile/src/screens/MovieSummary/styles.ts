@@ -60,10 +60,11 @@ export const styles = StyleSheet.create({
         fontSize: THEME.FONT_SIZE.XS,
         fontFamily: THEME.FONT_FAMILY.SANS.BOLD,
         backgroundColor: THEME.COLORS.WARNING,
-        borderRadius: 2,
-
         marginRight: 16,
+        borderRadius: 2,
+        width: 30,
         padding: 3,
+        textAlign: 'center',
     },
     movieSummary: {
         color: THEME.COLORS.CAPTION_300,

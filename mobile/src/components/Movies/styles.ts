@@ -21,9 +21,8 @@ export const styles = StyleSheet.create({
         width: 112,
         height: 150,
         borderRadius: 4,
-        justifyContent: "flex-end",
-        overflow: "hidden",
         marginRight: 6,
+        overflow: "hidden",
     },
     title: {
         color: THEME.COLORS.TEXT,

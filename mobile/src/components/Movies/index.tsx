@@ -1,5 +1,6 @@
 import {useState, useEffect, memo} from "react"
 import {FlatList, View, ViewProps, Image, Text, Pressable, Animated, Easing, TouchableOpacity} from "react-native"
+import {useNavigation} from "@react-navigation/native"
 import {LinearGradient} from "expo-linear-gradient"
 import {Entypo} from '@expo/vector-icons'
 import Toast from 'react-native-toast-message'
@@ -30,12 +31,12 @@ export interface IMovie {
 }
 
 export interface MoviesProps extends ViewProps {
-    title: string
+    title?: string
     url?: string
     data?: IMovie[]
     showSeeAll?: boolean
 
-    onPressMovie: (movie: IMovie) => void
+    onPressMovie?: (movie: IMovie) => void
     onLoadMovies?: (movies: IMovie[]) => void
 }
 
@@ -52,6 +53,8 @@ export function Movies({
 }: MoviesProps) {
     const [data, setData] = useState<IMovie[]>([])
     const [loading, setLoading] = useState(Boolean(url))
+
+    const {navigate} = useNavigation()
 
     const animatedValue = new Animated.Value(0)
 
@@ -72,7 +75,7 @@ export function Movies({
     })
 
     useEffect(() => {
-        const loadMovies = async () => {
+        async function loadMovies() {
             if (url) {
                 try {
                     const response = await api.get(url, {
@@ -100,13 +103,20 @@ export function Movies({
         loadMovies()
     }, [url])
 
+    function handleSeeAll() {
+        navigate('search', {
+            title,
+            url
+        })
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>{title}</Text>
 
                 {showSeeAll && (
-                    <TouchableOpacity style={styles.control}>
+                    <TouchableOpacity style={styles.control} onPress={handleSeeAll}>
                         <Text style={styles.seeAll}>Ver todos</Text>
                         <Entypo
                             name="chevron-small-right"
@@ -145,7 +155,7 @@ export function Movies({
                         data={externalData || data}
                         keyExtractor={(item) => item.id}
                         renderItem={({item}) => (
-                            <Pressable onPress={() => onPressMovie(item)}>
+                            <Pressable onPress={() => onPressMovie ? onPressMovie(item) : undefined}>
                                 <Image
                                     resizeMode="cover"
                                     style={styles.cover}
