@@ -1,6 +1,10 @@
-import {StyleSheet} from "react-native"
+import {Dimensions, StyleSheet} from "react-native"
+import {THEME} from "../../theme"
 
 export const styles = StyleSheet.create({
+    movieHeader: {
+        paddingBottom: 0
+    },
     header: {
         flex: 1,
         justifyContent: "flex-end",
@@ -16,4 +20,17 @@ export const styles = StyleSheet.create({
         borderRadius: 4,
         overflow: "hidden",
     },
+    buttonDetail: {
+        height: 42,
+        width: Dimensions.get('screen').width,
+        backgroundColor: 'transparent',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonDetailText: {
+        color: THEME.COLORS.CAPTION_300,
+        fontFamily: THEME.FONT_FAMILY.SANS.BOLD,
+        fontSize: THEME.FONT_SIZE.SM,
+        marginBottom: 2,
+    }
 })
