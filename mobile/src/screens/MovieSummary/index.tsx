@@ -1,5 +1,5 @@
 import {Modal, ModalProps, View, Pressable, Text, Image, TouchableOpacity, GestureResponderEvent} from "react-native"
-import {Ionicons, AntDesign} from "@expo/vector-icons"
+import {Ionicons, AntDesign, Feather} from "@expo/vector-icons"
 import {useNavigation} from "@react-navigation/native"
 import moment from "moment"
 
@@ -19,11 +19,22 @@ interface MovieSummaryProps extends ModalProps {
 export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryProps) {
     const favoriteMovies = useFavoriteMovies()
 
-    const navigation = useNavigation()
+    const {navigate} = useNavigation()
+
+    function handleShowMovieTrailer() {
+        if (current) {
+            navigate("movieTrailer", {
+                movieId: current?.id,
+                title: current.title,
+            })
+            
+            onRequestClose()
+        }
+    }
 
     function handleShowMovieDetail() {
         if (current) {
-            navigation.navigate("movieDetail", {
+            navigate("movieDetail", {
                 movieId: current?.id,
                 title: current.title,
             })
@@ -81,19 +92,14 @@ export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryPr
 
                     <View style={styles.controls}>
                         <TouchableOpacity style={styles.control} onPress={handleShowMovieDetail}>
-                            <View
-                                style={[
-                                    styles.controlIcon,
-                                    styles.controlIconActive,
-                                ]}
-                            >
-                                <Ionicons
-                                    name="play"
-                                    color={THEME.COLORS.CAPTION_900}
+                            <View style={styles.controlIcon}>
+                                <Feather
+                                    name="info"
+                                    color={THEME.COLORS.TEXT}
                                     size={THEME.FONT_SIZE.LG}
                                 />
                             </View>
-                            <Text style={styles.controlText}>Trailer</Text>
+                            <Text style={styles.controlText}>Saiba mais</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={styles.control} onPress={handleAddMovie}>
@@ -107,15 +113,20 @@ export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryPr
                             <Text style={styles.controlText}>Minha lista</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.control}>
-                            <View style={styles.controlIcon}>
-                                <AntDesign
-                                    name="like1"
-                                    color={THEME.COLORS.TEXT}
+                        <TouchableOpacity style={styles.control} onPress={handleShowMovieTrailer}>
+                            <View
+                                style={[
+                                    styles.controlIcon,
+                                    styles.controlIconActive,
+                                ]}
+                            >
+                                <Ionicons
+                                    name="play"
+                                    color={THEME.COLORS.CAPTION_900}
                                     size={THEME.FONT_SIZE.LG}
                                 />
                             </View>
-                            <Text style={styles.controlText}>Críticas</Text>
+                            <Text style={styles.controlText}>Trailer</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

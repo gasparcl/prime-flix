@@ -1,4 +1,4 @@
-import {ImageBackground, ImageBackgroundProps, TouchableOpacity, View} from "react-native"
+import {ImageBackground, ImageBackgroundProps, StyleProp, TouchableOpacity, View, ViewStyle} from "react-native"
 import {LinearGradient} from "expo-linear-gradient"
 import {MaterialIcons} from "@expo/vector-icons"
 import {useNavigation} from "@react-navigation/native"
@@ -19,6 +19,7 @@ interface MovieHeaderProps {
     isPoster?: boolean
     showBackButton?: boolean
     showFavoriteButton?: boolean
+    containerStyle?: StyleProp<ViewStyle>
 }
 
 export function MovieHeader({
@@ -28,6 +29,7 @@ export function MovieHeader({
     isPoster = false,
     showBackButton,
     showFavoriteButton,
+    containerStyle
 }: MovieHeaderProps) {
 
     const isFavorite = useIsFavorite()
@@ -88,7 +90,7 @@ export function MovieHeader({
 
             <LinearGradient
                 colors={THEME.COLORS.FOOTER}
-                style={styles.container}
+                style={[styles.container, containerStyle]}
             >
                 {children}
             </LinearGradient>

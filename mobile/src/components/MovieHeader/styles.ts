@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        padding: 16,
+        padding: 14,
         height: headerSize / 2,
         justifyContent: "flex-end",
         alignItems: "center",
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         marginTop: 40,
         padding: 14,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     emptyBox: {
         width: 32,
