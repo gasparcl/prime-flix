@@ -4,11 +4,19 @@
 
 <p align="center">
   <a href="#sobre-o-projeto-book">Sobre o projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#tecnologias-gear">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;  
+  <a href="#tecnologias-gear">Tecnologias</a>
 </p>
 
 # Sobre o projeto :book:
+
 Projeto para aprimorar conhecimentos gerais do React Native + Typescript.
+Desenvolvimento com base na API [The movie DB](https://developers.themoviedb.org/3/getting-started/introduction)
+
+o SmartCine é uma biblioteca, para pesquisar e ver critícas de seus filmes favoritos
+Possui uma UI simples e inspirada em aplicativos como:
+
+- Netflix
+- Spotify
 
 ## Tecnologias :gear:
 
@@ -16,7 +24,6 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 
 -   [Typescript](https://www.typescriptlang.org/)
 -   [React Native](https://reactnative.dev)
--   [React Native Gesture Handler](https://yarnpkg.com/package/react-native-gesture-handler)
 -   [React Navigation](https://reactnavigation.org)
 -   [axios](https://yarnpkg.com/package/axios)
 
@@ -27,6 +34,9 @@ Você precisa ter instalado:
 -   NodeJS
 -   Package manager (NPM ou Yarn)
 -   Expo Go
+
+Também é necessário criar uma [chave de API](https://developers.themoviedb.org/3/getting-started/authentication)
+e adicioná-la a seu arquivo .env
 
 ### Clone esse repositório :floppy_disk:
 
