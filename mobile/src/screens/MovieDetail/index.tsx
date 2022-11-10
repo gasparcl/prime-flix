@@ -1,7 +1,7 @@
-import {useState, useEffect, useCallback} from "react"
+import {useState, useEffect} from "react"
 import {View, Text, TouchableOpacity} from "react-native"
 import {Entypo} from '@expo/vector-icons'
-import {useRoute, useNavigation, useFocusEffect} from "@react-navigation/native"
+import {useRoute, useNavigation} from "@react-navigation/native"
 import Toast from "react-native-toast-message"
 
 import moment from 'moment'
@@ -31,40 +31,36 @@ export function MovieDetail() {
 
     const {navigate} = useNavigation()
 
-    useEffect(() => {
-        const initializeMovie = async () => {
-            try {
-                setLoading(true)
+    async function fetchMovie() {
+        try {
+            setLoading(true)
 
-                const response = await api.get(`movie/${movieId}`, {
-                    params: THEMOVIEDB_CONFIG,
-                })
+            const response = await api.get(`movie/${movieId}`, {
+                params: THEMOVIEDB_CONFIG,
+            })
 
-                const data = response.data
-                setMovie(data)
-                
-            } catch (error) {
+            const data = response.data
+            setMovie(data)
+            
+        } catch (error) {
 
-                Toast.show({
-                    type: "error",
-                    text1: "Opa!",
-                    text2: "Não foi poosível carregar o filme, tente novamente mais tarde.",
-                })
+            Toast.show({
+                type: "error",
+                text1: "Opa!",
+                text2: "Não foi poosível carregar o filme, tente novamente mais tarde.",
+            })
 
-                throw error
+            throw error
 
-            } finally {
-                setLoading(false)
-            }
-
+        } finally {
+            setLoading(false)
         }
+    }
 
-        initializeMovie()
-    }, [movieId])
-
-    useFocusEffect(useCallback(() => {
+    useEffect(() => {
         setMovie(null)
-    }, []))
+        fetchMovie()
+    }, [movieId])
 
     const handleShowMovie = (movie: IMovie) =>
         navigate("movieDetail", {
