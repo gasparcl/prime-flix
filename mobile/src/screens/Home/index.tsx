@@ -7,13 +7,12 @@ import {THEME} from "../../theme"
 import {styles} from "./styles"
 
 import {sample} from "../../utils/sample"
-import {useFavoriteMovies} from "../../hooks/useFavoriteMovies"
 
 import {MovieHeader} from "../../components/MovieHeader"
 import {Button} from "../../components/Button"
 import {Background} from "../../components/Background"
+import {FavoriteMovies} from "../../components/FavoriteMovies"
 import Movies, {IMovie} from "../../components/Movies"
-
 import {MovieSummary} from "../MovieSummary"
 
 export function Home() {
@@ -21,7 +20,6 @@ export function Home() {
     const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
     const { navigate } = useNavigation()
-    const favoriteMovies = useFavoriteMovies()
 
     return (
         <Background>
@@ -38,11 +36,11 @@ export function Home() {
                         style={styles.control}
                     >
                         <AntDesign
-                            name="plus"
+                            name="like1"
                             color={THEME.COLORS.TEXT}
                             size={20}
                         />
-                        <Text style={styles.controlText}>Minha lista</Text>
+                        <Text style={styles.controlText}>Críticas</Text>
                     </TouchableOpacity>
 
                     <Button
@@ -52,10 +50,9 @@ export function Home() {
                         titleStyle={styles.controlButtonTitle}
                         style={styles.controlButton}
                         onPress={() =>
-                            navigate("movieDetail", {
+                            navigate("movieTrailer", {
                                 movieId: bannerMovie?.id || "",
                                 title: bannerMovie?.title || "",
-                                isTrailer: true
                             })
                         }
                     />
@@ -100,10 +97,8 @@ export function Home() {
                 url="movie/top_rated"
                 onPressMovie={setSelectedMovie}
             />
-            <Movies
-                title="Minha lista"
+            <FavoriteMovies
                 onPressMovie={setSelectedMovie}
-                data={favoriteMovies.data}
             />
 
             <MovieSummary

@@ -1,18 +1,10 @@
-import {
-    Modal,
-    ModalProps,
-    View,
-    Pressable,
-    Text,
-    Image,
-    TouchableOpacity,
-} from "react-native"
-import {useNavigation} from "@react-navigation/native"
-
+import {Modal, ModalProps, View, Pressable, Text, Image, TouchableOpacity, GestureResponderEvent} from "react-native"
 import {Ionicons, AntDesign} from "@expo/vector-icons"
+import {useNavigation} from "@react-navigation/native"
 import moment from "moment"
 
 import {THEMOVIEDB_BANNER_URL} from "../../config/themoviedb"
+import {useFavoriteMovies} from "../../hooks/useFavoriteMovies"
 import {getAverageColor} from '../../utils/getAverageColor'
 import {IMovie} from "../../components/Movies"
 
@@ -21,22 +13,30 @@ import {THEME} from "../../theme"
 
 interface MovieSummaryProps extends ModalProps {
     current: IMovie | null
+    onRequestClose: () => void
 }
 
 export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryProps) {
+    const favoriteMovies = useFavoriteMovies()
+
     const navigation = useNavigation()
 
-    const handleShowMovieDetail = (event: any) => {
-
-        if (current && onRequestClose) {
+    function handleShowMovieDetail() {
+        if (current) {
             navigation.navigate("movieDetail", {
                 movieId: current?.id,
                 title: current.title,
             })
             
-            onRequestClose(event)
+            onRequestClose()
         }
-        
+    }
+
+    function handleAddMovie() {
+        if (current) {
+            favoriteMovies.add(current)
+            onRequestClose()
+        }
     }
 
     return (
@@ -66,7 +66,7 @@ export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryPr
                                     )}
                                 </Text>
                                 <Text style={[styles.movieVoteAverage, {backgroundColor: getAverageColor(current?.vote_average)}]}>
-                                    {current?.vote_average}
+                                    {parseFloat(String(current?.vote_average)).toFixed(1)}
                                 </Text>
                                 <Text style={styles.movieTextSecondary}>
                                     {current?.vote_count} Avaliações
@@ -96,7 +96,7 @@ export function MovieSummary({current, onRequestClose, ...props}: MovieSummaryPr
                             <Text style={styles.controlText}>Trailer</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.control}>
+                        <TouchableOpacity style={styles.control} onPress={handleAddMovie}>
                             <View style={styles.controlIcon}>
                                 <AntDesign
                                     name="plus"
