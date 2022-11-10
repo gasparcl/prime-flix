@@ -1,12 +1,10 @@
 import {useState} from "react"
 import {Text, View, TouchableOpacity} from "react-native"
-import {Entypo, AntDesign, Feather} from '@expo/vector-icons'
+import {Entypo, AntDesign, Feather} from "@expo/vector-icons"
 import {useNavigation} from "@react-navigation/native"
 
-import {THEME} from "../../theme"
-import {styles} from "./styles"
-
 import {sample} from "../../utils/sample"
+import {useFavoriteMovies} from "../../hooks/useFavoriteMovies"
 
 import {MovieHeader} from "../../components/MovieHeader"
 import {Button} from "../../components/Button"
@@ -15,32 +13,49 @@ import {FavoriteMovies} from "../../components/FavoriteMovies"
 import Movies, {IMovie} from "../../components/Movies"
 import {MovieSummary} from "../MovieSummary"
 
+import {THEME} from "../../theme"
+import {styles} from "./styles"
+
 export function Home() {
     const [bannerMovie, setBannerMovie] = useState<IMovie | null>(null)
     const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
-    const { navigate } = useNavigation()
+    const {navigate} = useNavigation()
+    const favoriteMovies = useFavoriteMovies()
+
+    function handleNavigateMovie(
+        route: "movieDetail" | "movieTrailer"
+    ) {
+        navigate(route, {
+            movieId: bannerMovie?.id || "",
+            title: bannerMovie?.title || "",
+        })
+    }
+
+    function handleAddFavorite() {
+
+        if (bannerMovie) {
+            favoriteMovies.add(bannerMovie)
+        }
+            
+    }
 
     return (
         <Background>
-            <MovieHeader
-                movie={bannerMovie}
-                showFavoriteButton
-                isPoster
-            >
+            <MovieHeader movie={bannerMovie} isPoster>
                 <Text style={styles.title}>{bannerMovie?.title}</Text>
 
                 <View style={styles.controls}>
                     <TouchableOpacity
-                        onPress={() => navigate("favorites")}
                         style={styles.control}
+                        onPress={handleAddFavorite}
                     >
                         <AntDesign
-                            name="like1"
+                            name="plus"
                             color={THEME.COLORS.TEXT}
                             size={20}
                         />
-                        <Text style={styles.controlText}>Críticas</Text>
+                        <Text style={styles.controlText}>Minha lista</Text>
                     </TouchableOpacity>
 
                     <Button
@@ -49,22 +64,12 @@ export function Home() {
                         startIcon={<Entypo name="controller-play" size={20} />}
                         titleStyle={styles.controlButtonTitle}
                         style={styles.controlButton}
-                        onPress={() =>
-                            navigate("movieTrailer", {
-                                movieId: bannerMovie?.id || "",
-                                title: bannerMovie?.title || "",
-                            })
-                        }
+                        onPress={() => handleNavigateMovie("movieTrailer")}
                     />
 
                     <TouchableOpacity
                         style={styles.control}
-                        onPress={() =>
-                            navigate("movieDetail", {
-                                movieId: bannerMovie?.id || "",
-                                title: bannerMovie?.title || "",
-                            })
-                        }
+                        onPress={() => handleNavigateMovie("movieDetail")}
                     >
                         <Feather
                             name="info"
@@ -97,9 +102,7 @@ export function Home() {
                 url="movie/top_rated"
                 onPressMovie={setSelectedMovie}
             />
-            <FavoriteMovies
-                onPressMovie={setSelectedMovie}
-            />
+            <FavoriteMovies onPressMovie={setSelectedMovie} />
 
             <MovieSummary
                 current={selectedMovie}
